@@ -52,7 +52,7 @@ export const DashboardGrid = () => {
                   <div className="flex-shrink-0 pr-2">
                     <button
                       type="button"
-                      className="inline-flex h-8 w-8 items-center justify-center rounded-full  bg-transparent text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-1 focus:ring-indigo-500  dark:text-white dark:hover:text-gray-300 dark:focus:ring-gray-900"
+                      className="inline-flex h-8 w-8 items-center justify-center rounded-full  bg-transparent text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-1 focus:ring-green-500  dark:text-white dark:hover:text-gray-300 dark:focus:ring-gray-900"
                     >
                       <span className="sr-only">Open options</span>
                       <ChevronRightIcon

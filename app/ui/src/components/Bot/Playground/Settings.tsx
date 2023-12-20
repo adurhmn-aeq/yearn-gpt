@@ -133,7 +133,7 @@ export default function PlaygroundSettings({ close }: { close: () => void }) {
                 <Form.Item>
                   <button
                     disabled={isSavingSpeechToText}
-                    className="w-full h-10 placeholder-gray-600 border rounded-lg focus:shadow-outline  transition-all duration-200  bg-indigo-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:border-gray-800"
+                    className="w-full h-10 placeholder-gray-600 border rounded-lg focus:shadow-outline  transition-all duration-200  bg-green-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 dark:border-gray-800"
                   >
                     {isSavingSpeechToText ? "Saving..." : "Save"}
                   </button>
@@ -280,7 +280,7 @@ export default function PlaygroundSettings({ close }: { close: () => void }) {
                 <button
                   type="submit"
                   disabled={isSavingTextToSpeech}
-                  className="w-full h-10 placeholder-gray-600 border rounded-lg focus:shadow-outline  transition-all duration-200  bg-indigo-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:border-gray-800"
+                  className="w-full h-10 placeholder-gray-600 border rounded-lg focus:shadow-outline  transition-all duration-200  bg-green-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 dark:border-gray-800"
                 >
                   {isSavingTextToSpeech ? "Saving..." : "Save"}
                 </button>

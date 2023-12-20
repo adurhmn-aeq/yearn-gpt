@@ -222,7 +222,7 @@ export const AppearanceForm = ({
         <button
           type="submit"
           disabled={isUpdatingAppearance}
-          className="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none"
+          className="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-green-600 hover:bg-green-700 focus:outline-none"
         >
           {isUpdatingAppearance ? "Saving..." : "Save Changes"}
         </button>

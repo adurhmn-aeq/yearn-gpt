@@ -41,7 +41,6 @@ export default function SettingsApplicationRoot() {
         });
       },
       onError: (error: any) => {
-
         notification.error({
           message: "Error",
           description: error?.response?.data?.message || "Something went wrong",
@@ -55,7 +54,7 @@ export default function SettingsApplicationRoot() {
       {status === "success" && (
         <>
           <div>
-          <h2 className="text-base font-semibold leading-7 text-gray-900 dark:text-white">
+            <h2 className="text-base font-semibold leading-7 text-gray-900 dark:text-white">
               Application Settings
             </h2>
             <p className="mt-1 text-sm leading-6 text-gray-500 dark:text-gray-200">
@@ -84,10 +83,7 @@ export default function SettingsApplicationRoot() {
                           },
                         ]}
                       >
-                         <InputNumber
-                         size="large"
-                         style={{ width: "100%" }}
-                        />
+                        <InputNumber size="large" style={{ width: "100%" }} />
                       </Form.Item>
                       <Form.Item
                         label="Allow user to create bots"
@@ -120,7 +116,7 @@ export default function SettingsApplicationRoot() {
                       <button
                         disabled={isLoading}
                         type="submit"
-                        className="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white  hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                        className="inline-flex justify-center rounded-md border border-transparent bg-green-600 py-2 px-4 text-sm font-medium text-white  hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
                       >
                         {isLoading ? "Saving..." : "Save"}
                       </button>
