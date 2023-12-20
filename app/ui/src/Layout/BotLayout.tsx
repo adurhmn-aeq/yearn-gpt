@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from "react";
-import { Dialog, Transition } from "@headlessui/react";
+import { Dialog, Menu, Transition } from "@headlessui/react";
 import {
   Bars3BottomLeftIcon,
   XMarkIcon,
@@ -11,9 +11,12 @@ import {
   ChatBubbleLeftRightIcon,
 } from "@heroicons/react/24/outline";
 
+import api from "../services/api";
 import { Link, useParams, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import { Tooltip } from "antd";
+import { Spin, Tooltip } from "antd";
+import Avatar from "../components/Common/Avatar";
+import { useQuery } from "@tanstack/react-query";
 import { ApplicationMenu } from "./ApplicationMenu";
 
 const navigation = [
@@ -72,6 +75,13 @@ export default function BotLayout({
       navigate("/login");
     }
   }, [isLogged]);
+
+  const { data } = useQuery(["fetchCredits"], async () => {
+    const response = await api.get("/credit");
+    return response.data as {
+      credits?: number;
+    };
+  });
 
   return (
     <>
@@ -248,7 +258,17 @@ export default function BotLayout({
             </Link>
 
             <div className="flex flex-1 justify-end px-4">
-              <div className="ml-4 flex items-center md:ml-6">
+              <div className="ml-4 flex items-center md:ml-6 gap-4">
+                <div className="flex gap-2">
+                  <h1 className="text-slate-800 text-sm">CREDITS:</h1>
+                  <h1 className="text-green-800 text-sm">
+                    {typeof data?.credits === "number" ? (
+                      data!.credits
+                    ) : (
+                      <Spin />
+                    )}
+                  </h1>
+                </div>
                 <ApplicationMenu />
               </div>
             </div>

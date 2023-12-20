@@ -70,14 +70,25 @@ model BotDocument {
 }
 
 model User {
-  user_id         Int      @id @default(autoincrement())
-  username        String   @unique
+  user_id         Int        @id @default(autoincrement())
+  username        String     @unique
   password        String
-  email           String?  @unique
-  isFirstLogin    Boolean  @default(true)
-  isAdministrator Boolean  @default(false)
-  createdAt       DateTime @default(now())
+  email           String?    @unique
+  isFirstLogin    Boolean    @default(true)
+  isAdministrator Boolean    @default(false)
+  createdAt       DateTime   @default(now())
   bots            Bot[]
+  inventory       Inventory?
+}
+
+model Inventory {
+  id                      String @id @default(uuid())
+  user_id                 Int    @unique
+  user                    User   @relation(fields: [user_id], references: [user_id])
+  purchases               Json   @default("[]")
+  total_credits_purchased Int    @default(0)
+  total_credits_spent     Int    @default(0)
+  credit_balance          Int    @default(500)
 }
 
 model DialoqbaseSettings {

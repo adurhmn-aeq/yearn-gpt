@@ -99,9 +99,19 @@ const removeTensorflowSupport = async () => {
   });
 };
 
+const inventoryForRootAdmin = async () => {
+  console.log("Seeding admin inventory...");
+  await prisma.inventory.create({
+    data: {
+      user_id: 1,
+    },
+  });
+};
+
 const main = async () => {
   await newModels();
   await removeTensorflowSupport();
+  await inventoryForRootAdmin();
 };
 
 main()

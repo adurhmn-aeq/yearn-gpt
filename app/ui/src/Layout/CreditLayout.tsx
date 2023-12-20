@@ -1,21 +1,21 @@
 import React, { Fragment, useState } from "react";
-import { Dialog, Transition } from "@headlessui/react";
+import { Dialog, Menu, Transition } from "@headlessui/react";
 import {
   Bars3BottomLeftIcon,
   XMarkIcon,
   CircleStackIcon,
   CogIcon,
+  SparklesIcon,
   PuzzlePieceIcon,
   EyeDropperIcon,
-  SparklesIcon,
   ChatBubbleLeftRightIcon,
 } from "@heroicons/react/24/outline";
 
+import api from "../services/api";
 import { Link, useParams, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import { ApplicationMenu } from "./ApplicationMenu";
-import api from "../services/api";
 import { Spin, Tooltip } from "antd";
+import Avatar from "../components/Common/Avatar";
 import { useQuery } from "@tanstack/react-query";
 
 const navigation = [
@@ -56,7 +56,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function BotPlaygroundLayout({
+export default function CreditLayout({
   children,
 }: {
   children: React.ReactNode;
@@ -67,7 +67,7 @@ export default function BotPlaygroundLayout({
   const location = useLocation();
   const navigate = useNavigate();
 
-  const { isLogged } = useAuth();
+  const { isLogged, profile, logout } = useAuth();
 
   React.useEffect(() => {
     if (!isLogged) {
@@ -113,7 +113,7 @@ export default function BotPlaygroundLayout({
                 leaveFrom="translate-x-0"
                 leaveTo="-translate-x-full"
               >
-                <Dialog.Panel className="relative flex w-full max-w-xs flex-1 flex-col bg-white pt-5 pb-4 dark:bg-black">
+                <Dialog.Panel className="relative flex w-full max-w-xs flex-1 flex-col bg-white pt-5 pb-4">
                   <Transition.Child
                     as={Fragment}
                     enter="ease-in-out duration-300"
@@ -163,8 +163,8 @@ export default function BotPlaygroundLayout({
                           className={classNames(
                             location.pathname ===
                               item.href.replace(":id", params.id!)
-                              ? "bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-white"
-                              : "text-gray-600 hover:bg-gray-50 hover:text-gray-900 dark:text-gray-200 dark:hover:text-white dark:hover:bg-gray-800",
+                              ? "bg-gray-100 text-gray-900"
+                              : "text-gray-600 hover:bg-gray-50 hover:text-gray-900",
                             "group flex items-center px-2 py-2 text-base font-medium rounded-md"
                           )}
                         >
@@ -193,7 +193,7 @@ export default function BotPlaygroundLayout({
         </Transition.Root>
 
         <div className="hidden md:fixed md:inset-y-0 md:flex md:flex-col">
-          <div className="flex flex-grow flex-col overflow-y-auto border-r border-gray-200 bg-white pt-5 dark:bg-black dark:border-gray-800">
+          <div className="flex flex-grow flex-col overflow-y-auto border-r border-gray-200 bg-white pt-5">
             <div className="mt-14 flex flex-grow flex-col">
               <nav className="flex-1 space-y-1 px-2 pb-4">
                 {navigation.map((item) => (
@@ -205,8 +205,8 @@ export default function BotPlaygroundLayout({
                       className={classNames(
                         location.pathname ===
                           item.href.replace(":id", params.id!)
-                          ? "bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-white"
-                          : "text-gray-600 hover:bg-gray-50 hover:text-gray-900 dark:text-gray-200 dark:hover:text-white dark:hover:bg-gray-800",
+                          ? "bg-gray-100 text-gray-900"
+                          : "text-gray-600 hover:bg-gray-50 hover:text-gray-900",
                         "group  flex items-center px-2 py-2 text-sm font-medium rounded-md"
                       )}
                     >
@@ -214,8 +214,8 @@ export default function BotPlaygroundLayout({
                         className={classNames(
                           location.pathname ===
                             item.href.replace(":id", params.id!)
-                            ? "text-gray-500 dark:text-white"
-                            : "text-gray-400 group-hover:text-gray-500 dark:text-gray-400 dark:group-hover:text-white",
+                            ? "text-gray-500"
+                            : "text-gray-400 group-hover:text-gray-500",
                           "flex-shrink-0 h-6 w-6"
                         )}
                         aria-hidden="true"
@@ -229,11 +229,11 @@ export default function BotPlaygroundLayout({
           </div>
         </div>
 
-        <div className="flex flex-col min-h-screen">
-          <div className="sticky top-0 z-[9999] flex h-14  bg-white border-b border-gray-200 dark:bg-black dark:border-gray-800">
+        <div className="flex flex-col">
+          <div className="sticky top-0 z-10 flex h-14  bg-white border-b border-gray-200 ">
             <button
               type="button"
-              className="border-r border-gray-200 px-4 text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-green-500 md:hidden dark:border-gray-800 dark:text-gray-200"
+              className="border-r border-gray-200 px-4 text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500 md:hidden"
               onClick={() => setSidebarOpen(true)}
             >
               <span className="sr-only">Open sidebar</span>
@@ -241,7 +241,7 @@ export default function BotPlaygroundLayout({
             </button>
             <Link
               to="/"
-              className="focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-700 flex items-center px-3 dark:text-white"
+              className="focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-700 flex items-center px-3"
             >
               <img
                 className="h-8 w-auto"
@@ -267,11 +267,64 @@ export default function BotPlaygroundLayout({
                     )}
                   </h1>
                 </div>
-                <ApplicationMenu />
+                <Menu as="div" className="relative ml-3">
+                  <div>
+                    <Menu.Button className="flex max-w-xs items-center rounded-full bg-white text-sm">
+                      <span className="sr-only">Open usermenu</span>
+                      <Avatar username={profile?.username || "admin"} />
+                    </Menu.Button>
+                  </div>
+                  <Transition
+                    as={Fragment}
+                    enter="transition ease-out duration-100"
+                    enterFrom="transform opacity-0 scale-95"
+                    enterTo="transform opacity-100 scale-100"
+                    leave="transition ease-in duration-75"
+                    leaveFrom="transform opacity-100 scale-100"
+                    leaveTo="transform opacity-0 scale-95"
+                  >
+                    <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                      <Menu.Item>
+                        {({ active }) => (
+                          <Link
+                            className={classNames(
+                              active ? "bg-gray-100" : "",
+                              "block px-4 py-2 text-sm text-gray-700"
+                            )}
+                            to="/settings"
+                          >
+                            Settings
+                          </Link>
+                        )}
+                      </Menu.Item>
+                      <Menu.Item>
+                        {({ active }) => (
+                          <span
+                            className={classNames(
+                              active ? "bg-gray-100" : "",
+                              "block px-4 py-2 text-sm text-gray-700"
+                            )}
+                            onClick={() => {
+                              logout();
+                              navigate("/login");
+                            }}
+                          >
+                            Sign out
+                          </span>
+                        )}
+                      </Menu.Item>
+                    </Menu.Items>
+                  </Transition>
+                </Menu>
               </div>
             </div>
           </div>
-          {children}
+          <main className="flex-1">
+            {children}
+            {/* <div className="py-4">
+                  <div className="h-96 rounded-lg border-4 border-dashed border-gray-200" />
+                </div> */}
+          </main>
         </div>
       </div>
     </>

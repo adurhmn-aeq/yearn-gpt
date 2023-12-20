@@ -10,7 +10,7 @@ import { getSettings } from "../../../../../utils/common";
 
 export const userLoginHandler = async (
   request: FastifyRequest<ChatRequestBody>,
-  reply: FastifyReply,
+  reply: FastifyReply
 ) => {
   const { username, password } = request.body;
 
@@ -54,7 +54,7 @@ export const userLoginHandler = async (
 
 export const updateProfileHandler = async (
   request: FastifyRequest<UpdateUsernameRequestBody>,
-  reply: FastifyReply,
+  reply: FastifyReply
 ) => {
   const user = request.user;
 
@@ -104,13 +104,13 @@ export const updateProfileHandler = async (
       user_id: user.user_id,
       username: request.body.username,
       email: request.body.email,
-    }
+    },
   });
 };
 
 export const updatePasswordHandler = async (
   request: FastifyRequest<UpdatePasswordRequestBody>,
-  reply: FastifyReply,
+  reply: FastifyReply
 ) => {
   const user = request.user;
 
@@ -128,7 +128,7 @@ export const updatePasswordHandler = async (
 
   const isPasswordValid = await bcrypt.compare(
     request.body.oldPassword,
-    userDetails.password,
+    userDetails.password
   );
 
   if (!isPasswordValid) {
@@ -155,7 +155,7 @@ export const updatePasswordHandler = async (
 
 export const registerUserHandler = async (
   request: FastifyRequest<RegisterUserRequestBody>,
-  reply: FastifyReply,
+  reply: FastifyReply
 ) => {
   try {
     const prisma = request.server.prisma;
@@ -204,6 +204,9 @@ export const registerUserHandler = async (
         username: request.body.username,
         email: request.body.email,
         password: hashedPassword,
+        inventory: {
+          create: {},
+        },
       },
     });
 

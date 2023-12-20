@@ -1,5 +1,23 @@
 import { PrismaClient } from "@prisma/client";
 
+export const getInventory = async (prisma: PrismaClient, user_id: number) => {
+  let inventory = await prisma.inventory.findUnique({
+    where: {
+      user_id,
+    },
+  });
+
+  if (!inventory) {
+    inventory = await prisma.inventory.create({
+      data: {
+        user_id,
+      },
+    });
+  }
+
+  return inventory;
+};
+
 export const getSettings = (prisma: PrismaClient) => {
   const settings = prisma.dialoqbaseSettings.findFirst({
     where: {

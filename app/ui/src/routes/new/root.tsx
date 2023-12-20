@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../../services/api";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { BotForm } from "../../components/Common/BotForm";
 import { Form, notification } from "antd";
 import axios from "axios";
@@ -13,6 +13,7 @@ export default function NewRoot() {
     value: "Website",
   });
   const [form] = Form.useForm();
+  const client = useQueryClient();
   const onSubmit = async (values: any) => {
     if (selectedSource.id == 2 || selectedSource.id == 5) {
       const formData = new FormData();
@@ -28,12 +29,14 @@ export default function NewRoot() {
           },
         }
       );
+      client.invalidateQueries(["fetchCredits"]);
       return response.data;
     }
     const response = await api.post("/bot", {
       type: selectedSource.value.toLowerCase(),
       ...values,
     });
+    client.invalidateQueries(["fetchCredits"]);
     return response.data;
   };
   const { mutateAsync: createBot, isLoading } = useMutation(onSubmit, {
