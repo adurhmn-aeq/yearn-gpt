@@ -12,7 +12,7 @@
     "start": "npx prisma migrate deploy && npx prisma db seed && fastify start app.js",
     "seed": "npx prisma db seed",
     "build:ts": "tsc && copyfiles -u 1 \"src/**/*.js \" dist",
-    "build": "copyfiles -u 1 \"src/**/*.js \" dist",
+    "build": "tsc && copyfiles -u 1 \"src/**/*.js \" dist",
     "db": "prisma generate",
     "watch:ts": "tsc -w",
     "queue": "node dist/queue.js",
