@@ -1,9 +1,6 @@
-import dateFormat from "dateformat";
 import { SessionCollectForm } from "../Common/SessionCollectForm";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import api from "../../services/api";
 import { Form, notification } from "antd";
 import { useStoreMessage } from "../../store";
 
@@ -13,7 +10,6 @@ type Props = {
 
 export default function SessionCollect({ startSession }: Props) {
   const [form] = Form.useForm();
-  const navigate = useNavigate();
   const { setSessionData } = useStoreMessage();
   const onSubmit = async (values: any) => {
     console.log({ values });
@@ -25,7 +21,7 @@ export default function SessionCollect({ startSession }: Props) {
     return "response.data";
   };
   const { mutateAsync: createSession, isLoading } = useMutation(onSubmit, {
-    onSuccess: (data: any) => {
+    onSuccess: () => {
       startSession();
     },
     onError: (e) => {

@@ -66,12 +66,12 @@ export const creditCheckoutHandler = async (
       process.env.NODE_ENV === "production"
         ? process.env.BACKEND_HOST_URL
         : process.env.FRONTEND_HOST_URL_DEV
-    }/#/credit?purchase_success=true`,
+    }/credit?purchase_success=true`,
     cancel_url: `${
       process.env.NODE_ENV === "production"
         ? process.env.BACKEND_HOST_URL
         : process.env.FRONTEND_HOST_URL_DEV
-    }/#/credit?purchase_canceled=true`,
+    }/credit?purchase_canceled=true`,
   });
 
   return reply.status(200).send({ redirect: session.url });

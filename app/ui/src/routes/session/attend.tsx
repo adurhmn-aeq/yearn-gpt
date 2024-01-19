@@ -1,18 +1,11 @@
-import { useQuery } from "@tanstack/react-query";
-import { useNavigate, useParams } from "react-router-dom";
-import api from "../../services/api";
+import { useNavigate } from "react-router-dom";
 import React, { useState } from "react";
-import { SkeletonLoading } from "../../components/Common/SkeletonLoading";
-import { Cooking } from "../../components/Common/Cooking";
-import AgentInfo from "../../components/Agent/AgentInfo";
-import AgentSessions from "../../components/Agent/AgentSessions";
 import { useAuth } from "../../context/AuthContext";
 import SessionCollect from "../../components/Session/SessionCollect";
 import SessionAttend from "../../components/Session/SessionAttend";
 // import { PreviewIframe } from "../../components/Bot/Preview/PreviewIFrame";
 
 export default function SessionScreen() {
-  const param = useParams<{ id: string }>();
   const navigate = useNavigate();
   const [stage, setStage] = useState<"collect" | "attend">("collect");
   // const { data, status } = useQuery(["getAgentById", param.id], async () => {

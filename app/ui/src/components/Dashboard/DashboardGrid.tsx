@@ -4,7 +4,7 @@ import api from "../../services/api";
 import { ChevronRightIcon, XCircleIcon } from "@heroicons/react/24/outline";
 import { Empty } from "antd";
 import { sources } from "../../utils/sources";
-import { getSessionLink, getSessionPath } from "../../utils/agent";
+import { getSessionLink } from "../../utils/agent";
 
 export const DashboardGrid = () => {
   // const { data, status } = useQuery(["getAllBots"], async () => {

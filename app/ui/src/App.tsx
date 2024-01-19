@@ -1,8 +1,4 @@
-import {
-  createBrowserRouter,
-  createHashRouter,
-  RouterProvider,
-} from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Root from "./routes/root";
 import DashboardLayout from "./Layout";
 import NewBot from "./routes/new/bot";

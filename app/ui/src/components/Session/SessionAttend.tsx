@@ -1,12 +1,6 @@
-import dateFormat from "dateformat";
-import { SessionCollectForm } from "../Common/SessionCollectForm";
-import { useMutation } from "@tanstack/react-query";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import api from "../../services/api";
-import { Form, Modal, notification } from "antd";
+import { Modal } from "antd";
 import { useStoreMessage } from "../../store";
-import React, { useEffect } from "react";
+import React from "react";
 import { useMessage } from "../../hooks/useMessage";
 import { PlaygroundMessage } from "../Bot/Playground/Message";
 import { COMMON_PROGRAMMING_LANGUAGES_EXTENSIONS } from "../../utils/languges";
@@ -15,14 +9,9 @@ import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { nightOwl } from "react-syntax-highlighter/dist/cjs/styles/prism";
 import { PlaygroundgForm } from "../Bot/Playground/Form";
 
-interface Props {
-  x?: number;
-}
-
-export default function SessionAttend(props: Props) {
+export default function SessionAttend() {
   // const [form] = Form.useForm();
   // const navigate = useNavigate();
-  const { sessionData } = useStoreMessage();
   const { messages } = useMessage();
   const { textToSpeechEnabled, defaultWebTextToSpeechLanguageType } =
     useStoreMessage();
@@ -194,7 +183,7 @@ export default function SessionAttend(props: Props) {
           </div>
         </Modal>
       </div>
-      <div className="bottom-0 absolute w-full md:!bg-transparent md:!border-0 fixed border-t bg-white pt-2">
+      <div className="bottom-0 w-full md:!bg-transparent md:!border-0 fixed border-t bg-white pt-2">
         <div className="stretch mx-2 flex flex-row gap-3 md:mx-4 lg:mx-auto lg:max-w-2xl xl:max-w-3xl">
           <div className="relative flex flex-col h-full flex-1 items-stretch md:flex-col">
             <PlaygroundgForm />

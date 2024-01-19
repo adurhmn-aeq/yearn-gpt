@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../../services/api";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -21,7 +20,7 @@ export default function NewAgent() {
     return response.data;
   };
   const { mutateAsync: createAgent, isLoading } = useMutation(onSubmit, {
-    onSuccess: (data: any) => {
+    onSuccess: () => {
       navigate(`/`);
     },
     onError: (e) => {
