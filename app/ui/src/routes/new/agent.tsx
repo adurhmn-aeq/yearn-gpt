@@ -2,46 +2,27 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../../services/api";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { BotForm } from "../../components/Common/BotForm";
 import { Form, notification } from "antd";
 import axios from "axios";
+import { AgentForm } from "../../components/Common/AgentForm";
 
-export default function NewRoot() {
+export default function NewAgent() {
   const navigate = useNavigate();
-  const [selectedSource, setSelectedSource] = useState<any>({
-    id: 1,
-    value: "Website",
-  });
+
   const [form] = Form.useForm();
   const client = useQueryClient();
   const onSubmit = async (values: any) => {
-    if (selectedSource.id == 2 || selectedSource.id == 5) {
-      const formData = new FormData();
-      values.file.forEach((file: any) => {
-        formData.append("file", file.originFileObj);
-      });
-      const response = await api.post(
-        `/bot/upload?embedding=${values.embedding}&model=${values.model}`,
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
-      client.invalidateQueries(["fetchCredits"]);
-      return response.data;
-    }
-    const response = await api.post("/bot", {
-      type: selectedSource.value.toLowerCase(),
+    console.log({ values });
+    const response = await api.post("/agent", {
       ...values,
     });
+    console.log({ data: response.data });
     client.invalidateQueries(["fetchCredits"]);
     return response.data;
   };
-  const { mutateAsync: createBot, isLoading } = useMutation(onSubmit, {
+  const { mutateAsync: createAgent, isLoading } = useMutation(onSubmit, {
     onSuccess: (data: any) => {
-      navigate(`/bot/${data.id}`);
+      navigate(`/`);
     },
     onError: (e) => {
       console.log(e);
@@ -69,16 +50,21 @@ export default function NewRoot() {
       <div className="flex min-h-full flex-col justify-center py-12 sm:px-6 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-md">
           <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900 dark:text-white">
-            Create a new bot
+            Create a new agent
           </h2>
         </div>
         <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-lg">
           <div className="bg-white py-8 px-4 border sm:rounded-lg sm:px-10 dark:bg-black dark:border-gray-800">
-            <BotForm
+            {/* <BotForm
               showEmbeddingAndModels={true}
               createBot={createBot}
               isLoading={isLoading}
               setSelectedSource={setSelectedSource}
+              form={form}
+            /> */}
+            <AgentForm
+              createAgent={createAgent}
+              isLoading={isLoading}
               form={form}
             />
           </div>

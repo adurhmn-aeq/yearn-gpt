@@ -5,12 +5,15 @@ export const userLoginSchema: FastifySchema = {
   summary: "API to login user",
   body: {
     type: "object",
-    required: ["username", "password"],
+    required: ["username", "password", "googleOAuthCode"],
     properties: {
       username: {
         type: "string",
       },
       password: {
+        type: "string",
+      },
+      googleOAuthCode: {
         type: "string",
       },
     },
@@ -74,8 +77,8 @@ export const isRegisterationAllowedSchema: FastifySchema = {
       properties: {
         isRegistrationAllowed: { type: "boolean" },
       },
-    }
-  }
+    },
+  },
 };
 
 export const userRegisterSchema: FastifySchema = {

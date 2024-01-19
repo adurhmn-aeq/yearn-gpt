@@ -1,7 +1,11 @@
-import { createHashRouter, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  createHashRouter,
+  RouterProvider,
+} from "react-router-dom";
 import Root from "./routes/root";
 import DashboardLayout from "./Layout";
-import NewRoot from "./routes/new/root";
+import NewBot from "./routes/new/bot";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import BotLayout from "./Layout/BotLayout";
 import BotEmbedRoot from "./routes/bot/embed";
@@ -26,8 +30,11 @@ import SettingsModelRoot from "./routes/settings/model";
 import { useDarkMode } from "./hooks/useDarkmode";
 import CreditLayout from "./Layout/CreditLayout";
 import CreditRoot from "./routes/credit";
+import NewAgent from "./routes/new/agent";
+import AgentPreview from "./routes/agent/preview";
+import SessionScreen from "./routes/session/attend";
 
-const router = createHashRouter([
+const router = createBrowserRouter([
   {
     element: (
       <DashboardLayout>
@@ -39,10 +46,18 @@ const router = createHashRouter([
   {
     element: (
       <DashboardLayout>
-        <NewRoot />
+        <NewBot />
       </DashboardLayout>
     ),
-    path: "/new",
+    path: "/new/bot",
+  },
+  {
+    element: (
+      <DashboardLayout>
+        <NewAgent />
+      </DashboardLayout>
+    ),
+    path: "/new/agent",
   },
   {
     path: "/credit",
@@ -52,6 +67,7 @@ const router = createHashRouter([
       </CreditLayout>
     ),
   },
+
   {
     path: "/bot/:id/embed",
     element: (
@@ -67,6 +83,18 @@ const router = createHashRouter([
         <BotPreviewRoot />
       </BotLayout>
     ),
+  },
+  {
+    path: "/agent/:id",
+    element: (
+      <DashboardLayout>
+        <AgentPreview />
+      </DashboardLayout>
+    ),
+  },
+  {
+    path: "/session/:id",
+    element: <SessionScreen />,
   },
   {
     path: "/bot/:id/playground/:history_id",

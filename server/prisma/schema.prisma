@@ -43,6 +43,16 @@ model Bot {
   source                      BotSource[]
 }
 
+model Agent {
+  id        String   @id @default(cuid())
+  name      String
+  initMsg   String   @default("Good day, how are you doing?")
+  prompt    String
+  user_id   Int?
+  createdAt DateTime @default(now())
+  User      User?    @relation(fields: [user_id], references: [user_id])
+}
+
 model BotSource {
   id        String        @id @default(cuid())
   botId     String
@@ -72,12 +82,14 @@ model BotDocument {
 model User {
   user_id         Int        @id @default(autoincrement())
   username        String     @unique
+  registerType    String     @default("email-password") // email-password google-oauth 
   password        String
   email           String?    @unique
   isFirstLogin    Boolean    @default(true)
   isAdministrator Boolean    @default(false)
   createdAt       DateTime   @default(now())
   bots            Bot[]
+  agents          Agent[]
   inventory       Inventory?
 }
 

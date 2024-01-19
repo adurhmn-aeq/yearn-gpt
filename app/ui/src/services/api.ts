@@ -20,7 +20,7 @@ instance.interceptors.request.use(
   },
   (error) => {
     return Promise.reject(error);
-  },
+  }
 );
 
 instance.interceptors.response.use(
@@ -38,7 +38,7 @@ instance.interceptors.response.use(
           return Promise.reject(_error);
         }
       } else if (err.response.status === 401 && originalConfig._retry) {
-        window.location.href = "/#/login";
+        window.location.href = "/login";
       }
 
       if (err.response.status === 403 && err.response.data) {
@@ -47,7 +47,7 @@ instance.interceptors.response.use(
     }
 
     return Promise.reject(err);
-  },
+  }
 );
 
 export default instance;

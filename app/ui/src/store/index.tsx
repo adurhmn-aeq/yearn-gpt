@@ -11,6 +11,13 @@ export type History = {
   text: string;
 }[];
 
+export type SessionData = {
+  sessionId: string;
+  name: string;
+  email: string;
+  phone: string;
+};
+
 type State = {
   messages: Message[];
   setMessages: (messages: Message[]) => void;
@@ -39,9 +46,7 @@ type State = {
   textToSpeechEnabled: boolean;
   setTextToSpeechEnabled: (textToSpeechEnabled: boolean) => void;
   defualtTextSpeechSettings: any;
-  setDefualtTextSpeechSettings: (
-    defualtTextSpeechSettings: any
-  ) => void;
+  setDefualtTextSpeechSettings: (defualtTextSpeechSettings: any) => void;
   elevenLabsApiKeyPresent: boolean;
   elevenLabsApiKeyValid: boolean;
   voices: {
@@ -54,6 +59,8 @@ type State = {
 
   elevenLabsDefaultVoice: string;
   setElevenLabsDefaultVoice: (elevenLabsDefaultVoice: string) => void;
+  sessionData: SessionData;
+  setSessionData: (sessiondata: Partial<SessionData>) => void;
 };
 
 export const useStoreMessage = create<State>((set) => ({
@@ -97,6 +104,21 @@ export const useStoreMessage = create<State>((set) => ({
   elevenLabsDefaultVoice: "",
   setElevenLabsDefaultVoice: (elevenLabsDefaultVoice) =>
     set({ elevenLabsDefaultVoice }),
+  sessionData: {
+    sessionId: "",
+    name: "",
+    email: "",
+    phone: "",
+  },
+  setSessionData: (
+    sessionData: Partial<{
+      sessionId: string;
+      name: string;
+      email: string;
+      phone: string;
+    }>
+  ) =>
+    set((x) => ({ ...x, sessionData: { ...x.sessionData, ...sessionData } })),
 }));
 
 type ReferenceState = {
@@ -113,12 +135,10 @@ export const useStoreReference = create<ReferenceState>((set) => ({
   setReferenceData: (referenceData) => set({ referenceData }),
 }));
 
-
 type SpeechToTextStore = {
   supported: boolean;
   setSupported: (supported: boolean) => void;
-}
-
+};
 
 export const useStoreSpeechToText = create<SpeechToTextStore>((set) => ({
   supported: false,

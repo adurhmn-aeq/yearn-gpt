@@ -2,9 +2,12 @@ import { Form, Input, notification } from "antd";
 import api from "../../services/api";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { useSettings } from "../../hooks/useSettings";
+import GoogleIcon from "../../../src/assets/google.svg";
+import { getGoogleOAuthURL } from "../../utils/oauth";
+import { useEffect, useRef } from "react";
 interface User {
   user_id: number;
   username: string;
@@ -18,8 +21,15 @@ interface LoginResponse {
 }
 export const AuthLogin = () => {
   const navigate = useNavigate();
+  const [params] = useSearchParams();
+  let googleOAuthCode = params.get("code");
+  const x = useRef(false);
   const onLogin = async (values: any) => {
-    const response = await api.post("/user/login", values);
+    const response = await api.post("/user/login", {
+      username: values.username || "",
+      password: values.password || "",
+      googleOAuthCode: googleOAuthCode || "",
+    });
     return response.data as LoginResponse;
   };
 
@@ -29,6 +39,7 @@ export const AuthLogin = () => {
 
   const { mutateAsync: loginMutation, isLoading } = useMutation(onLogin, {
     onSuccess: (data) => {
+      googleOAuthCode = "";
       notification.success({
         message: "Success",
         description: data.message,
@@ -38,6 +49,7 @@ export const AuthLogin = () => {
       navigate(data.to);
     },
     onError: (error) => {
+      googleOAuthCode = "";
       // is axios
       if (axios.isAxiosError(error)) {
         const message = error.response?.data?.message;
@@ -55,6 +67,15 @@ export const AuthLogin = () => {
       });
     },
   });
+
+  useEffect(() => {
+    if (googleOAuthCode && !x.current) {
+      x.current = true;
+      loginMutation({
+        googleOAuthCode,
+      });
+    }
+  }, [googleOAuthCode]);
 
   return (
     <div className="flex min-h-full bg-white flex-1 dark:bg-black">
@@ -124,10 +145,30 @@ export const AuthLogin = () => {
                 <div>
                   <button
                     type="submit"
-                    disabled={isLoading}
+                    disabled={isLoading || !!googleOAuthCode}
                     className="flex w-full justify-center rounded-md bg-green-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                   >
                     {isLoading ? "Loading..." : "Login"}
+                  </button>
+                </div>
+                <div>
+                  <button
+                    type="button"
+                    disabled={isLoading || !!googleOAuthCode}
+                    onClick={() => {
+                      console.log(getGoogleOAuthURL());
+                      // @ts-ignore
+                      window.location = getGoogleOAuthURL();
+                    }}
+                    className="flex w-full justify-center rounded-md bg-white border-green-600 border-[2px] px-3 py-1.5 text-sm font-semibold leading-6 text-green-600 shadow-sm hover:bg-green-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 items-center gap-2"
+                  >
+                    <img
+                      src={GoogleIcon}
+                      alt="google"
+                      height="20px"
+                      width={"20px"}
+                    />
+                    {isLoading ? "Loading..." : "Login with Google"}
                   </button>
                 </div>
               </Form>
