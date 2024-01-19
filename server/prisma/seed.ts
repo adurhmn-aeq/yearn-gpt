@@ -424,11 +424,14 @@ const replaceOldEmbeddings = async () => {
 
 const inventoryForRootAdmin = async () => {
   console.log("Seeding admin inventory...");
-  await prisma.inventory.create({
-    data: {
-      user_id: 1,
-    },
-  });
+  const inventory = await prisma.inventory.findFirst({ where: { user_id: 1 } });
+  if (!inventory) {
+    await prisma.inventory.create({
+      data: {
+        user_id: 1,
+      },
+    });
+  }
 };
 
 const main = async () => {
