@@ -4,7 +4,9 @@ export const apiKeyValidaton = (embeddingsType: string) => {
     case "jina":
       return true;
     case "jina-api":
-      return process.env.JINA_API_KEY ? process.env.JINA_API_KEY.length > 0 : false;
+      return process.env.JINA_API_KEY
+        ? process.env.JINA_API_KEY.length > 0
+        : false;
     case "supabase":
       return true;
     case "google-bison":
@@ -16,6 +18,7 @@ export const apiKeyValidaton = (embeddingsType: string) => {
         : false;
     case "openai":
     case "openai-instruct":
+    case "dialoqbase_eb_text-embedding-ada-002":
       let flag = process.env.OPENAI_API_KEY
         ? process.env.OPENAI_API_KEY.length > 0
         : false;
@@ -42,8 +45,10 @@ export const apiKeyValidaton = (embeddingsType: string) => {
         ? process.env.FIREWORKS_API_KEY.length > 0
         : false;
     case "ollama":
-      return process.env.OLLAMA_EMBEDDING_API_URL && process.env.OLLAMA_EMBEDDING_MODEL
-        ? process.env.OLLAMA_EMBEDDING_API_URL.length > 0 && process.env.OLLAMA_EMBEDDING_MODEL.length > 0
+      return process.env.OLLAMA_EMBEDDING_API_URL &&
+        process.env.OLLAMA_EMBEDDING_MODEL
+        ? process.env.OLLAMA_EMBEDDING_API_URL.length > 0 &&
+            process.env.OLLAMA_EMBEDDING_MODEL.length > 0
         : false;
 
     case "local":
@@ -76,6 +81,6 @@ export const apiKeyValidatonMessage = (embeddingsType: string) => {
     case "jina-api":
       return "Please add JINA_API_KEY to your .env file";
     default:
-      return "Unable to validate API key"
+      return "Unable to validate API key";
   }
 };
