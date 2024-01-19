@@ -172,7 +172,7 @@ export const IntegrationForm: React.FC<Props> = ({ onClose, data }) => {
                           placement: "bottomRight",
                         });
                       }}
-                      className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none"
+                      className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-green-600 hover:bg-green-700 focus:outline-none"
                     >
                       <ClipboardIcon className="w-5 h-5" />
                     </button>
@@ -213,7 +213,7 @@ export const IntegrationForm: React.FC<Props> = ({ onClose, data }) => {
           <button
             type="submit"
             disabled={isUpdating || isToggling}
-            className="flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+            className="flex w-full justify-center rounded-md border border-transparent bg-green-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
           >
             {isUpdating ? "Saving..." : "Save"}
           </button>
@@ -246,8 +246,8 @@ export const IntegrationForm: React.FC<Props> = ({ onClose, data }) => {
               toggleIntegration();
             }}
             className={classNames(
-              enabled ? "bg-indigo-600" : "bg-gray-200",
-              "relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-50"
+              enabled ? "bg-green-600" : "bg-gray-200",
+              "relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 disabled:opacity-50"
             )}
           >
             <span
@@ -263,7 +263,7 @@ export const IntegrationForm: React.FC<Props> = ({ onClose, data }) => {
           <Link to={data.connectBtn.link} target="_blank">
             <button
               type="button"
-              className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none"
+              className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-green-600 hover:bg-green-700 focus:outline-none"
             >
               {data.connectBtn.text}
             </button>

@@ -1,0 +1,4 @@
+./app/ui/node_modules
+./app/script/node_modules
+./app/widget/node_modules
+./server/node_modules

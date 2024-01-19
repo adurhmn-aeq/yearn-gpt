@@ -51,7 +51,7 @@ export default function NewBody() {
                 Username
               </label>
               <div className="mt-2">
-                <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-green-600 sm:max-w-md">
                   <span className="flex select-none items-center pl-3 text-gray-500 sm:text-sm">
                     workcation.com/
                   </span>
@@ -79,7 +79,7 @@ export default function NewBody() {
                   id="about"
                   name="about"
                   rows={3}
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-green-600 sm:text-sm sm:leading-6"
                   defaultValue={""}
                 />
               </div>
@@ -125,7 +125,7 @@ export default function NewBody() {
                   <div className="mt-4 flex text-sm leading-6 text-gray-600">
                     <label
                       htmlFor="file-upload"
-                      className="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
+                      className="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-green-600 focus-within:ring-offset-2 hover:text-indigo-500"
                     >
                       <span>Upload a file</span>
                       <input
@@ -168,7 +168,7 @@ export default function NewBody() {
                   name="first-name"
                   id="first-name"
                   autoComplete="given-name"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-green-600 sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
@@ -186,7 +186,7 @@ export default function NewBody() {
                   name="last-name"
                   id="last-name"
                   autoComplete="family-name"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-green-600 sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
@@ -204,7 +204,7 @@ export default function NewBody() {
                   name="email"
                   type="email"
                   autoComplete="email"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-green-600 sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
@@ -221,7 +221,7 @@ export default function NewBody() {
                   id="country"
                   name="country"
                   autoComplete="country-name"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-green-600 sm:max-w-xs sm:text-sm sm:leading-6"
                 >
                   <option>United States</option>
                   <option>Canada</option>
@@ -243,7 +243,7 @@ export default function NewBody() {
                   name="street-address"
                   id="street-address"
                   autoComplete="street-address"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-green-600 sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
@@ -261,7 +261,7 @@ export default function NewBody() {
                   name="city"
                   id="city"
                   autoComplete="address-level2"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-green-600 sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
@@ -279,7 +279,7 @@ export default function NewBody() {
                   name="region"
                   id="region"
                   autoComplete="address-level1"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-green-600 sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
@@ -297,7 +297,7 @@ export default function NewBody() {
                   name="postal-code"
                   id="postal-code"
                   autoComplete="postal-code"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-green-600 sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
@@ -325,7 +325,7 @@ export default function NewBody() {
                       id="comments"
                       name="comments"
                       type="checkbox"
-                      className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                      className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-green-600"
                     />
                   </div>
                   <div className="text-sm leading-6">
@@ -346,7 +346,7 @@ export default function NewBody() {
                       id="candidates"
                       name="candidates"
                       type="checkbox"
-                      className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                      className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-green-600"
                     />
                   </div>
                   <div className="text-sm leading-6">
@@ -367,7 +367,7 @@ export default function NewBody() {
                       id="offers"
                       name="offers"
                       type="checkbox"
-                      className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                      className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-green-600"
                     />
                   </div>
                   <div className="text-sm leading-6">
@@ -397,7 +397,7 @@ export default function NewBody() {
                     id="push-everything"
                     name="push-notifications"
                     type="radio"
-                    className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                    className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-green-600"
                   />
                   <label
                     htmlFor="push-everything"
@@ -411,7 +411,7 @@ export default function NewBody() {
                     id="push-email"
                     name="push-notifications"
                     type="radio"
-                    className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                    className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-green-600"
                   />
                   <label
                     htmlFor="push-email"
@@ -425,7 +425,7 @@ export default function NewBody() {
                     id="push-nothing"
                     name="push-notifications"
                     type="radio"
-                    className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                    className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-green-600"
                   />
                   <label
                     htmlFor="push-nothing"
@@ -449,7 +449,7 @@ export default function NewBody() {
         </button>
         <button
           type="submit"
-          className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+          className="rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
         >
           Save
         </button>

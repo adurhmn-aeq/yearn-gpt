@@ -62,8 +62,14 @@ export const AuthLogin = () => {
         <div className="mx-auto w-full max-w-sm lg:w-96">
           <div>
             <div className="focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-700 flex items-center">
-              <img className="h-8 w-auto" src="/logo.png" alt="Dialoqbase" />
-              <span className="text-lg font-bold dark:text-white">Dialoqbase</span>
+              <img
+                className="h-8 w-auto"
+                src="https://www.bilic.io/favicon.ico"
+                alt="Dialoqbase"
+              />
+              <span className="text-lg font-bold dark:text-white">
+                Bilic Agents
+              </span>
               <span className="inline-block flex-shrink-0 rounded-full bg-green-100 px-2 py-0.5 text-xs font-medium text-green-800 ml-2">
                 {/* @ts-ignore */}
                 {`v${__APP_VERSION__}`}
@@ -110,7 +116,7 @@ export const AuthLogin = () => {
                   ]}
                 >
                   <Input.Password
-                  size="large"
+                    size="large"
                     autoComplete="current-password"
                     placeholder="Password"
                   />
@@ -119,7 +125,7 @@ export const AuthLogin = () => {
                   <button
                     type="submit"
                     disabled={isLoading}
-                    className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                    className="flex w-full justify-center rounded-md bg-green-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                   >
                     {isLoading ? "Loading..." : "Login"}
                   </button>
@@ -145,9 +151,7 @@ export const AuthLogin = () => {
         </div>
       </div>
       <div className="relative hidden w-0 flex-1 lg:block">
-        <div className="absolute h-full w-full object-cover rounded-sm bg-gradient-to-r from-sky-400 to-blue-500 dark:from-sky-900 dark:to-gray-900">
-
-        </div>
+        <div className="absolute h-full w-full object-cover rounded-sm bg-gradient-to-r from-sky-400 to-blue-500 dark:from-sky-900 dark:to-gray-900"></div>
       </div>
     </div>
   );

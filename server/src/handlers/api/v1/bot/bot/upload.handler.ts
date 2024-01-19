@@ -17,8 +17,9 @@ import {
 } from "../../../../../utils/validate";
 const pump = util.promisify(pipeline);
 import { fileTypeFinder } from "../../../../../utils/fileType";
-import { getSettings } from "../../../../../utils/common";
+import { getInventory, getSettings } from "../../../../../utils/common";
 import { HELPFUL_ASSISTANT_WITH_CONTEXT_PROMPT } from "../../../../../utils/prompts";
+import { CreditsNeeded } from "../../../../../utils/credits";
 
 export const createBotFileHandler = async (
   request: FastifyRequest<UploadPDF>,
@@ -28,6 +29,12 @@ export const createBotFileHandler = async (
     const embedding = request.query.embedding;
     const model = request.query.model;
     const prisma = request.server.prisma;
+    const inventory = await getInventory(prisma, request.user.user_id);
+    if (inventory.credit_balance < CreditsNeeded.BOT_CREATE) {
+      return reply.status(400).send({
+        message: `Not enough credits. Credits Remaining: ${inventory.credit_balance}`,
+      });
+    }
     // only non-admin users are affected by this settings
     const settings = await getSettings(prisma);
     const user = request.user;
@@ -146,6 +153,13 @@ export const createBotFileHandler = async (
       ]);
     }
 
+    // consume credits (todo: consume based on data source instead of botcreation)
+    await prisma.inventory.update({
+      where: { user_id: request.user.user_id },
+      data: {
+        credit_balance: { decrement: CreditsNeeded.BOT_CREATE },
+      },
+    });
     return reply.status(200).send({
       id: bot.id,
     });

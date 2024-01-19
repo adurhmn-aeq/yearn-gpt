@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from "react";
-import { Dialog, Transition } from "@headlessui/react";
+import { Dialog, Menu, Transition } from "@headlessui/react";
 import {
   Bars3BottomLeftIcon,
   XMarkIcon,
@@ -8,12 +8,15 @@ import {
   SparklesIcon,
   PuzzlePieceIcon,
   EyeDropperIcon,
-  ChatBubbleLeftRightIcon
+  ChatBubbleLeftRightIcon,
 } from "@heroicons/react/24/outline";
 
+import api from "../services/api";
 import { Link, useParams, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import {  Tooltip } from "antd";
+import { Spin, Tooltip } from "antd";
+import Avatar from "../components/Common/Avatar";
+import { useQuery } from "@tanstack/react-query";
 import { ApplicationMenu } from "./ApplicationMenu";
 
 const navigation = [
@@ -65,13 +68,20 @@ export default function BotLayout({
   const location = useLocation();
   const navigate = useNavigate();
 
-  const { isLogged,  } = useAuth();
+  const { isLogged } = useAuth();
 
   React.useEffect(() => {
     if (!isLogged) {
       navigate("/login");
     }
   }, [isLogged]);
+
+  const { data } = useQuery(["fetchCredits"], async () => {
+    const response = await api.get("/credit");
+    return response.data as {
+      credits?: number;
+    };
+  });
 
   return (
     <>
@@ -134,10 +144,11 @@ export default function BotLayout({
                   >
                     <img
                       className="h-8 w-auto"
-                      src="/logo.png"
+                      src="https://www.bilic.io/favicon.ico"
                       alt="Dialoqbase"
                     />
-                    <span className="ml-1 text-xl font-bold">Dialoqbase</span>
+                    +{" "}
+                    <span className="ml-1 text-xl font-bold">Agents Bilic</span>
                     <span className="inline-block flex-shrink-0 rounded-full bg-green-100 px-2 py-0.5 text-xs font-medium text-green-800 ml-2">
                       {/* @ts-ignore */}
                       {`v${__APP_VERSION__}`}
@@ -222,9 +233,9 @@ export default function BotLayout({
 
         <div className="flex flex-col">
           <div className="sticky top-0 z-[999] flex h-14  bg-white border-b border-gray-200 dark:bg-black dark:border-gray-800">
-          <button
+            <button
               type="button"
-              className="border-r border-gray-200 px-4 text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500 md:hidden dark:border-gray-800 dark:text-gray-200"
+              className="border-r border-gray-200 px-4 text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-green-500 md:hidden dark:border-gray-800 dark:text-gray-200"
               onClick={() => setSidebarOpen(true)}
             >
               <span className="sr-only">Open sidebar</span>
@@ -234,8 +245,12 @@ export default function BotLayout({
               to="/"
               className="focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-700 flex items-center px-3 dark:text-white"
             >
-              <img className="h-8 w-auto" src="/logo.png" alt="Dialoqbase" />
-              <span className="ml-1 text-xl font-bold">Dialoqbase</span>
+              <img
+                className="h-8 w-auto"
+                src="https://www.bilic.io/favicon.ico"
+                alt="Dialoqbase"
+              />
+              <span className="ml-1 text-xl font-bold">Agents Bilic</span>
               <span className="inline-block flex-shrink-0 rounded-full bg-green-100 px-2 py-0.5 text-xs font-medium text-green-800 ml-2">
                 {/* @ts-ignore */}
                 {`v${__APP_VERSION__}`}
@@ -243,8 +258,18 @@ export default function BotLayout({
             </Link>
 
             <div className="flex flex-1 justify-end px-4">
-              <div className="ml-4 flex items-center md:ml-6">
-              <ApplicationMenu />
+              <div className="ml-4 flex items-center md:ml-6 gap-4">
+                <div className="flex gap-2">
+                  <h1 className="text-slate-800 text-sm">CREDITS:</h1>
+                  <h1 className="text-green-800 text-sm">
+                    {typeof data?.credits === "number" ? (
+                      data!.credits
+                    ) : (
+                      <Spin />
+                    )}
+                  </h1>
+                </div>
+                <ApplicationMenu />
               </div>
             </div>
           </div>

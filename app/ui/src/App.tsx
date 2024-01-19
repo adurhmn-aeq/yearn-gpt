@@ -24,6 +24,8 @@ import SettingsTeamsRoot from "./routes/settings/teams";
 import BotIntegrationAPIRoot from "./routes/bot/api";
 import SettingsModelRoot from "./routes/settings/model";
 import { useDarkMode } from "./hooks/useDarkmode";
+import CreditLayout from "./Layout/CreditLayout";
+import CreditRoot from "./routes/credit";
 
 const router = createHashRouter([
   {
@@ -41,6 +43,14 @@ const router = createHashRouter([
       </DashboardLayout>
     ),
     path: "/new",
+  },
+  {
+    path: "/credit",
+    element: (
+      <CreditLayout>
+        <CreditRoot />
+      </CreditLayout>
+    ),
   },
   {
     path: "/bot/:id/embed",

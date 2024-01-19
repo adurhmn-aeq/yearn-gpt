@@ -85,7 +85,7 @@ export const BotForm = ({
         >
           <Input.TextArea
             placeholder="Enter the text"
-            className=" block w-full shadow-sm sm:text-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md"
+            className=" block w-full shadow-sm sm:text-sm focus:ring-green-500 focus:border-indigo-500 border-gray-300 rounded-md"
           />
         </Form.Item>
       ),
@@ -471,7 +471,7 @@ export const BotForm = ({
                         ? "border-transparent"
                         : "border-gray-300 dark:border-gray-700",
                       active
-                        ? "border-indigo-500 ring-0 ring-indigo-500 dark:border-gray-700 dark:ring-gray-900"
+                        ? "border-indigo-500 ring-0 ring-green-500 dark:border-gray-700 dark:ring-gray-900"
                         : "",
                       "relative  items-center justify-center flex cursor-pointer rounded-lg border bg-white p-4 shadow-sm focus:outline-none dark:bg-[#141414]"
                     )
@@ -589,7 +589,7 @@ export const BotForm = ({
             <button
               type="submit"
               disabled={isLoading}
-              className="flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+              className="flex w-full justify-center rounded-md border border-transparent bg-green-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
             >
               {isLoading ? "Creating..." : "Create"}
             </button>

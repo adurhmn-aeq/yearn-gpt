@@ -9,7 +9,7 @@ import * as bcrypt from "bcryptjs";
 
 export const updateDialoqbaseSettingsHandler = async (
   request: FastifyRequest<UpdateDialoqbaseSettingsRequest>,
-  reply: FastifyReply,
+  reply: FastifyReply
 ) => {
   const primsa = request.server.prisma;
   const user = request.user;
@@ -41,7 +41,7 @@ export const updateDialoqbaseSettingsHandler = async (
 
 export const resetUserPasswordByAdminHandler = async (
   request: FastifyRequest<ResetUserPasswordByAdminRequest>,
-  reply: FastifyReply,
+  reply: FastifyReply
 ) => {
   const prisma = request.server.prisma;
   const user = request.user;
@@ -82,7 +82,7 @@ export const resetUserPasswordByAdminHandler = async (
 
 export const registerUserByAdminHandler = async (
   request: FastifyRequest<RegisterUserbyAdminRequestBody>,
-  reply: FastifyReply,
+  reply: FastifyReply
 ) => {
   try {
     const prisma = request.server.prisma;
@@ -125,6 +125,9 @@ export const registerUserByAdminHandler = async (
         username: request.body.username,
         email: request.body.email,
         password: hashedPassword,
+        inventory: {
+          create: {},
+        },
       },
     });
     return reply.status(200).send({

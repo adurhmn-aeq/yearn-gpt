@@ -122,7 +122,7 @@ export default function SettingsTeamsRoot() {
               <button
                 type="button"
                 onClick={() => setNewUserModal(true)}
-                className="inline-flex items-center px-3 py-1 border border-transparent text-sm font-medium rounded shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                className="inline-flex items-center px-3 py-1 border border-transparent text-sm font-medium rounded shadow-sm text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
               >
                 Add New User
               </button>
@@ -209,7 +209,7 @@ export default function SettingsTeamsRoot() {
                 <button
                   disabled={resetPasswordLoading}
                   type="submit"
-                  className="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white  hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                  className="inline-flex justify-center rounded-md border border-transparent bg-green-600 py-2 px-4 text-sm font-medium text-white  hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
                 >
                   {resetPasswordLoading ? "Saving..." : "Save"}
                 </button>
@@ -238,9 +238,7 @@ export default function SettingsTeamsRoot() {
                   },
                 ]}
               >
-                <Input
-                size="large"
-                />
+                <Input size="large" />
               </Form.Item>
               <Form.Item
                 label="Email"
@@ -252,10 +250,7 @@ export default function SettingsTeamsRoot() {
                   },
                 ]}
               >
-                <Input
-                size="large"  
-                  type="email"
-                />
+                <Input size="large" type="email" />
               </Form.Item>
               <Form.Item
                 label="Password"
@@ -267,16 +262,14 @@ export default function SettingsTeamsRoot() {
                   },
                 ]}
               >
-                <Input.Password
-                size="large"
-                />
+                <Input.Password size="large" />
               </Form.Item>
 
               <div className="flex justify-end">
                 <button
                   disabled={createUserLoading}
                   type="submit"
-                  className="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white  hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                  className="inline-flex justify-center rounded-md border border-transparent bg-green-600 py-2 px-4 text-sm font-medium text-white  hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
                 >
                   {createUserLoading ? "Saving..." : "Save"}
                 </button>
