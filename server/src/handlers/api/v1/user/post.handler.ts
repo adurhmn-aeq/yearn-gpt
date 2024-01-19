@@ -7,10 +7,7 @@ import {
 } from "./types";
 import * as bcrypt from "bcryptjs";
 import { getSettings } from "../../../../utils/common";
-import {
-  getGoogleOAuthTokens,
-  getGoogleUser,
-} from "../../../../../utils/oauth";
+import { getGoogleOAuthTokens, getGoogleUser } from "../../../../utils/oauth";
 
 export const userLoginHandler = async (
   request: FastifyRequest<ChatRequestBody>,
