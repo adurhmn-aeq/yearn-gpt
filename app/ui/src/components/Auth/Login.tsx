@@ -7,7 +7,7 @@ import { useAuth } from "../../context/AuthContext";
 import { useSettings } from "../../hooks/useSettings";
 import GoogleIcon from "../../../src/assets/google.svg";
 import { getGoogleOAuthURL } from "../../utils/oauth";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 interface User {
   user_id: number;
   username: string;
@@ -22,7 +22,7 @@ interface LoginResponse {
 export const AuthLogin = () => {
   const navigate = useNavigate();
   const [params] = useSearchParams();
-  let googleOAuthCode = params.get("code");
+  const [googleOAuthCode, setGoogleOAuthCode] = useState(params.get("code"));
   const x = useRef(false);
   const onLogin = async (values: any) => {
     const response = await api.post("/user/login", {
@@ -39,7 +39,7 @@ export const AuthLogin = () => {
 
   const { mutateAsync: loginMutation, isLoading } = useMutation(onLogin, {
     onSuccess: (data) => {
-      googleOAuthCode = "";
+      setGoogleOAuthCode("");
       notification.success({
         message: "Success",
         description: data.message,
@@ -49,7 +49,7 @@ export const AuthLogin = () => {
       navigate(data.to);
     },
     onError: (error) => {
-      googleOAuthCode = "";
+      setGoogleOAuthCode("");
       // is axios
       if (axios.isAxiosError(error)) {
         const message = error.response?.data?.message;

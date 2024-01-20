@@ -1,4 +1,4 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createHashRouter, RouterProvider } from "react-router-dom";
 import Root from "./routes/root";
 import DashboardLayout from "./Layout";
 import NewBot from "./routes/new/bot";
@@ -30,7 +30,7 @@ import NewAgent from "./routes/new/agent";
 import AgentPreview from "./routes/agent/preview";
 import SessionScreen from "./routes/session/attend";
 
-const router = createBrowserRouter([
+const router = createHashRouter([
   {
     element: (
       <DashboardLayout>

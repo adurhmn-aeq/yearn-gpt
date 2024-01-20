@@ -2,8 +2,6 @@ FROM node:18-slim as server
 
 WORKDIR /app
 
-ENV NODE_ENV=development
-
 RUN apt update && apt -y install g++ make python3
 # RUN npm install -g node-gyp
 
