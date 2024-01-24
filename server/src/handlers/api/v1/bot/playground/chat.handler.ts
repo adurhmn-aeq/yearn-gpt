@@ -6,10 +6,7 @@ import { chatModelProvider } from "../../../../../utils/models";
 import { DialoqbaseHybridRetrival } from "../../../../../utils/hybrid";
 import { BaseRetriever } from "langchain/schema/retriever";
 import { Document } from "langchain/document";
-import {
-  createChain,
-  groupMessagesByConversation,
-} from "../../../../../chain";
+import { createChain, groupMessagesByConversation } from "../../../../../chain";
 
 export const chatRequestHandler = async (
   request: FastifyRequest<ChatRequestBody>,

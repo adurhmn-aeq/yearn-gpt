@@ -2,7 +2,9 @@ import { SessionCollectForm } from "../Common/SessionCollectForm";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { Form, notification } from "antd";
-import { useStoreMessage } from "../../store";
+import { useSessionAgent } from "../../store";
+import api from "../../services/api";
+import { useParams } from "react-router-dom";
 
 type Props = {
   startSession: () => void;
@@ -10,15 +12,17 @@ type Props = {
 
 export default function SessionCollect({ startSession }: Props) {
   const [form] = Form.useForm();
-  const { setSessionData } = useStoreMessage();
+  const { setSessionData } = useSessionAgent();
+  const { id } = useParams<{ id: string }>();
   const onSubmit = async (values: any) => {
     console.log({ values });
-    // const response = await api.post("/agent/session", {
-    //   ...values,
-    // });
-    // console.log({ data: response.data });
-    setSessionData({ ...values, sessionId: "response.data" });
-    return "response.data";
+    const response = await api.post("/agent/session", {
+      ...values,
+      agentId: id,
+    });
+    console.log({ data: response.data });
+    setSessionData({ ...values, sessionId: response.data.id });
+    return response.data.id;
   };
   const { mutateAsync: createSession, isLoading } = useMutation(onSubmit, {
     onSuccess: () => {

@@ -34,7 +34,7 @@ export const DashboardGrid = () => {
       )}
       {status === "success" && data.length > 0 && (
         <div className="grid grid-cols-1 mt-6 gap-4 sm:grid-cols-3">
-          {data.map(({ bot, agent }: any) =>
+          {data?.map(({ bot, agent }: any) =>
             bot ? (
               <Link
                 to={`/bot/${bot.id}`}
@@ -70,7 +70,7 @@ export const DashboardGrid = () => {
                   </div>
 
                   <div className="px-4 my-3 flex flex-wrap gap-2 text-gray-500 text-xs dark:text-gray-400">
-                    {bot.source.map((source: any) => (
+                    {bot.source?.map((source: any) => (
                       <span title={`${source.type} source`}>
                         {sources[source.type as keyof typeof sources]}
                       </span>

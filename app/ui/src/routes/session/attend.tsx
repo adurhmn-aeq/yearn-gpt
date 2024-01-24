@@ -1,12 +1,9 @@
-import { useNavigate } from "react-router-dom";
-import React, { useState } from "react";
-import { useAuth } from "../../context/AuthContext";
+import { useState } from "react";
 import SessionCollect from "../../components/Session/SessionCollect";
-import SessionAttend from "../../components/Session/SessionAttend";
+import { SessionAgentPlayground } from "../../components/Bot/Playground/SessionAgentPlayground";
 // import { PreviewIframe } from "../../components/Bot/Preview/PreviewIFrame";
 
 export default function SessionScreen() {
-  const navigate = useNavigate();
   const [stage, setStage] = useState<"collect" | "attend">("collect");
   // const { data, status } = useQuery(["getAgentById", param.id], async () => {
   //   const response = await api.get(`/agent/${param.id}`);
@@ -21,14 +18,6 @@ export default function SessionScreen() {
   //   };
   // });
 
-  const { isLogged } = useAuth();
-
-  React.useEffect(() => {
-    if (!isLogged) {
-      navigate("/login");
-    }
-  }, [isLogged, navigate]);
-
   return (
     <>
       {stage === "collect" && (
@@ -36,11 +25,7 @@ export default function SessionScreen() {
           <SessionCollect startSession={() => setStage("attend")} />
         </div>
       )}
-      {stage === "attend" && (
-        <div className="flex justify-center p-3 gap-8">
-          <SessionAttend />
-        </div>
-      )}
+      {stage === "attend" && <SessionAgentPlayground />}
     </>
   );
 }

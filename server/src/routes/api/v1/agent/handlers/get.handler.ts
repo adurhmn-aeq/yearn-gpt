@@ -33,14 +33,12 @@ export const getAllBotsAndAgentsHandler = async (
     },
   });
 
-  const combined = [...bots, ...agents]
-    .sort(
-      (a, b) =>
-        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-    )
-    .map((x: any) =>
-      x?.temperature! === undefined ? { agent: x } : { bot: x }
-    );
+  const combined = [
+    ...bots.map((x) => ({ bot: x, createdAt: x.createdAt })),
+    ...agents.map((x) => ({ agent: x, createdAt: x.createdAt })),
+  ].sort(
+    (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+  );
 
   return combined;
 };

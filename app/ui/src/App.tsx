@@ -29,6 +29,7 @@ import CreditRoot from "./routes/credit";
 import NewAgent from "./routes/new/agent";
 import AgentPreview from "./routes/agent/preview";
 import SessionScreen from "./routes/session/attend";
+import SessionLayout from "./Layout/SessionLayout";
 
 const router = createHashRouter([
   {
@@ -90,7 +91,11 @@ const router = createHashRouter([
   },
   {
     path: "/session/:id",
-    element: <SessionScreen />,
+    element: (
+      <SessionLayout>
+        <SessionScreen />
+      </SessionLayout>
+    ),
   },
   {
     path: "/bot/:id/playground/:history_id",

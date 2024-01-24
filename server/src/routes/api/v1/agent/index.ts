@@ -1,10 +1,18 @@
 import { FastifyPluginAsync } from "fastify";
 import {
+  agentResponseHandler,
+  // agentResponseHandler,
   createAgentHandler,
+  createSessionHandler,
   getAgentByIdHandler,
   getAllBotsAndAgentsHandler,
 } from "./handlers";
-import { createAgentSchema, getAgentByIdSchema } from "./schema";
+import {
+  agentResponseSchema,
+  createAgentSchema,
+  createSessionSchema,
+  getAgentByIdSchema,
+} from "./schema";
 
 const root: FastifyPluginAsync = async (fastify, _): Promise<void> => {
   fastify.post(
@@ -33,6 +41,22 @@ const root: FastifyPluginAsync = async (fastify, _): Promise<void> => {
       onRequest: [fastify.authenticate],
     },
     getAllBotsAndAgentsHandler
+  );
+
+  fastify.post(
+    "/session/response",
+    {
+      schema: agentResponseSchema,
+    },
+    agentResponseHandler
+  );
+
+  fastify.post(
+    "/session",
+    {
+      schema: createSessionSchema,
+    },
+    createSessionHandler
   );
 };
 

@@ -109,15 +109,13 @@ export const createChain = ({
 }: {
   llm: BaseLanguageModel;
   question_llm: BaseLanguageModel;
-  retriever: Runnable;
+  retriever?: Runnable;
   question_template: string;
   response_template: string;
 }) => {
-  const retrieverChain = createRetrieverChain(
-    question_llm,
-    retriever,
-    question_template
-  );
+  const retrieverChain = retriever
+    ? createRetrieverChain(question_llm, retriever, question_template)
+    : null;
   const context = RunnableMap.from({
     context: RunnableSequence.from([
       ({ question, chat_history }) => {
@@ -126,11 +124,61 @@ export const createChain = ({
           chat_history: formatChatHistoryAsString(chat_history),
         };
       },
-      retrieverChain,
+      ...(retrieverChain ? [retrieverChain] : []),
       RunnableLambda.from(formatDocs).withConfig({
         runName: "FormatDocumentChunks",
       }),
     ]),
+    question: RunnableLambda.from(
+      (input: RetrievalChainInput) => input.question
+    ).withConfig({
+      runName: "Itemgetter:question",
+    }),
+    chat_history: RunnableLambda.from(
+      (input: RetrievalChainInput) => input.chat_history
+    ).withConfig({
+      runName: "Itemgetter:chat_history",
+    }),
+  }).withConfig({ tags: ["RetrieveDocs"] });
+  const prompt = ChatPromptTemplate.fromMessages([
+    ["system", response_template],
+    new MessagesPlaceholder("chat_history"),
+    ["human", "{question}"],
+  ]);
+
+  const responseSynthesizerChain = RunnableSequence.from([
+    prompt,
+    llm,
+    new StringOutputParser(),
+  ]).withConfig({
+    tags: ["GenerateResponse"],
+  });
+  return RunnableSequence.from([
+    {
+      question: RunnableLambda.from(
+        (input: RetrievalChainInput) => input.question
+      ).withConfig({
+        runName: "Itemgetter:question",
+      }),
+      chat_history: RunnableLambda.from(serializeHistory).withConfig({
+        runName: "SerializeHistory",
+      }),
+    },
+    context,
+    responseSynthesizerChain,
+  ]);
+};
+
+export const createAgentChain = ({
+  llm,
+  question_llm,
+  response_template,
+}: {
+  llm: BaseLanguageModel;
+  question_llm: BaseLanguageModel;
+  response_template: string;
+}) => {
+  const context = RunnableMap.from({
     question: RunnableLambda.from(
       (input: RetrievalChainInput) => input.question
     ).withConfig({

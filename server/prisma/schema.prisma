@@ -44,13 +44,30 @@ model Bot {
 }
 
 model Agent {
+  id          String    @id @default(cuid())
+  name        String
+  initMsg     String    @default("Good day, how are you doing?")
+  prompt      String
+  temperature Float     @default(0.7)
+  model       String
+  // provider    String
+  user_id     Int?
+  createdAt   DateTime  @default(now())
+  User        User?     @relation(fields: [user_id], references: [user_id])
+  sessions    Session[]
+}
+
+model Session {
   id        String   @id @default(cuid())
   name      String
-  initMsg   String   @default("Good day, how are you doing?")
-  prompt    String
-  user_id   Int?
+  email     String
+  phone     String
+  messages  Json[]   @db.Json
   createdAt DateTime @default(now())
+  user_id   Int?
   User      User?    @relation(fields: [user_id], references: [user_id])
+  agent_id  String?
+  Agent     Agent?   @relation(fields: [agent_id], references: [id])
 }
 
 model BotSource {
@@ -90,6 +107,7 @@ model User {
   createdAt       DateTime   @default(now())
   bots            Bot[]
   agents          Agent[]
+  sessions        Session[]
   inventory       Inventory?
 }
 
