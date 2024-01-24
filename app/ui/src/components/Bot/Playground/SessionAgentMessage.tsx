@@ -6,7 +6,7 @@ import {
 } from "@heroicons/react/24/outline";
 import { Message } from "../../../store";
 import Markdown from "../../Common/Markdown";
-import React from "react";
+import React, { useEffect } from "react";
 import { useSpeechSynthesis } from "../../../hooks/useSpeechSynthesis";
 import { useElevenLabsTTS } from "../../../hooks/useElevenLabsTTS";
 
@@ -36,6 +36,10 @@ export const SessionAgentMessage = (props: Props) => {
     isPlaying: isElevenLabsPlaying,
     loading: isElevenLabsLoading,
   } = useElevenLabsTTS();
+
+  useEffect(() => {
+    speak({ text: props.message });
+  }, []);
 
   return (
     <div

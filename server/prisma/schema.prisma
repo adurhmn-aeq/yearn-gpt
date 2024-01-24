@@ -48,8 +48,8 @@ model Agent {
   name        String
   initMsg     String    @default("Good day, how are you doing?")
   prompt      String
-  temperature Float     @default(0.7)
-  model       String
+  temperature Float     @default(0.5)
+  model       String    @default("gpt-3.5-turbo-dbase")
   // provider    String
   user_id     Int?
   createdAt   DateTime  @default(now())

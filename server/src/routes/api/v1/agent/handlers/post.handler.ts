@@ -176,7 +176,7 @@ export const agentResponseHandler = async (
     const model = chatModelProvider(
       modelInfo.model_provider || "",
       agentInfo.model,
-      0.5,
+      agentInfo.temperature,
       {
         ...modelConfig,
       }
