@@ -1,7 +1,10 @@
-export const apiKeyValidaton = (embeddingsType: string) => {
-  switch (embeddingsType.toLocaleLowerCase()) {
+export const apiKeyValidaton = (modelType: string) => {
+  console.log("apiKeyValidaton", modelType);
+  switch (modelType.toLocaleLowerCase()) {
     case "transformer":
     case "jina":
+    case "ollama":
+    case "local":
       return true;
     case "jina-api":
       return process.env.JINA_API_KEY
@@ -44,22 +47,13 @@ export const apiKeyValidaton = (embeddingsType: string) => {
       return process.env.FIREWORKS_API_KEY
         ? process.env.FIREWORKS_API_KEY.length > 0
         : false;
-    case "ollama":
-      return process.env.OLLAMA_EMBEDDING_API_URL &&
-        process.env.OLLAMA_EMBEDDING_MODEL
-        ? process.env.OLLAMA_EMBEDDING_API_URL.length > 0 &&
-            process.env.OLLAMA_EMBEDDING_MODEL.length > 0
-        : false;
-
-    case "local":
-      return true;
     default:
       return false;
   }
 };
 
-export const apiKeyValidatonMessage = (embeddingsType: string) => {
-  switch (embeddingsType.toLowerCase()) {
+export const apiKeyValidatonMessage = (modelType: string) => {
+  switch (modelType.toLowerCase()) {
     case "openai":
     case "openai-instruct":
       return "Please add OPENAI_API_KEY to your .env file";
