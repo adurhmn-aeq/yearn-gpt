@@ -5,6 +5,12 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { useSettings } from "../../hooks/useSettings";
+import AuthSidebar from "./AuthSidebar";
+import LoginBgAgentOne from "../../assets/agent.png";
+import LoginBgAgentTwo from "../../assets/agent-2.png";
+import LoginBgAgentThree from "../../assets/agent-3.png";
+import LoginBgAgentFour from "../../assets/agent-4.png";
+
 interface User {
   user_id: number;
   username: string;
@@ -58,29 +64,52 @@ export const AuthRegister = () => {
     },
   });
 
+  const sliderImages = [
+    LoginBgAgentOne,
+    LoginBgAgentTwo,
+    LoginBgAgentThree,
+    LoginBgAgentFour,
+  ];
+
+  const AuthSidebarHeading = () => {
+    return (
+      <>
+        Deliver 5star <br /> customer support
+      </>
+    );
+  };
+
   return (
     <>
       {" "}
-      <div className="flex min-h-full bg-white flex-1 dark:bg-black">
-        <div className="flex flex-1 flex-col justify-center px-4 py-12 sm:px-6 lg:flex-none lg:px-20 xl:px-24">
-          <div className="mx-auto w-full max-w-sm lg:w-96">
-            <div>
-              <div className="focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-700 flex items-center">
-                <img className="h-8 w-auto" src="/logo.png" alt="Dialoqbase" />
-                <span className="text-lg font-bold dark:text-white">
-                  Dialoqbase
+      <div className="flex min-h-full bg-white dark:bg-secondary-500">
+        <AuthSidebar
+          imagePath={sliderImages}
+          heading={<AuthSidebarHeading></AuthSidebarHeading>}
+        />
+        <div className="flex flex-1 justify-center items-center lg:justify-start lg:items-start flex-col px-4 py-12 sm:px-6 lg:px-20 xl:px-24">
+          <div className="xl:ml-12 xl:mt-12 w-full max-w-sm lg:w-96">
+            <div className="flex flex-col gap-3 text-center lg:text-left">
+              <div className="focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-700 flex items-center justify-center lg:justify-start">
+                <span className="text-lg font-normal dark:text-copy-200 text-secondary-500 opacity-80">
+                  Bilic Agents
                 </span>
                 <span className="inline-block flex-shrink-0 rounded-full bg-green-100 px-2 py-0.5 text-xs font-medium text-green-800 ml-2">
                   {/* @ts-ignore */}
                   {`v${__APP_VERSION__}`}
                 </span>
               </div>
-              <h2 className="mt-8 text-2xl font-bold leading-9 tracking-tight text-gray-900 dark:text-white">
-                Create an account
-              </h2>
+              <div className="flex flex-col gap-1">
+                <h2 className="font-epilogue text-xl font-medium leading-tight tracking-tight text-secondary-500 md:text-2xl dark:text-copy-500">
+                  Signin to your account
+                </h2>
+                <p className="my-0 mt-0 dark:text-copy-200 dark:opacity-50 text-secondary-900 font-normal opacity-80 font-work_sans">
+                  Kindly provide the information below
+                </p>
+              </div>
             </div>
 
-            <div className="mt-10">
+            <div className="mt-8">
               <div>
                 <Form
                   layout="vertical"
@@ -98,11 +127,13 @@ export const AuthRegister = () => {
                         message: "Please input your username!",
                       },
                     ]}
+                    style={{ fontFamily: "work sans" }}
                   >
                     <Input
                       size="large"
                       autoComplete="username"
                       placeholder="Username"
+                      className="bg-[#f8f8f8] border-[#f8f8f8] py-[10] dark:bg-[#0e1320] dark:border-[#0e1320]"
                     />
                   </Form.Item>
                   <Form.Item
@@ -114,12 +145,14 @@ export const AuthRegister = () => {
                         message: "Please input your email",
                       },
                     ]}
+                    style={{ fontFamily: "work sans" }}
                   >
                     <Input
                       size="large"
                       type="email"
                       autoComplete="email"
                       placeholder="Email"
+                      className="bg-[#f8f8f8] border-[#f8f8f8] py-[10] dark:bg-[#0e1320] dark:border-[#0e1320]"
                     />
                   </Form.Item>
                   <Form.Item
@@ -131,18 +164,21 @@ export const AuthRegister = () => {
                         message: "Please input your password!",
                       },
                     ]}
+                    style={{ fontFamily: "work sans" }}
                   >
                     <Input.Password
                       size="large"
                       autoComplete="current-password"
                       placeholder="Password"
+                      className="bg-[#f8f8f8] border-[#f8f8f8] py-[10] dark:bg-[#0e1320] dark:border-[#0e1320]"
                     />
                   </Form.Item>
                   <div>
                     <button
                       type="submit"
                       disabled={isLoading || !info?.isRegistrationAllowed}
-                      className="flex w-full justify-center rounded-md bg-green-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="flex font-epilogue h-12 w-full justify-center items-center rounded-md bg-secondary-500 hover:bg-secondary-400 px-5 py-2.5 text-base font-medium leading-6 text-copy-500 dark:bg-primary-500 dark:hover:bg-primary-600 focus:outline-none focus:ring-primary-300
+                    dark:focus:ring-primary-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:primary-600 disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                       {isLoading ? "Loading..." : "Register"}
                     </button>
@@ -153,16 +189,13 @@ export const AuthRegister = () => {
                 Already have an account?{" "}
                 <Link
                   to="/login"
-                  className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
+                  className="font-semibold leading-6 text-primary-600 hover:text-primary-500"
                 >
                   Login
                 </Link>
               </p>
             </div>
           </div>
-        </div>
-        <div className="relative hidden w-0 flex-1 lg:block">
-          <div className="absolute h-full w-full object-cover rounded-sm bg-gradient-to-r from-sky-400 to-blue-500 dark:from-sky-900 dark:to-gray-900"></div>
         </div>
       </div>
     </>

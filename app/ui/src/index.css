@@ -1,12 +1,23 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap");
-
-* {
-  font-family: "Inter", sans-serif !important;
-}
+/* @import url("https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap"); */
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* :root {
+  font-family: Inter, sans-serif;
+  font-feature-settings: "liga" 1, "calt" 1; //fix for Chrome
+} */
+/* @supports (font-variation-settings: normal) {
+  :root {
+    font-family: InterVariable, sans-serif;
+  }
+} */
+
+:root {
+  font-family: "Work Sans", sans-serif;
+  /* font-feature-settings: "liga" 1, "calt" 1; */
+}
 
 .scroll-to-bottom {
   position: relative;
@@ -54,4 +65,43 @@ markdown-processing {
 .ant-select-selection-search-input {
   border: none !important;
   box-shadow: none !important;
+}
+
+/* remove background on placeholder */
+.ant-input-affix-wrapper .ant-input {
+  background: transparent;
+}
+.ant-form-item-control-input .ant-input::placeholder,
+.ant-input-affix-wrapper .ant-input::placeholder {
+  font-family: "work sans", sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+}
+
+/* Theme the input state theme for ant design*/
+.ant-input:hover,
+.ant-input:focus,
+.ant-input:active {
+  border-color: #d0eac1 !important;
+}
+
+.ant-input-affix-wrapper.ant-input-password:hover,
+.ant-input-affix-wrapper.ant-input-password:focused,
+.ant-input-affix-wrapper.ant-input-password:active {
+  border-color: #d0eac1 !important;
+}
+
+.ant-input-password:hover,
+.ant-input-password:focused,
+.ant-input-password:active {
+  border-color: #d0eac1 !important;
+}
+
+.ant-input-affix-wrapper:not(.ant-input-affix-wrapper-disabled):hover {
+  border-color: #d0eac1 !important;
+}
+
+.ant-input-affix-wrapper:focus,
+.ant-input-affix-wrapper-focused {
+  border-color: #d0eac1 !important;
 }
