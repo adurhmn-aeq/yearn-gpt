@@ -1,4 +1,3 @@
-import { useEffect, useRef, useState } from "react";
 import { EffectCoverflow, Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import LoginBgOne from "../../assets/Ball-4.png";
