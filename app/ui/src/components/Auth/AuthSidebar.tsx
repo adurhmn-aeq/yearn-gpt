@@ -3,7 +3,7 @@ import { EffectCoverflow, Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import LoginBgOne from "../../assets/Ball-4.png";
 import LoginBgTwo from "../../assets/Ball-1.png";
-import LoginBgThree from "../../assets/ball-2.png";
+import LoginBgThree from "../../assets/Ball-2.png";
 import LoginBgFour from "../../assets/Ball-3.png";
 import "swiper/css";
 import "swiper/css/effect-coverflow";
