@@ -1,5 +1,9 @@
 lockfileVersion: '6.0'
 
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
 importers:
 
   .:
@@ -7,13 +11,16 @@ importers:
       npm-run-all:
         specifier: ^4.1.5
         version: 4.1.5
+      react-icons:
+        specifier: ^5.0.1
+        version: 5.0.1(react@18.2.0)
       swiper:
         specifier: ^11.0.5
         version: 11.0.5
     devDependencies:
       vitepress:
         specifier: 1.0.0-beta.3
-        version: 1.0.0-beta.3(@algolia/client-search@4.17.2)(search-insights@2.6.0)
+        version: 1.0.0-beta.3(@algolia/client-search@4.17.2)(react@18.2.0)(search-insights@2.6.0)
 
   app/script:
     devDependencies:
@@ -515,10 +522,10 @@ packages:
     resolution: {integrity: sha512-2Pu9HDg/uP/IT10rbQ+4OrTQuxIWdKVUEdcw9/w7kZJv9NeHS6skJx1xuRiFyoGKwAzcHXnLp7csE99sj+O1YA==}
     dev: true
 
-  /@docsearch/js@3.5.1(@algolia/client-search@4.17.2)(search-insights@2.6.0):
+  /@docsearch/js@3.5.1(@algolia/client-search@4.17.2)(react@18.2.0)(search-insights@2.6.0):
     resolution: {integrity: sha512-EXi8de5njxgP6TV3N9ytnGRLG9zmBNTEZjR4VzwPcpPLbZxxTLG2gaFyJyKiFVQxHW/DPlMrDJA3qoRRGEkgZw==}
     dependencies:
-      '@docsearch/react': 3.5.1(@algolia/client-search@4.17.2)(search-insights@2.6.0)
+      '@docsearch/react': 3.5.1(@algolia/client-search@4.17.2)(react@18.2.0)(search-insights@2.6.0)
       preact: 10.15.1
     transitivePeerDependencies:
       - '@algolia/client-search'
@@ -528,7 +535,7 @@ packages:
       - search-insights
     dev: true
 
-  /@docsearch/react@3.5.1(@algolia/client-search@4.17.2)(search-insights@2.6.0):
+  /@docsearch/react@3.5.1(@algolia/client-search@4.17.2)(react@18.2.0)(search-insights@2.6.0):
     resolution: {integrity: sha512-t5mEODdLzZq4PTFAm/dvqcvZFdPDMdfPE5rJS5SC8OUq9mPzxEy6b+9THIqNM9P0ocCb4UC5jqBrxKclnuIbzQ==}
     peerDependencies:
       '@types/react': '>= 16.8.0 < 19.0.0'
@@ -546,6 +553,7 @@ packages:
       '@algolia/autocomplete-preset-algolia': 1.9.3(@algolia/client-search@4.17.2)(algoliasearch@4.17.2)
       '@docsearch/css': 3.5.1
       algoliasearch: 4.17.2
+      react: 18.2.0
     transitivePeerDependencies:
       - '@algolia/client-search'
       - search-insights
@@ -4735,7 +4743,6 @@ packages:
 
   /js-tokens@4.0.0:
     resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==}
-    dev: false
 
   /js-yaml@4.1.0:
     resolution: {integrity: sha512-wpxZs9NoxZaJESJGIZTyDEaYpl0FKSA+FB9aJiyemKhMwkxQg63h4T1KJgUGHpTqPDNRcmmYLugrRjJlBtWvRA==}
@@ -4947,7 +4954,6 @@ packages:
     hasBin: true
     dependencies:
       js-tokens: 4.0.0
-    dev: false
 
   /lowlight@1.20.0:
     resolution: {integrity: sha512-8Ktj+prEb1RoCPkEOrPMYUN/nCggB7qAWe3a7OpMjWQkh3l2RD5wKRQ+o8Q8YuI9RG/xs95waaI/E6ym/7NsTw==}
@@ -6623,6 +6629,14 @@ packages:
       react: 18.2.0
     dev: false
 
+  /react-icons@5.0.1(react@18.2.0):
+    resolution: {integrity: sha512-WqLZJ4bLzlhmsvme6iFdgO8gfZP17rfjYEJ2m9RsZjZ+cc4k1hTzknEz63YS1MeT50kVzoa1Nz36f4BEx+Wigw==}
+    peerDependencies:
+      react: '*'
+    dependencies:
+      react: 18.2.0
+    dev: false
+
   /react-is@16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
     dev: false
@@ -6732,7 +6746,6 @@ packages:
     engines: {node: '>=0.10.0'}
     dependencies:
       loose-envify: 1.4.0
-    dev: false
 
   /read-cache@1.0.0:
     resolution: {integrity: sha512-Owdv/Ft7IjOgm/i0xvNDZ1LrRANRfew4b2prF3OWMQLxLfu3bS8FVhCsrSCMK4lR56Y9ya+AThoTpDCTxCmpRA==}
@@ -7936,12 +7949,12 @@ packages:
       fsevents: 2.3.2
     dev: true
 
-  /vitepress@1.0.0-beta.3(@algolia/client-search@4.17.2)(search-insights@2.6.0):
+  /vitepress@1.0.0-beta.3(@algolia/client-search@4.17.2)(react@18.2.0)(search-insights@2.6.0):
     resolution: {integrity: sha512-GR5Pvr/o343NN1M4Na1shhDYZRrQbjmLq7WE0lla0H8iDPAsHE8agTHLWfu3FWx+3q2KA29sv16+0O9RQKGjlA==}
     hasBin: true
     dependencies:
       '@docsearch/css': 3.5.1
-      '@docsearch/js': 3.5.1(@algolia/client-search@4.17.2)(search-insights@2.6.0)
+      '@docsearch/js': 3.5.1(@algolia/client-search@4.17.2)(react@18.2.0)(search-insights@2.6.0)
       '@vitejs/plugin-vue': 4.2.3(vite@4.3.9)(vue@3.3.4)
       '@vue/devtools-api': 6.5.0
       '@vueuse/core': 10.2.0(vue@3.3.4)
@@ -8419,7 +8432,3 @@ packages:
   /zwitch@2.0.4:
     resolution: {integrity: sha512-bXE4cR/kVZhKZX/RjPEflHaKVhUVl85noU3v6b8apfQEc1x4A+zBxjZ4lN8LqGd6WZ3dl98pY4o717VFmoPp+A==}
     dev: false
-
-settings:
-  autoInstallPeers: true
-  excludeLinksFromLockfile: false

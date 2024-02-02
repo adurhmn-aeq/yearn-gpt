@@ -189,7 +189,7 @@ export const AuthRegister = () => {
                 Already have an account?{" "}
                 <Link
                   to="/login"
-                  className="font-semibold leading-6 text-primary-600 hover:text-primary-500"
+                  className="font-semibold leading-6 text-primary-600 hover:text-primary-500 dark:text-primary-600 dark:hover:text-primary-500"
                 >
                   Login
                 </Link>
