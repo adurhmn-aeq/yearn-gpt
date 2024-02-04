@@ -3,9 +3,9 @@ import { Link } from "react-router-dom";
 export const DashboardNewBtn = () => {
   return (
     <div className="mb-3">
-      <div className="lg:min-h-[400px] flex flex-col sm:flex-nowrap rounded-2xl py-7 px-8">
+      <div className="lg:min-h-[400px] flex flex-col sm:flex-nowrap rounded-2xl py-2 px-8">
         <div className="flex flex-col gap-1 mb-8">
-          <h2 className="font-epilogue text-2xl font-semibold text-secondary-500 dark:text-copy-500 dark:opacity-80">
+          <h2 className="font-epilogue text-xl font-semibold text-secondary-500 dark:text-copy-500 dark:opacity-80">
             Get started with Bilic’s AI Agent
           </h2>
           <p className="font-work_sans max-w-sm text-base text-secondary-500 opacity-75 dark:opacity-50 dark:text-copy-50">
@@ -91,7 +91,7 @@ export const DashboardNewBtn = () => {
             </figure>
             <Link
               to="/new/bot"
-              className="flex justify-center items-center border-[#182032] border-[1.2px] text-secondary-400 w-full dark:text-[#74819f] dark:opacity-80 p-3 py-2 rounded-lg text-sm font-medium"
+              className="flex justify-center items-center border-secondary-100 dark:border-[#182032] border-[1.2px] text-secondary-400 w-full dark:text-[#74819f] dark:opacity-80 p-3 py-2 rounded-lg text-sm font-medium"
             >
               Create Bot
             </Link>
@@ -187,24 +187,24 @@ export const DashboardNewBtn = () => {
                 </svg>
               </div>
               <figcaption className="flex flex-col gap-1">
-                <h5 className="font-work_sans capitalize text-lg font-medium text-secondary-500 dark:text-copy-500">
+                <h5 className="font-work_sans capitalize text-lg font-medium text-secondary-500 dark:text-[#74819f] dark:opacity-70">
                   Create new agent
                 </h5>
-                <p className="font-work_sans text-sm text-secondary-500 dark:text-copy-50 opacity-80">
+                <p className="font-work_sans text-sm text-secondary-500 dark:text-[#74819f] opacity-60">
                   AI conducts the video interview questions via video stream
                 </p>
               </figcaption>
             </figure>
-            <button className="flex justify-center items-center border-secondary-100 border-[1.2px] text-secondary-400 w-full dark:text-copy-500 dark:opacity-80 p-3 py-2 rounded-lg text-sm font-medium op">
-              Create Bot
+            <button className="flex justify-center items-center border-secondary-100 dark:border-[#182032] border-[1.2px] text-secondary-400 w-full dark:text-[#74819f] dark:opacity-80 p-3 py-2 rounded-lg text-sm font-medium">
+              Create Agent
             </button>
           </div>
           {/* end Grid Card*/}
 
           {/* Start Grid Card*/}
-          <div className="bg-white dark:bg-[#121826] overflow-hidden p-5 rounded-3xl">
+          <div className="bg-white dark:bg-[#0f141f]  overflow-hidden p-5 rounded-3xl">
             <figure className="mb-5">
-              <div className="bg-[#f9f9f8] dark:bg-[#171f31] flex justify-center items-center py-6 px-4 rounded-2xl mb-5">
+              <div className="bg-[#f9f9f8] dark:bg-[#0d121c] flex justify-center items-center py-6 px-4 rounded-2xl mb-5">
                 <svg
                   width="226"
                   height="152"
@@ -217,7 +217,7 @@ export const DashboardNewBtn = () => {
                     width="225.333"
                     height="151.017"
                     rx="18"
-                    className="fill-white dark:fill-[#0e1420]"
+                    className="fill-white dark:fill-[#0f141f]"
                   />
                   <rect
                     x="19.566"
@@ -225,7 +225,7 @@ export const DashboardNewBtn = () => {
                     width="94.7422"
                     height="7.80225"
                     rx="3.90112"
-                    className="fill-[#F7F7F7] dark:fill-[#171f31]"
+                    className="fill-[#F7F7F7] dark:fill-[#111622]"
                   />
                   <rect
                     x="19.566"
@@ -233,7 +233,7 @@ export const DashboardNewBtn = () => {
                     width="195.107"
                     height="7.80225"
                     rx="3.90112"
-                    className="fill-[#F7F7F7] dark:fill-[#171f31]"
+                    className="fill-[#F7F7F7] dark:fill-[#111622]"
                   />
                   <rect
                     x="19.566"
@@ -241,7 +241,7 @@ export const DashboardNewBtn = () => {
                     width="119.804"
                     height="7.80225"
                     rx="3.90112"
-                    className="fill-[#F7F7F7] dark:fill-[#171f31]"
+                    className="fill-[#F7F7F7] dark:fill-[#111622]"
                   />
                   <rect
                     x="19.566"
@@ -249,7 +249,7 @@ export const DashboardNewBtn = () => {
                     width="119.804"
                     height="7.80225"
                     rx="3.90112"
-                    className="fill-[#F7F7F7] dark:fill-[#171f31]"
+                    className="fill-[#F7F7F7] dark:fill-[#111622]"
                   />
                   <rect
                     x="19.566"
@@ -257,7 +257,7 @@ export const DashboardNewBtn = () => {
                     width="119.804"
                     height="7.80225"
                     rx="3.90112"
-                    className="fill-[#F7F7F7] dark:fill-[#171f31]"
+                    className="fill-[#F7F7F7] dark:fill-[#111622]"
                   />
                   <rect
                     x="151.259"
@@ -265,7 +265,7 @@ export const DashboardNewBtn = () => {
                     width="63.4141"
                     height="7.80225"
                     rx="3.90112"
-                    className="fill-[#F7F7F7] dark:fill-[#171f31]"
+                    className="fill-[#F7F7F7] dark:fill-[#111622]"
                   />
                   <rect
                     x="123.34"
@@ -273,59 +273,59 @@ export const DashboardNewBtn = () => {
                     width="91.333"
                     height="7.80225"
                     rx="3.90112"
-                    className="fill-[#F7F7F7] dark:fill-[#171f31]"
+                    className="fill-[#F7F7F7] dark:fill-[#111622]"
                   />
                   <circle
                     cx="113.333"
                     cy="129.104"
                     r="7.19922"
-                    className="fill-[#F7F7F7] dark:fill-[#171f31]"
+                    className="fill-[#F7F7F7] dark:fill-[#111622]"
                   />
                   <circle
                     cx="135.457"
                     cy="129.104"
                     r="3.91309"
-                    className="fill-[#F7F7F7] dark:fill-[#171f31]"
+                    className="fill-[#F7F7F7] dark:fill-[#111622]"
                   />
                   <circle
                     cx="91.2106"
                     cy="129.104"
                     r="3.91309"
-                    className="fill-[#F7F7F7] dark:fill-[#171f31]"
+                    className="fill-[#F7F7F7] dark:fill-[#111622]"
                   />
                   <circle
                     cx="76.0748"
                     cy="129.104"
                     r="2.31543"
-                    className="fill-[#F7F7F7] dark:fill-[#171f31]"
+                    className="fill-[#F7F7F7] dark:fill-[#111622]"
                   />
                   <circle
                     cx="150.592"
                     cy="129.104"
                     r="2.31543"
-                    className="fill-[#F7F7F7] dark:fill-[#171f31]"
+                    className="fill-[#F7F7F7] dark:fill-[#111622]"
                   />
                 </svg>
               </div>
               <figcaption className="flex flex-col gap-1">
-                <h5 className="font-work_sans capitalize text-lg font-medium text-secondary-500 dark:text-copy-500">
+                <h5 className="font-work_sans capitalize text-lg font-medium text-secondary-500 dark:text-[#74819f] dark:opacity-70">
                   Audio Interview
                 </h5>
-                <p className="font-work_sans text-sm text-secondary-500 dark:text-copy-50 opacity-80">
+                <p className="font-work_sans text-sm text-secondary-500 dark:text-[#74819f] opacity-60">
                   AI conducts the video interview questions via video stream
                 </p>
               </figcaption>
             </figure>
-            <button className="flex justify-center items-center border-secondary-100 border-[1.2px] text-secondary-400 w-full dark:text-copy-500 dark:opacity-80 p-3 py-2 rounded-lg text-sm font-medium op">
-              Create Bot
+            <button className="flex justify-center items-center border-secondary-100 dark:border-[#182032] border-[1.2px] text-secondary-400 w-full dark:text-[#74819f] dark:opacity-80 p-3 py-2 rounded-lg text-sm font-medium">
+              Audio Interview
             </button>
           </div>
           {/* end Grid Card*/}
 
           {/* Start Grid Card*/}
-          <div className="bg-white dark:bg-[#121826] overflow-hidden p-5 rounded-3xl">
+          <div className="bg-white dark:bg-[#0f141f] overflow-hidden p-5 rounded-3xl">
             <figure className="mb-5">
-              <div className="bg-[#f9f9f8] dark:bg-[#171f31] flex justify-center items-center py-6 px-4 rounded-2xl mb-5">
+              <div className="bg-[#f9f9f8] dark:bg-[#0d121c] flex justify-center items-center py-6 px-4 rounded-2xl mb-5">
                 <svg
                   width="226"
                   height="152"
@@ -337,7 +337,7 @@ export const DashboardNewBtn = () => {
                     width="225.333"
                     height="151.017"
                     rx="18"
-                    className="fill-white dark:fill-[#0e1420]"
+                    className="fill-white dark:fill-[#0f141f]"
                   />
                   <rect
                     x="20.1799"
@@ -345,7 +345,7 @@ export const DashboardNewBtn = () => {
                     width="83.1299"
                     height="98.71"
                     rx="17"
-                    className="fill-[#F7F7F7] dark:fill-[#171f31]"
+                    className="fill-[#F7F7F7] dark:fill-[#111622]"
                   />
                   <rect
                     x="122.51"
@@ -353,54 +353,57 @@ export const DashboardNewBtn = () => {
                     width="83.1299"
                     height="98.71"
                     rx="17"
-                    className="fill-[#F7F7F7] dark:fill-[#171f31]"
+                    className="fill-[#F7F7F7] dark:fill-[#111622]"
                   />
                   <circle
                     cx="112.667"
                     cy="129.104"
                     r="7.19922"
-                    className="fill-[#F7F7F7] dark:fill-[#171f31]"
+                    className="fill-[#F7F7F7] dark:fill-[#111622]"
                   />
                   <circle
                     cx="134.79"
                     cy="129.104"
                     r="3.91309"
-                    className="fill-[#F7F7F7] dark:fill-[#171f31]"
+                    className="fill-[#F7F7F7] dark:fill-[#111622]"
                   />
                   <circle
                     cx="90.5439"
                     cy="129.104"
                     r="3.91309"
-                    className="fill-[#F7F7F7] dark:fill-[#171f31]"
+                    className="fill-[#F7F7F7] dark:fill-[#111622]"
                   />
                   <circle
                     cx="75.4082"
                     cy="129.104"
                     r="2.31543"
-                    className="fill-[#F7F7F7] dark:fill-[#171f31]"
+                    className="fill-[#F7F7F7] dark:fill-[#111622]"
                   />
                   <circle
                     cx="149.926"
                     cy="129.104"
                     r="2.31543"
-                    className="fill-[#F7F7F7] dark:fill-[#171f31]"
+                    className="fill-[#F7F7F7] dark:fill-[#111622]"
                   />
                 </svg>
               </div>
               <figcaption className="flex flex-col gap-1">
-                <h5 className="font-work_sans capitalize text-lg font-medium text-secondary-500 dark:text-copy-500">
-                  Video Interview
+                <h5 className="font-work_sans capitalize text-lg font-medium text-secondary-500 dark:text-[#74819f] dark:opacity-70">
+                  Create new bot
                 </h5>
-                <p className="font-work_sans text-sm text-secondary-500 dark:text-copy-50 opacity-80">
+                <p className="font-work_sans text-sm text-secondary-500 dark:text-[#74819f] opacity-60">
                   AI conducts the video interview questions via video stream
                 </p>
               </figcaption>
             </figure>
-            <button className="flex justify-center items-center border-secondary-100 border-[1.2px] text-secondary-400 w-full dark:text-copy-500 dark:opacity-80 p-3 py-2 rounded-lg text-sm font-medium op">
+            <Link
+              to="/new/bot"
+              className="flex justify-center items-center border-secondary-100 dark:border-[#182032] border-[1.2px] text-secondary-400 w-full dark:text-[#74819f] dark:opacity-80 p-3 py-2 rounded-lg text-sm font-medium"
+            >
               Create Bot
-            </button>
+            </Link>
           </div>
-          {/* end Grid Card*/}
+          {/* End Grid Card*/}
         </div>
         {/* end Welcome Grid Row*/}
         {/* <div className="ml-4 mt-2 flex-shrink-0 flex gap-3">

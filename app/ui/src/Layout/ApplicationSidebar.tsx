@@ -94,7 +94,7 @@ export const ApplicationSidebar = () => {
               <TbChevronLeft />
             </button>
           </div>
-          <div className="flex flex-col gap-[12px]">
+          <div className="flex flex-col gap-[4px]">
             <SidebarItem
               isCollapsed={isCollapsed}
               className="px-3 py-1 rounded-lg bg-white dark:bg-[#151a25]"
@@ -130,10 +130,10 @@ export const ApplicationSidebar = () => {
               </span>
             </SidebarItem>
           </div>
-          <div className="pt-6 pb-3 px-3 text-xs uppercase text-secondary-300">
+          <div className="pt-6 pb-3 px-2 text-xs uppercase text-secondary-500 dark:text-copy-500 dark:opacity-40 font-medium">
             <p>Agents</p>
           </div>
-          <div className="flex flex-col gap-[12px]">
+          <div className="flex flex-col gap-[4px]">
             <SidebarItem
               isCollapsed={isCollapsed}
               className="px-3 py-1"
@@ -225,10 +225,10 @@ export const ApplicationSidebar = () => {
               </span>
             </SidebarItem>
           </div>
-          <div className="pt-6 pb-3 px-3 text-xs uppercase text-secondary-300">
+          <div className="pt-6 pb-3 px-2 text-xs uppercase text-secondary-500 dark:text-copy-500 dark:opacity-40 font-medium">
             <p>Agents</p>
           </div>
-          <div className="flex flex-col gap-[12px]">
+          <div className="flex flex-col gap-[4px]">
             {/* <SidebarItem
               isCollapsed={isCollapsed}
               className="px-2 py-1"
@@ -361,10 +361,10 @@ export const ApplicationSidebar = () => {
               </span>
             </SidebarItem>
           </div>
-          <div className="pt-6 pb-3 px-3 text-xs text-secondary-300 uppercase">
+          <div className="pt-6 pb-3 px-2 text-xs uppercase text-secondary-500 dark:text-copy-500 dark:opacity-40 font-medium">
             <p>Account</p>
           </div>
-          <div className="flex flex-col gap-[12px]">
+          <div className="flex flex-col gap-[4px]">
             <SidebarItem
               isCollapsed={isCollapsed}
               className="px-3 py-1"

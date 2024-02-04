@@ -70,7 +70,7 @@ export default function DashboardLayout({
                           <Menu as="div" className="relative ml-3">
                             <div>
                               <Menu.Button className="flex gap-2">
-                                <h1 className="text-slate-800 text-sm font-work_sans">
+                                <h1 className="text-secondary-500 dark:text-copy-500 dark:opacity-40 text-sm font-work_sans">
                                   Credits:
                                 </h1>
                                 <h1 className="text-green-800 text-sm">
