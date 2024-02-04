@@ -15,7 +15,7 @@ export default function Root() {
   }, []);
 
   return (
-    <div className="mx-auto py-10 max-w-7xl px-3 sm:px-6 lg:px-8">
+    <div className="mx-auto py-4 px-3 sm:px-6 lg:px-4">
       {/* Create Bot Button */}
       <DashboardNewBtn />
       <DashboardGrid />
