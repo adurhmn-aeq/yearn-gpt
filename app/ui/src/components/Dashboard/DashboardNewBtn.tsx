@@ -90,7 +90,7 @@ export const DashboardNewBtn = () => {
               </figcaption>
             </figure>
             <Link
-              href="/dashboard/questions/type"
+              to="/new/bot"
               type="button"
               className="relative flex flex-shrink-0 justify-center items-center rounded-full h-10 w-auto overflow-clip px-6 py-1 bg-secondary-500 text-sm text-white font-work_sans font-semibold border border-[#404040] min-w-[160px] shadow-[0_1px_2px_0_rgb(5,8,2,0.48),0_0_0_1px_rgb(5,8,2,1.0)]"
             >

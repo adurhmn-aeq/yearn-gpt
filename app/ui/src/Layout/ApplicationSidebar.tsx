@@ -72,7 +72,7 @@ export const ApplicationSidebar = () => {
                 <svg
                   viewBox="0 0 24 24"
                   fill="none"
-                  className={`w-6 h-6 cursor-pointer absolute end-0 top-[8px]`}
+                  className={`w-6 h-6 cursor-pointer absolute end-0 top-[9px]`}
                   onClick={() => setIsCollapsed((s) => !s)}
                 >
                   <path
@@ -260,45 +260,45 @@ export const ApplicationSidebar = () => {
                   >
                     <path
                       d="M18.3333 8.68278V7.84945C18.3333 3.68278 16.6667 2.01611 12.5 2.01611H7.49999C3.33332 2.01611 1.66666 3.68278 1.66666 7.84945V12.8494C1.66666 17.0161 3.33332 18.6828 7.49999 18.6828H9.16666"
-                      className="stroke-[#020617] dark:stroke-copy-50 dark:opacity-60"
-                      strokeWidth="1.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
+                      stroke="#020617"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
                     />
                     <path
                       d="M10.3841 15.8312V13.8607C10.3841 13.6322 10.4984 13.4189 10.6886 13.2925L13.4016 11.4891C13.583 11.3685 13.8256 11.4986 13.8256 11.7164V18.1466C13.8256 18.3697 13.5725 18.4985 13.3921 18.3673L10.6649 16.3828C10.4884 16.2544 10.3841 16.0494 10.3841 15.8312Z"
-                      className="stroke-[#020617] dark:stroke-copy-50 dark:opacity-60"
-                      strokeWidth="1.5"
+                      stroke="#020617"
+                      stroke-width="1.5"
                     />
                     <path
                       d="M15.7565 16.3238C16.1449 16.0628 16.4044 15.5378 16.391 14.9236C16.3833 14.313 16.1037 13.7947 15.7054 13.546"
-                      className="stroke-[#020617] dark:stroke-copy-50 dark:opacity-60"
-                      strokeWidth="1.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
+                      stroke="#020617"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
                     />
                     <path
                       d="M17.1308 17.988C17.9049 17.299 18.4005 16.1633 18.3787 14.8908C18.3568 13.6183 17.8183 12.5006 17.0192 11.8364"
-                      className="stroke-[#020617] dark:stroke-copy-50 dark:opacity-60"
-                      strokeWidth="1.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
+                      stroke="#020617"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
                     />
                     <path
                       d="M6.05832 10.3494H10.225"
-                      className="stroke-[#020617] dark:stroke-copy-50 dark:opacity-60"
-                      strokeWidth="1.5"
-                      strokeMiterlimit="10"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
+                      stroke="#020617"
+                      stroke-width="1.5"
+                      stroke-miterlimit="10"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
                     />
                     <path
                       d="M6.05832 7.01611H14.7098"
-                      className="stroke-[#020617] dark:stroke-copy-50 dark:opacity-60"
-                      strokeWidth="1.5"
-                      strokeMiterlimit="10"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
+                      stroke="#020617"
+                      stroke-width="1.5"
+                      stroke-miterlimit="10"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
                     />
                   </svg>
                 </>
