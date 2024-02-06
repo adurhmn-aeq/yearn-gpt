@@ -11,12 +11,10 @@ import {
   ChatBubbleLeftRightIcon,
 } from "@heroicons/react/24/outline";
 
-import api from "../services/api";
 import { Link, useParams, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import { Spin, Tooltip } from "antd";
+import { Tooltip } from "antd";
 import Avatar from "../components/Common/Avatar";
-import { useQuery } from "@tanstack/react-query";
 
 const navigation = [
   {
@@ -75,12 +73,12 @@ export default function CreditLayout({
     }
   }, [isLogged]);
 
-  const { data } = useQuery(["fetchCredits"], async () => {
-    const response = await api.get("/credit");
-    return response.data as {
-      credits?: number;
-    };
-  });
+  // const { data } = useQuery(["fetchCredits"], async () => {
+  //   const response = await api.get("/credit");
+  //   return response.data as {
+  //     credits?: number;
+  //   };
+  // });
 
   return (
     <>

@@ -1,16 +1,7 @@
 "use client";
 
 import { PropsWithChildren, useState } from "react";
-import {
-  LuBarChart4,
-  LuBuilding2,
-  LuGalleryVertical,
-  LuInbox,
-  LuSettings,
-  LuUsers,
-} from "react-icons/lu";
-import { TbChevronLeft, TbDirection } from "react-icons/tb";
-import Logo from "../assets/bilic.svg";
+import { TbChevronLeft } from "react-icons/tb";
 
 type SidebarItemProps = {
   isCollapsed: boolean;

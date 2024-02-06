@@ -14,9 +14,7 @@ import {
 import { Link, useParams, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { ApplicationMenu } from "./ApplicationMenu";
-import api from "../services/api";
-import { Spin, Tooltip } from "antd";
-import { useQuery } from "@tanstack/react-query";
+import { Tooltip } from "antd";
 
 const navigation = [
   {
@@ -75,12 +73,12 @@ export default function BotPlaygroundLayout({
     }
   }, [isLogged]);
 
-  const { data } = useQuery(["fetchCredits"], async () => {
-    const response = await api.get("/credit");
-    return response.data as {
-      credits?: number;
-    };
-  });
+  // const { data } = useQuery(["fetchCredits"], async () => {
+  //   const response = await api.get("/credit");
+  //   return response.data as {
+  //     credits?: number;
+  //   };
+  // });
 
   return (
     <>

@@ -1,19 +1,15 @@
-import { Disclosure, Menu, Transition } from "@headlessui/react";
-import React, { Fragment } from "react";
+import { Disclosure } from "@headlessui/react";
+import React from "react";
 import { useAuth } from "../context/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
 import Avatar from "../components/Common/Avatar";
 import { ApplicationMenu } from "./ApplicationMenu";
-import { useQuery } from "@tanstack/react-query";
-import api from "../services/api";
-import { Spin } from "antd";
 import { ApplicationSidebar } from "./ApplicationSidebar";
-import { InformationCircleIcon } from "@heroicons/react/24/outline";
 
 //@ts-ignore
-function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
-}
+// function classNames(...classes) {
+//   return classes.filter(Boolean).join(" ");
+// }
 
 export default function DashboardLayout({
   children,
@@ -30,12 +26,12 @@ export default function DashboardLayout({
     }
   }, [isLogged, navigate]);
 
-  const { data } = useQuery(["fetchCredits"], async () => {
-    const response = await api.get("/credit");
-    return response.data as {
-      credits?: number;
-    };
-  });
+  // const { data } = useQuery(["fetchCredits"], async () => {
+  //   const response = await api.get("/credit");
+  //   return response.data as {
+  //     credits?: number;
+  //   };
+  // });
 
   return (
     <>
