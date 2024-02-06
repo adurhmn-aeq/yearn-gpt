@@ -109,6 +109,7 @@ model User {
   agents          Agent[]
   sessions        Session[]
   inventory       Inventory?
+  stripe          Stripe?
 }
 
 model Inventory {
@@ -119,6 +120,16 @@ model Inventory {
   total_credits_purchased Int    @default(0)
   total_credits_spent     Int    @default(0)
   credit_balance          Int    @default(500)
+}
+
+model Stripe {
+  id              String @id @default(uuid())
+  customerId      String @unique
+  user_id         Int    @unique
+  user            User   @relation(fields: [user_id], references: [user_id])
+  active_plan     String @default("")
+  subscription_id String @default("")
+  line_item_id    String @default("")
 }
 
 model DialoqbaseSettings {

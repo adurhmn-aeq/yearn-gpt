@@ -30,6 +30,7 @@ import NewAgent from "./routes/new/agent";
 import AgentPreview from "./routes/agent/preview";
 import SessionScreen from "./routes/session/attend";
 import SessionLayout from "./Layout/SessionLayout";
+import PricingRoot from "./routes/pricing/root";
 
 const router = createHashRouter([
   {
@@ -208,6 +209,14 @@ const router = createHashRouter([
   {
     path: "/register",
     element: <RegisterRoot />,
+  },
+  {
+    path: "/pricing",
+    element: (
+      <DashboardLayout>
+        <PricingRoot />
+      </DashboardLayout>
+    ),
   },
 ]);
 const queryClient = new QueryClient({});

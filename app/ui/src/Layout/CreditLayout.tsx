@@ -257,7 +257,13 @@ export default function CreditLayout({
 
             <div className="flex flex-1 justify-end px-4">
               <div className="ml-4 flex items-center md:ml-6 gap-4">
-                <div className="flex gap-2">
+                <Link
+                  to="/pricing"
+                  className="focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-700 flex items-center px-3 dark:text-white"
+                >
+                  <h1 className="text-slate-800 text-sm">Pricing</h1>
+                </Link>
+                {/* <div className="flex gap-2">
                   <h1 className="text-slate-800 text-sm">CREDITS:</h1>
                   <h1 className="text-green-800 text-sm">
                     {typeof data?.credits === "number" ? (
@@ -266,7 +272,7 @@ export default function CreditLayout({
                       <Spin />
                     )}
                   </h1>
-                </div>
+                </div> */}
                 <Menu as="div" className="relative ml-3">
                   <div>
                     <Menu.Button className="flex max-w-xs items-center rounded-full bg-white text-sm">

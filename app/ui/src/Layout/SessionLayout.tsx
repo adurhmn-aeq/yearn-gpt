@@ -31,57 +31,6 @@ export default function SessionLayout({
                       {`v${__APP_VERSION__}`}
                     </span>
                   </button>
-                  {/* <div className=" ml-6 flex items-center gap-4">
-                    <Menu as="div" className="relative ml-3">
-                      <div>
-                        <Menu.Button className="flex gap-2">
-                          <h1 className="text-slate-800 text-sm">CREDITS:</h1>
-                          <h1 className="text-green-800 text-sm">
-                            {typeof data?.credits === "number" ? (
-                              data!.credits
-                            ) : (
-                              <Spin />
-                            )}
-                          </h1>
-                        </Menu.Button>
-                      </div>
-                      <Transition
-                        as={Fragment}
-                        enter="transition ease-out duration-200"
-                        enterFrom="transform opacity-0 scale-95"
-                        enterTo="transform opacity-100 scale-100"
-                        leave="transition ease-in duration-75"
-                        leaveFrom="transform opacity-100 scale-100"
-                        leaveTo="transform opacity-0 scale-95"
-                      >
-                        <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                          <Menu.Item>
-                            <div className="px-4 py-2">
-                              <p className="inline-block text-sm text-gray-700">
-                                <InformationCircleIcon className="w-4 h-4 inline-block text-blue-500 mr-1" />
-                                Credits are used to create new bots, keep bots
-                                running, add new data source etc.
-                              </p>
-                            </div>
-                          </Menu.Item>
-                          <Menu.Item>
-                            {({ active }) => (
-                              <Link
-                                className={classNames(
-                                  active ? "bg-gray-100" : "",
-                                  "block px-4 py-2 text-sm text-gray-700"
-                                )}
-                                to="/credit"
-                              >
-                                Buy Credits
-                              </Link>
-                            )}
-                          </Menu.Item>
-                        </Menu.Items>
-                      </Transition>
-                    </Menu>
-                    <ApplicationMenu />
-                  </div> */}
                 </div>
               </div>
 

@@ -11,12 +11,11 @@ import {
   apiKeyValidaton,
   apiKeyValidatonMessage,
 } from "../../../../../utils/validate";
-import { getInventory, getSettings } from "../../../../../utils/common";
+import { getSettings } from "../../../../../utils/common";
 import {
   HELPFUL_ASSISTANT_WITH_CONTEXT_PROMPT,
   HELPFUL_ASSISTANT_WITHOUT_CONTEXT_PROMPT,
 } from "../../../../../utils/prompts";
-import { CreditsNeeded } from "../../../../../utils/credits";
 
 export const createBotHandler = async (
   request: FastifyRequest<CreateBotRequest>,
@@ -32,12 +31,12 @@ export const createBotHandler = async (
 
   const prisma = request.server.prisma;
 
-  const inventory = await getInventory(prisma, request.user.user_id);
-  if (inventory.credit_balance < CreditsNeeded.BOT_CREATE) {
-    return reply.status(400).send({
-      message: `Not enough credits. Credits Remaining: ${inventory.credit_balance}. Credits Needed: ${CreditsNeeded.BOT_CREATE}`,
-    });
-  }
+  // const inventory = await getInventory(prisma, request.user.user_id);
+  // if (inventory.credit_balance < CreditsNeeded.BOT_CREATE) {
+  //   return reply.status(400).send({
+  //     message: `Not enough credits. Credits Remaining: ${inventory.credit_balance}. Credits Needed: ${CreditsNeeded.BOT_CREATE}`,
+  //   });
+  // }
 
   // only non-admin users are affected by this settings
   const settings = await getSettings(prisma);
@@ -151,13 +150,13 @@ export const createBotHandler = async (
         options: request.body.options,
       },
     ]);
-    // consume credits (todo: consume based on data source instead of botcreation)
-    await prisma.inventory.update({
-      where: { user_id: request.user.user_id },
-      data: {
-        credit_balance: { decrement: CreditsNeeded.BOT_CREATE },
-      },
-    });
+    // // consume credits (todo: consume based on data source instead of botcreation)
+    // await prisma.inventory.update({
+    //   where: { user_id: request.user.user_id },
+    //   data: {
+    //     credit_balance: { decrement: CreditsNeeded.BOT_CREATE },
+    //   },
+    // });
     return {
       id: bot.id,
     };

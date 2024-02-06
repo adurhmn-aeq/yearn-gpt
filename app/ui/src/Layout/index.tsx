@@ -65,7 +65,13 @@ export default function DashboardLayout({
                     </span>
                   </Link>
                   <div className=" ml-6 flex items-center gap-4">
-                    <Menu as="div" className="relative ml-3">
+                    <Link
+                      to="/pricing"
+                      className="focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-700 flex items-center px-3 dark:text-white"
+                    >
+                      <h1 className="text-slate-800 text-sm">Pricing</h1>
+                    </Link>
+                    {/* <Menu as="div" className="relative ml-3">
                       <div>
                         <Menu.Button className="flex gap-2">
                           <h1 className="text-slate-800 text-sm">CREDITS:</h1>
@@ -112,7 +118,7 @@ export default function DashboardLayout({
                           </Menu.Item>
                         </Menu.Items>
                       </Transition>
-                    </Menu>
+                    </Menu> */}
                     <ApplicationMenu />
                   </div>
                 </div>

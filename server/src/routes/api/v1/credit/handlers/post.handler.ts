@@ -1,10 +1,9 @@
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 import { FastifyReply, FastifyRequest } from "fastify";
-import { CreditCheckout } from "./types";
 import Stripe from "stripe";
 
 export const creditWebhookHandler = async (
-  request: FastifyRequest<CreditCheckout>,
+  request: FastifyRequest,
   reply: FastifyReply
 ) => {
   let event: Stripe.Event;

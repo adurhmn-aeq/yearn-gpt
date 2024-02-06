@@ -8,14 +8,13 @@ import {
 import * as bcrypt from "bcryptjs";
 import { getSettings } from "../../../../utils/common";
 import { getGoogleOAuthTokens, getGoogleUser } from "../../../../utils/oauth";
+import { createCustomer } from "../../../../utils/stripe";
 
 export const userLoginHandler = async (
   request: FastifyRequest<ChatRequestBody>,
   reply: FastifyReply
 ) => {
   const { username, password, googleOAuthCode } = request.body;
-
-  console.log({ username, password, googleOAuthCode });
 
   if (googleOAuthCode) {
     const result = await getGoogleOAuthTokens({ code: googleOAuthCode });
@@ -73,6 +72,18 @@ export const userLoginHandler = async (
           inventory: {
             create: {},
           },
+        },
+      });
+
+      const customer = await createCustomer({
+        email: userGoogleData.email,
+        userName: userGoogleData.email,
+        userId: newUser.user_id.toString(),
+      });
+      await prisma.stripe.create({
+        data: {
+          user_id: newUser.user_id,
+          customerId: customer!.id,
         },
       });
 
@@ -311,6 +322,18 @@ export const registerUserHandler = async (
         inventory: {
           create: {},
         },
+      },
+    });
+
+    const customer = await createCustomer({
+      email: request.body.email,
+      userName: user.username,
+      userId: user.user_id.toString(),
+    });
+    await prisma.stripe.create({
+      data: {
+        user_id: user.user_id,
+        customerId: customer!.id,
       },
     });
 
