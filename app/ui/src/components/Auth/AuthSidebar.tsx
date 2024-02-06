@@ -4,6 +4,7 @@ import LoginBgOne from "../../assets/Ball-4.png";
 import LoginBgTwo from "../../assets/Ball-1.png";
 import LoginBgThree from "../../assets/Ball-2.png";
 import LoginBgFour from "../../assets/Ball-3.png";
+import Logo from "../../assets/bilic.svg";
 import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
@@ -20,8 +21,9 @@ export const AuthSidebar: React.FC<AuthSidebarProps> = ({
 }) => {
   return (
     <div className="relative min-h-full hidden lg:block lg:w-[560px] overflow-hidden isolate bg-[#f3fff4]">
-      <div className="absolute mt-24 ms-8 ">
-        <h4 className="text-3xl font-normal font-work_sans max-w-[360px]">
+      <div className="absolute mt-8 ms-8">
+        <img src={Logo} alt="" role="logo" className="w-12 mb-3" />
+        <h4 className="text-3xl font-normal font-work_sans max-w-[360px] leading-[1.2]">
           {heading}
         </h4>
       </div>
