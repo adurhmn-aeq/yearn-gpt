@@ -72,14 +72,14 @@ export const ApplicationSidebar = () => {
                 <svg
                   viewBox="0 0 24 24"
                   fill="none"
-                  className={`w-6 h-6 cursor-pointer absolute end-0 top-[9px]`}
+                  className={`w-5 h-5 cursor-pointer absolute end-0 top-[10px]`}
                   onClick={() => setIsCollapsed((s) => !s)}
                 >
                   <path
                     fillRule="evenodd"
                     clipRule="evenodd"
                     d="M5 4a1 1 0 00-1 1v14a1 1 0 001 1h3V4H5zm4-2H5a3 3 0 00-3 3v14a3 3 0 003 3h14a3 3 0 003-3V5a3 3 0 00-3-3H9zm1 2v16h9a1 1 0 001-1V5a1 1 0 00-1-1h-9zm6.707 10.707a1 1 0 000-1.414L15.414 12l1.293-1.293a1 1 0 00-1.414-1.414l-2 2a1 1 0 000 1.414l2 2a1 1 0 001.414 0z"
-                    fill="currentColor"
+                    className="fill-[#020617] dark:fill-copy-50 dark:opacity-70"
                   ></path>
                 </svg>
               </div>
@@ -259,46 +259,35 @@ export const ApplicationSidebar = () => {
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
-                      d="M18.3333 8.68278V7.84945C18.3333 3.68278 16.6667 2.01611 12.5 2.01611H7.49999C3.33332 2.01611 1.66666 3.68278 1.66666 7.84945V12.8494C1.66666 17.0161 3.33332 18.6828 7.49999 18.6828H9.16666"
-                      stroke="#020617"
-                      stroke-width="1.5"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
+                      d="M18.3333 9.25968V8.42635C18.3333 4.25968 16.6667 2.59302 12.5 2.59302H7.50001C3.33334 2.59302 1.66667 4.25968 1.66667 8.42635V13.4264C1.66667 17.593 3.33334 19.2597 7.50001 19.2597H9.16667"
+                      className="stroke-[#020617] dark:stroke-copy-50 dark:opacity-60"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
                     />
                     <path
-                      d="M10.3841 15.8312V13.8607C10.3841 13.6322 10.4984 13.4189 10.6886 13.2925L13.4016 11.4891C13.583 11.3685 13.8256 11.4986 13.8256 11.7164V18.1466C13.8256 18.3697 13.5725 18.4985 13.3921 18.3673L10.6649 16.3828C10.4884 16.2544 10.3841 16.0494 10.3841 15.8312Z"
-                      stroke="#020617"
-                      stroke-width="1.5"
-                    />
-                    <path
-                      d="M15.7565 16.3238C16.1449 16.0628 16.4044 15.5378 16.391 14.9236C16.3833 14.313 16.1037 13.7947 15.7054 13.546"
-                      stroke="#020617"
-                      stroke-width="1.5"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                    <path
-                      d="M17.1308 17.988C17.9049 17.299 18.4005 16.1633 18.3787 14.8908C18.3568 13.6183 17.8183 12.5006 17.0192 11.8364"
-                      stroke="#020617"
-                      stroke-width="1.5"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
+                      d="M11.75 15.093V13.8597C11.75 12.268 12.875 11.6263 14.25 12.418L15.3167 13.0347L16.3833 13.6513C17.7583 14.443 17.7583 15.743 16.3833 16.5347L15.3167 17.1513L14.25 17.768C12.875 18.5597 11.75 17.9097 11.75 16.3263V15.093Z"
+                      className="stroke-[#020617] dark:stroke-copy-50 dark:opacity-60"
+                      strokeWidth="1.5"
+                      strokeMiterlimit="10"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
                     />
                     <path
                       d="M6.05832 10.3494H10.225"
-                      stroke="#020617"
-                      stroke-width="1.5"
-                      stroke-miterlimit="10"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
+                      className="stroke-[#020617] dark:stroke-copy-50 dark:opacity-60"
+                      strokeWidth="1.5"
+                      strokeMiterlimit="10"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
                     />
                     <path
                       d="M6.05832 7.01611H14.7098"
-                      stroke="#020617"
-                      stroke-width="1.5"
-                      stroke-miterlimit="10"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
+                      className="stroke-[#020617] dark:stroke-copy-50 dark:opacity-60"
+                      strokeWidth="1.5"
+                      strokeMiterlimit="10"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
                     />
                   </svg>
                 </>
