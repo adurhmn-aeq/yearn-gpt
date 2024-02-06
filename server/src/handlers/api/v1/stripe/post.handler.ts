@@ -27,7 +27,10 @@ export const webhookHandler = async (
       const customerSubscriptionUpdated = event.data
         .object as Stripe.Subscription;
 
-      if (customerSubscriptionUpdated.status === "active") {
+      if (
+        customerSubscriptionUpdated.status === "active" ||
+        customerSubscriptionUpdated.status === "past_due"
+      ) {
         // creation + plan change
         await prisma.stripe.updateMany({
           where: { customerId: customerSubscriptionUpdated.customer as string },
@@ -38,6 +41,7 @@ export const webhookHandler = async (
             line_item_id: customerSubscriptionUpdated?.items?.data[0]?.id || "",
             subscription_id:
               customerSubscriptionUpdated?.items?.data[0]?.subscription || "",
+            plan_status: customerSubscriptionUpdated.status,
           },
         });
       } else if (customerSubscriptionUpdated.status === "canceled") {
@@ -48,6 +52,7 @@ export const webhookHandler = async (
             active_plan: "",
             line_item_id: "",
             subscription_id: "",
+            plan_status: "",
           },
         });
       }

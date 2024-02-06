@@ -71,11 +71,13 @@ function Plan({
   onAction,
   isLoading,
   activePlan,
+  planStatus,
 }: {
   lookup: PlanLookup;
   onAction: UseMutateAsyncFunction<any, any, string | undefined, unknown>;
   isLoading: boolean;
   activePlan: PlanLookup | "";
+  planStatus?: "active" | "past_due";
 }) {
   return (
     <div className="divide-y divide-zinc-400 rounded-lg bg-zinc-100 shadow-sm ">
@@ -85,11 +87,16 @@ function Plan({
             <h2 className="text-2xl font-semibold leading-6 text-black">
               {PlanInfo.titles[lookup]}
             </h2>
-            {activePlan === lookup && (
-              <div className="bg-green-200 ring-1 ring-green-700 text-green-700 py-1 px-2 rounded-full text-[12px]">
-                Active
-              </div>
-            )}
+            {activePlan === lookup &&
+              (planStatus === "active" ? (
+                <div className="bg-green-200 ring-1 ring-green-700 text-green-700 py-1 px-2 rounded-full text-[12px]">
+                  Active
+                </div>
+              ) : planStatus === "past_due" ? (
+                <div className="bg-red-200 ring-1 ring-red-700 text-red-700 py-1 px-2 rounded-full text-[12px]">
+                  Past Due
+                </div>
+              ) : null)}
           </div>
           <div className="py-4">
             {PlanInfo.features[lookup].map((feature, ind) => (
@@ -136,6 +143,7 @@ export default function Subscription() {
     const response = await api.get("/stripe/subscription/fetch");
     return response.data as {
       active_plan: PlanLookup | "";
+      plan_status: "active" | "past_due";
     };
   });
 
@@ -174,6 +182,7 @@ export default function Subscription() {
       <div className="flex gap-8 flex-wrap py-12 items-center justify-center">
         <Plan
           activePlan={data?.active_plan || ""}
+          planStatus={data?.plan_status}
           isLoading={isLoading}
           onAction={mutateAsync}
           lookup={
@@ -184,6 +193,7 @@ export default function Subscription() {
         />
         <Plan
           activePlan={data?.active_plan || ""}
+          planStatus={data?.plan_status}
           isLoading={isLoading}
           onAction={mutateAsync}
           lookup={
@@ -194,6 +204,7 @@ export default function Subscription() {
         />
         <Plan
           activePlan={data?.active_plan || ""}
+          planStatus={data?.plan_status}
           isLoading={isLoading}
           onAction={mutateAsync}
           lookup={

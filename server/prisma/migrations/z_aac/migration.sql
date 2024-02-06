@@ -6,6 +6,7 @@ CREATE TABLE "Stripe" (
     "active_plan" TEXT NOT NULL DEFAULT '',
     "subscription_id" TEXT NOT NULL DEFAULT '',
     "line_item_id" TEXT NOT NULL DEFAULT '',
+    "plan_status" TEXT NOT NULL DEFAULT '',
 
     CONSTRAINT "Stripe_pkey" PRIMARY KEY ("id")
 );

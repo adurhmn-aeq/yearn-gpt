@@ -81,6 +81,7 @@ export const getSubscriptionHandler = async (
 
   return {
     active_plan: stripe.active_plan,
+    plan_status: stripe.plan_status,
   };
 };
 

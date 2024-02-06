@@ -130,6 +130,7 @@ model Stripe {
   active_plan     String @default("")
   subscription_id String @default("")
   line_item_id    String @default("")
+  plan_status     String @default("")
 }
 
 model DialoqbaseSettings {
