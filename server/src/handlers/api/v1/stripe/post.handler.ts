@@ -1,6 +1,7 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import Stripe from "stripe";
 import {
+  BotLimit,
   MessageCredits,
   PlanLookup,
   getStripe,
@@ -30,6 +31,11 @@ export const webhookHandler = async (
       // handles creation + plan switch + deletion
       const customerSubscriptionUpdated = event.data
         .object as Stripe.Subscription;
+      const allowedBots =
+        BotLimit[
+          customerSubscriptionUpdated!.items!.data[0]!.price
+            .lookup_key as PlanLookup
+        ];
 
       if (
         customerSubscriptionUpdated.status === "active" ||
@@ -48,6 +54,51 @@ export const webhookHandler = async (
             plan_status: customerSubscriptionUpdated.status,
           },
         });
+        // enable / disable bots according to new plan
+        if (customerSubscriptionUpdated.status === "active") {
+          const stripe = await prisma.stripe.findFirst({
+            where: {
+              customerId: customerSubscriptionUpdated.customer as string,
+            },
+          });
+
+          const enabledBots = await prisma.bot.findMany({
+            where: { user_id: stripe?.user_id, disabled: false },
+            select: { id: true },
+          });
+          const disabledBots = await prisma.bot.findMany({
+            where: { user_id: stripe?.user_id, disabled: true },
+            select: { id: true },
+          });
+          if (enabledBots.length > allowedBots) {
+            console.log("disable bots");
+            await prisma.bot.updateMany({
+              where: {
+                id: {
+                  in: enabledBots
+                    .slice(0, enabledBots.length - allowedBots)
+                    .map((b) => b.id),
+                },
+              },
+              data: { disabled: true },
+            });
+          } else if (enabledBots.length < allowedBots) {
+            console.log("enable bots");
+            await prisma.bot.updateMany({
+              where: {
+                id: {
+                  in: disabledBots
+                    .slice(0, allowedBots - enabledBots.length)
+                    .map((b) => b.id),
+                },
+              },
+              data: { disabled: false },
+            });
+          }
+        }
+        // disable all bots
+        if (customerSubscriptionUpdated.status === "past_due")
+          await prisma.bot.updateMany({ where: {}, data: { disabled: true } });
       } else if (customerSubscriptionUpdated.status === "canceled") {
         // deletion
         await prisma.stripe.updateMany({
@@ -60,6 +111,8 @@ export const webhookHandler = async (
             message_credits_remaining: 0,
           },
         });
+        // disable all bots
+        await prisma.bot.updateMany({ where: {}, data: { disabled: true } });
       }
       console.log("handled customer.subscription.updated");
       break;
@@ -70,6 +123,7 @@ export const webhookHandler = async (
       const lookup = invoicePaid.lines!.data[0]!.price!.lookup_key;
 
       if (lookup) {
+        // reset message credits according to new plan
         await prisma.stripe.updateMany({
           where: { customerId: invoicePaid.customer as string },
           data: {

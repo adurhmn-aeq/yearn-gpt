@@ -16,6 +16,7 @@ import {
   HELPFUL_ASSISTANT_WITH_CONTEXT_PROMPT,
   HELPFUL_ASSISTANT_WITHOUT_CONTEXT_PROMPT,
 } from "../../../../../utils/prompts";
+import { canCreateBot } from "../../../../../utils/stripe";
 
 export const createBotHandler = async (
   request: FastifyRequest<CreateBotRequest>,
@@ -37,6 +38,11 @@ export const createBotHandler = async (
   //     message: `Not enough credits. Credits Remaining: ${inventory.credit_balance}. Credits Needed: ${CreditsNeeded.BOT_CREATE}`,
   //   });
   // }
+
+  const [canCreate, message] = await canCreateBot(prisma, request.user.user_id);
+  if (!canCreate) {
+    return reply.status(400).send({ message });
+  }
 
   // only non-admin users are affected by this settings
   const settings = await getSettings(prisma);

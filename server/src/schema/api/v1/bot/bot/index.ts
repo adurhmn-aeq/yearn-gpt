@@ -154,6 +154,9 @@ export const updateBotByIdSchema: FastifySchema = {
       bot_protect: {
         type: "boolean",
       },
+      disabled: {
+        type: "boolean",
+      },
       use_rag: {
         type: "boolean",
       },

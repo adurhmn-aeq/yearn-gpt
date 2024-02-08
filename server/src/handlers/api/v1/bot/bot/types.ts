@@ -37,7 +37,6 @@ export interface AddNewPDFById {
 }
 
 export interface UploadPDF {
-
   Querystring: {
     embedding: string;
     model: string;
@@ -65,7 +64,8 @@ export interface UpdateBotById {
     showRef: boolean;
     use_hybrid_search: boolean;
     bot_protect: boolean;
+    disabled: boolean;
     use_rag: boolean;
-    bot_model_api_key: string
+    bot_model_api_key: string;
   };
 }

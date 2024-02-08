@@ -126,6 +126,7 @@ export const SettingsCard: React.FC<BotSettings> = ({
             showRef: data.showRef,
             use_hybrid_search: data.use_hybrid_search,
             bot_protect: data.bot_protect,
+            disabled: data.disabled,
             use_rag: data.use_rag,
             bot_model_api_key: data.bot_model_api_key,
           }}
@@ -173,7 +174,7 @@ export const SettingsCard: React.FC<BotSettings> = ({
                     showSearch
                     filterOption={(input, option) =>
                       (option?.label
-                        ? option?.label?.toLowerCase()
+                        ? option!.label!.toLowerCase()
                         : ""
                       ).includes(input?.toLowerCase())
                     }
@@ -296,6 +297,15 @@ export const SettingsCard: React.FC<BotSettings> = ({
                   label="Activate Public Bot Protection"
                   valuePropName="checked"
                   tooltip="This will activate the public bot protection using session to avoid misuse of the bot"
+                >
+                  <Switch />
+                </Form.Item>
+
+                <Form.Item
+                  name="disabled"
+                  label="Disable Bot"
+                  valuePropName="checked"
+                  // tooltip="To enable bot, please subscribe to our pricing plan"
                 >
                   <Switch />
                 </Form.Item>

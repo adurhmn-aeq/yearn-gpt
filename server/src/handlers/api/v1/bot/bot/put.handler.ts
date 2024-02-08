@@ -4,6 +4,7 @@ import {
   apiKeyValidaton,
   apiKeyValidatonMessage,
 } from "../../../../../utils/validate";
+import { BotLimit, PlanLookup, PlanStatus } from "../../../../../utils/stripe";
 
 export const updateBotByIdHandler = async (
   request: FastifyRequest<UpdateBotById>,
@@ -53,6 +54,27 @@ export const updateBotByIdHandler = async (
     return reply.status(400).send({
       message: "Streaming is not supported for this model",
     });
+  }
+
+  const stripe = await prisma.stripe.findFirst({
+    where: { user_id: request.user.user_id },
+  });
+
+  if (stripe) {
+    const botsCount = await prisma.bot.count({
+      where: { user_id: request.user.user_id, disabled: false },
+    });
+
+    if (
+      !request.body.disabled &&
+      (stripe.plan_status === PlanStatus.PAST_DUE ||
+        botsCount === BotLimit[stripe.active_plan as PlanLookup])
+    ) {
+      return reply.status(400).send({
+        message:
+          "Bot enable permission revoked. Please check if you are a subscriber.",
+      });
+    }
   }
 
   await prisma.bot.update({

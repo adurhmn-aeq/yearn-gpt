@@ -1,3 +1,4 @@
+import { PrismaClient } from "@prisma/client";
 import Stripe from "stripe";
 
 export const getStripe = () => {
@@ -108,4 +109,38 @@ export const MessageCredits = {
   [PlanLookup.STARTUP_YEARLY]: 300,
   [PlanLookup.ENTERPRISE_MONTHLY]: 1000,
   [PlanLookup.ENTERPRISE_YEARLY]: 1000,
+};
+
+export const BotLimit = {
+  [PlanLookup.HOBBY_MONTHLY]: 2,
+  [PlanLookup.HOBBY_YEARLY]: 2,
+  [PlanLookup.STARTUP_MONTHLY]: 5,
+  [PlanLookup.STARTUP_YEARLY]: 5,
+  [PlanLookup.ENTERPRISE_MONTHLY]: 10,
+  [PlanLookup.ENTERPRISE_YEARLY]: 10,
+};
+
+export enum PlanStatus {
+  ACTIVE = "active",
+  PAST_DUE = "past_due",
+}
+
+export const canCreateBot = async (prisma: PrismaClient, userId: number) => {
+  const stripe = await prisma.stripe.findUnique({ where: { user_id: userId } });
+  const activeBotCount = await prisma.bot.count({
+    where: { user_id: userId, disabled: false },
+  });
+
+  if (stripe === null || activeBotCount === null) {
+    throw new Error("Validation didn't go through");
+  }
+
+  if (!stripe.active_plan || stripe.plan_status === PlanStatus.PAST_DUE) {
+    return [false, "You have no active subscription. Subscribe to create bot."];
+  }
+
+  if (activeBotCount === BotLimit[stripe.active_plan as PlanLookup])
+    return [false, "Reached bot limit. Upgrade plan to increase limit."];
+
+  return [true, ""];
 };

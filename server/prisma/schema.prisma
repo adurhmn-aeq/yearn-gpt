@@ -41,6 +41,7 @@ model Bot {
   BotIntegration              BotIntegration[]
   BotPlayground               BotPlayground[]
   source                      BotSource[]
+  disabled                    Boolean          @default(false)
 }
 
 model Agent {

@@ -45,6 +45,26 @@ export const chatRequestHandler = async (
       };
     }
 
+    if (bot.disabled) {
+      return {
+        bot: {
+          text: "Bot is disabled. Contact the creator of this bot.",
+          sourceDocuments: [],
+        },
+        history: [
+          ...history,
+          {
+            type: "human",
+            text: message,
+          },
+          {
+            type: "ai",
+            text: "Bot is disabled. Contact the creator of this bot.",
+          },
+        ],
+      };
+    }
+
     const stripe = await prisma.stripe.findFirst({
       where: { user_id: request!.user!.user_id! },
       select: { message_credits_remaining: true },
@@ -342,6 +362,35 @@ export const chatRequestStreamHandler = async (
           },
         ],
       };
+    }
+
+    if (bot.disabled) {
+      reply.raw.setHeader("Content-Type", "text/event-stream");
+
+      reply.sse({
+        event: "result",
+        id: "",
+        data: JSON.stringify({
+          bot: {
+            text: "Bot is disabled. Contact the creator of this bot.",
+            sourceDocuments: [],
+          },
+          history: [
+            ...history,
+            {
+              type: "human",
+              text: message,
+            },
+            {
+              type: "ai",
+              text: "Bot is disabled. Contact the creator of this bot.",
+            },
+          ],
+        }),
+      });
+      await nextTick();
+
+      return reply.raw.end();
     }
 
     const stripe = await prisma.stripe.findFirst({
