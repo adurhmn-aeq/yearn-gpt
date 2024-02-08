@@ -123,14 +123,15 @@ model Inventory {
 }
 
 model Stripe {
-  id              String @id @default(uuid())
-  customerId      String @unique
-  user_id         Int    @unique
-  user            User   @relation(fields: [user_id], references: [user_id])
-  active_plan     String @default("")
-  subscription_id String @default("")
-  line_item_id    String @default("")
-  plan_status     String @default("")
+  id                        String @id @default(uuid())
+  customerId                String @unique
+  user_id                   Int    @unique
+  user                      User   @relation(fields: [user_id], references: [user_id])
+  active_plan               String @default("")
+  subscription_id           String @default("")
+  line_item_id              String @default("")
+  plan_status               String @default("")
+  message_credits_remaining Int    @default(0)
 }
 
 model DialoqbaseSettings {

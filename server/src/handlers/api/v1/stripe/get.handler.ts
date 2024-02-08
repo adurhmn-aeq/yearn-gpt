@@ -1,6 +1,8 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import { CreateSubscription } from "./types";
 import {
+  MessageCredits,
+  PlanLookup,
   createCheckout,
   createCustomer,
   createPortal,
@@ -82,6 +84,31 @@ export const getSubscriptionHandler = async (
   return {
     active_plan: stripe.active_plan,
     plan_status: stripe.plan_status,
+  };
+};
+
+export const getUsageHandler = async (
+  request: FastifyRequest,
+  reply: FastifyReply
+) => {
+  const prisma = request.server.prisma;
+  const userId = request.user.user_id;
+
+  const user = await prisma.user.findFirst({
+    where: { user_id: userId },
+  });
+
+  const stripe = await prisma.stripe.findFirst({
+    where: { user_id: userId },
+  });
+
+  if (!user || !stripe) return {};
+
+  return {
+    message_credits_used:
+      (MessageCredits[stripe!.active_plan as PlanLookup] || 0) -
+      stripe!.message_credits_remaining,
+    message_credits_remaining: stripe!.message_credits_remaining,
   };
 };
 

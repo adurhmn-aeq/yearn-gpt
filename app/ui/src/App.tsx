@@ -31,6 +31,7 @@ import AgentPreview from "./routes/agent/preview";
 import SessionScreen from "./routes/session/attend";
 import SessionLayout from "./Layout/SessionLayout";
 import PricingRoot from "./routes/pricing/root";
+import UsageRoot from "./routes/usage/root";
 
 const router = createHashRouter([
   {
@@ -215,6 +216,14 @@ const router = createHashRouter([
     element: (
       <DashboardLayout>
         <PricingRoot />
+      </DashboardLayout>
+    ),
+  },
+  {
+    path: "/usage",
+    element: (
+      <DashboardLayout>
+        <UsageRoot />
       </DashboardLayout>
     ),
   },

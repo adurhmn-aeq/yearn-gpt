@@ -91,3 +91,21 @@ export const createPortal = async (customerId: string) => {
     return null;
   }
 };
+
+export enum PlanLookup {
+  HOBBY_MONTHLY = "hobby_monthly",
+  HOBBY_YEARLY = "hobby_yearly",
+  STARTUP_MONTHLY = "startup_monthly",
+  STARTUP_YEARLY = "startup_yearly",
+  ENTERPRISE_MONTHLY = "enterprise_monthly",
+  ENTERPRISE_YEARLY = "enterprise_yearly",
+}
+
+export const MessageCredits = {
+  [PlanLookup.HOBBY_MONTHLY]: 100,
+  [PlanLookup.HOBBY_YEARLY]: 100,
+  [PlanLookup.STARTUP_MONTHLY]: 300,
+  [PlanLookup.STARTUP_YEARLY]: 300,
+  [PlanLookup.ENTERPRISE_MONTHLY]: 1000,
+  [PlanLookup.ENTERPRISE_YEARLY]: 1000,
+};

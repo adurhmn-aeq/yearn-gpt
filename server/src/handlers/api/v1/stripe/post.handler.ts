@@ -1,6 +1,10 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import Stripe from "stripe";
-import { getStripe } from "../../../../utils/stripe";
+import {
+  MessageCredits,
+  PlanLookup,
+  getStripe,
+} from "../../../../utils/stripe";
 
 export const webhookHandler = async (
   request: FastifyRequest,
@@ -53,29 +57,29 @@ export const webhookHandler = async (
             line_item_id: "",
             subscription_id: "",
             plan_status: "",
+            message_credits_remaining: 0,
           },
         });
       }
       console.log("handled customer.subscription.updated");
       break;
 
-    // creation, change & deletion are handled in update event
-    // case "customer.subscription.deleted":
-    //   // handles subscription end
-    //   const customerSubscriptionDeleted = event.data
-    //     .object as Stripe.Subscription;
-    //   await prisma.stripe.updateMany({
-    //     where: { customerId: customerSubscriptionDeleted.customer as string },
-    //     data: {
-    //       active_plan: "",
-    //       line_item_id: "",
-    //       subscription_id: "",
-    //     },
-    //   });
+    case "invoice.paid":
+      // handles subscription renewal
+      const invoicePaid = event.data.object;
+      const lookup = invoicePaid.lines!.data[0]!.price!.lookup_key;
 
-    //   console.log("handled customer.subscription.deleted");
-    //   break;
+      if (lookup) {
+        await prisma.stripe.updateMany({
+          where: { customerId: invoicePaid.customer as string },
+          data: {
+            message_credits_remaining: MessageCredits[lookup as PlanLookup],
+          },
+        });
+      }
 
+      console.log("invoice.paid");
+      break;
     default:
     // ... handle other event types
     // console.log(`Unhandled event type ${event.type}`);

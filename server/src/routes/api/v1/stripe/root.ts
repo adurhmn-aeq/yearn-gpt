@@ -4,6 +4,7 @@ import {
   createSubscriptionHandler,
   dataPatch,
   getSubscriptionHandler,
+  getUsageHandler,
   manageSubscriptionHandler,
   webhookHandler,
 } from "../../../../handlers/api/v1/stripe";
@@ -28,6 +29,8 @@ const root: FastifyPluginAsync = async (fastify, _): Promise<void> => {
     { schema: createSubscriptionSchema, onRequest: [fastify.authenticate] },
     createSubscriptionHandler
   );
+
+  fastify.get("/usage", { onRequest: [fastify.authenticate] }, getUsageHandler);
 
   fastify.addContentTypeParser(
     "application/json",

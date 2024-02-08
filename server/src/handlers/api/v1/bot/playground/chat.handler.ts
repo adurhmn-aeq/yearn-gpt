@@ -45,6 +45,51 @@ export const chatRequestHandler = async (
       };
     }
 
+    const stripe = await prisma.stripe.findFirst({
+      where: { user_id: request!.user!.user_id! },
+      select: { message_credits_remaining: true },
+    });
+
+    if (!stripe) {
+      return {
+        bot: {
+          text: "Unable to find stripe",
+          sourceDocuments: [],
+        },
+        history: [
+          ...history,
+          {
+            type: "human",
+            text: message,
+          },
+          {
+            type: "ai",
+            text: "Unable to find stripe",
+          },
+        ],
+      };
+    }
+
+    if (stripe.message_credits_remaining <= 0) {
+      return {
+        bot: {
+          text: "Not enough message credits. Contact the creator of this bot.",
+          sourceDocuments: [],
+        },
+        history: [
+          ...history,
+          {
+            type: "human",
+            text: message,
+          },
+          {
+            type: "ai",
+            text: "Not enough message credits. Contact the creator of this bot.",
+          },
+        ],
+      };
+    }
+
     const temperature = bot.temperature;
 
     const sanitizedQuestion = message.trim().replaceAll("\n", " ");
@@ -212,6 +257,13 @@ export const chatRequestHandler = async (
       },
     });
 
+    await prisma.stripe.update({
+      where: { user_id: request!.user!.user_id! },
+      data: {
+        message_credits_remaining: { decrement: 1 },
+      },
+    });
+
     return {
       bot: {
         text: botResponse,
@@ -290,6 +342,69 @@ export const chatRequestStreamHandler = async (
           },
         ],
       };
+    }
+
+    const stripe = await prisma.stripe.findFirst({
+      where: { user_id: request!.user!.user_id! },
+      select: { message_credits_remaining: true },
+    });
+
+    if (!stripe) {
+      reply.raw.setHeader("Content-Type", "text/event-stream");
+
+      reply.sse({
+        event: "result",
+        id: "",
+        data: JSON.stringify({
+          bot: {
+            text: "Unable to find stripe. Contact the creator of this bot.",
+            sourceDocuments: [],
+          },
+          history: [
+            ...history,
+            {
+              type: "human",
+              text: message,
+            },
+            {
+              type: "ai",
+              text: "Unable to find stripe. Contact the creator of this bot.",
+            },
+          ],
+        }),
+      });
+      await nextTick();
+
+      return reply.raw.end();
+    }
+
+    if (stripe.message_credits_remaining <= 0) {
+      reply.raw.setHeader("Content-Type", "text/event-stream");
+
+      reply.sse({
+        event: "result",
+        id: "",
+        data: JSON.stringify({
+          bot: {
+            text: "Not enough message credits. Contact the creator of this bot.",
+            sourceDocuments: [],
+          },
+          history: [
+            ...history,
+            {
+              type: "human",
+              text: message,
+            },
+            {
+              type: "ai",
+              text: "Not enough message credits. Contact the creator of this bot.",
+            },
+          ],
+        }),
+      });
+      await nextTick();
+
+      return reply.raw.end();
     }
 
     const temperature = bot.temperature;
@@ -505,6 +620,13 @@ export const chatRequestStreamHandler = async (
             ...doc,
           };
         }),
+      },
+    });
+
+    await prisma.stripe.update({
+      where: { user_id: request!.user!.user_id! },
+      data: {
+        message_credits_remaining: { decrement: 1 },
       },
     });
 

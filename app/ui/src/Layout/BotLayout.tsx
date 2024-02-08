@@ -257,6 +257,12 @@ export default function BotLayout({
             <div className="flex flex-1 justify-end px-4">
               <div className="ml-4 flex items-center md:ml-6 gap-4">
                 <Link
+                  to="/usage"
+                  className="focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-700 flex items-center px-3 dark:text-white"
+                >
+                  <h1 className="text-slate-800 text-sm">Usage</h1>
+                </Link>
+                <Link
                   to="/pricing"
                   className="focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-700 flex items-center px-3 dark:text-white"
                 >
