@@ -1,6 +1,7 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import Stripe from "stripe";
 import {
+  AgentLimit,
   BotLimit,
   MessageCredits,
   PlanLookup,
@@ -36,6 +37,11 @@ export const webhookHandler = async (
           customerSubscriptionUpdated!.items!.data[0]!.price
             .lookup_key as PlanLookup
         ];
+      const allowedAgents =
+        AgentLimit[
+          customerSubscriptionUpdated!.items!.data[0]!.price
+            .lookup_key as PlanLookup
+        ];
 
       if (
         customerSubscriptionUpdated.status === "active" ||
@@ -54,7 +60,7 @@ export const webhookHandler = async (
             plan_status: customerSubscriptionUpdated.status,
           },
         });
-        // enable / disable bots according to new plan
+        // enable / disable bots & agents according to new plan
         if (customerSubscriptionUpdated.status === "active") {
           const stripe = await prisma.stripe.findFirst({
             where: {
@@ -95,10 +101,49 @@ export const webhookHandler = async (
               data: { disabled: false },
             });
           }
+
+          const enabledAgents = await prisma.agent.findMany({
+            where: { user_id: stripe?.user_id, disabled: false },
+            select: { id: true },
+          });
+          const disabledAgents = await prisma.agent.findMany({
+            where: { user_id: stripe?.user_id, disabled: true },
+            select: { id: true },
+          });
+          if (enabledAgents.length > allowedAgents) {
+            console.log("disable bots");
+            await prisma.agent.updateMany({
+              where: {
+                id: {
+                  in: enabledAgents
+                    .slice(0, enabledAgents.length - allowedAgents)
+                    .map((b) => b.id),
+                },
+              },
+              data: { disabled: true },
+            });
+          } else if (enabledAgents.length < allowedAgents) {
+            console.log("enable bots");
+            await prisma.agent.updateMany({
+              where: {
+                id: {
+                  in: disabledAgents
+                    .slice(0, allowedAgents - enabledAgents.length)
+                    .map((b) => b.id),
+                },
+              },
+              data: { disabled: false },
+            });
+          }
         }
-        // disable all bots
-        if (customerSubscriptionUpdated.status === "past_due")
+        // disable all bots & agents
+        if (customerSubscriptionUpdated.status === "past_due") {
           await prisma.bot.updateMany({ where: {}, data: { disabled: true } });
+          await prisma.agent.updateMany({
+            where: {},
+            data: { disabled: true },
+          });
+        }
       } else if (customerSubscriptionUpdated.status === "canceled") {
         // deletion
         await prisma.stripe.updateMany({
@@ -111,8 +156,12 @@ export const webhookHandler = async (
             message_credits_remaining: 0,
           },
         });
-        // disable all bots
+        // disable all bots and agents
         await prisma.bot.updateMany({ where: {}, data: { disabled: true } });
+        await prisma.agent.updateMany({
+          where: {},
+          data: { disabled: true },
+        });
       }
       console.log("handled customer.subscription.updated");
       break;

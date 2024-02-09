@@ -11,6 +11,7 @@ CREATE TABLE "Agent" (
     "model" TEXT NOT NULL DEFAULT 'gpt-3.5-turbo-dbase',
     "user_id" INTEGER,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "disabled" BOOLEAN NOT NULL DEFAULT false,
 
     CONSTRAINT "Agent_pkey" PRIMARY KEY ("id")
 );

@@ -89,7 +89,12 @@ export const DashboardGrid = () => {
                 className="flex rounded-md hover:shadow-lg transition-shadow duration-300 ease-in-out cursor-pointer"
                 key={agent.id}
               >
-                <div className="w-full truncate rounded-md border border-gray-200 bg-blue-200 dark:bg-[#0a0a0a] dark:border-[#232222]">
+                <div
+                  className={
+                    "w-full truncate rounded-md border border-gray-200 dark:bg-[#0a0a0a] dark:border-[#232222] " +
+                    (agent.disabled ? "bg-gray-400" : "bg-blue-200")
+                  }
+                >
                   <div className="flex flex-1 items-center justify-between ">
                     <div className="flex-1 truncate px-4 py-4">
                       <h3 className="text-xl font-semibold text-gray-900 hover:text-gray-600 flex-shrink truncate dark:text-gray-200 dark:hover:text-gray-300">

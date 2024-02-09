@@ -14,6 +14,7 @@ import {
   createAgentChain,
   // createChain,
 } from "../../../../../chain";
+import { canCreateAgent } from "../../../../../utils/stripe";
 
 export const createAgentHandler = async (
   request: FastifyRequest<CreateAgentRequest>,
@@ -29,6 +30,14 @@ export const createAgentHandler = async (
   //     message: `Not enough credits. Credits Remaining: ${inventory.credit_balance}. Credits Needed: ${CreditsNeeded.AGENT_CREATE}`,
   //   });
   // }
+
+  const [canCreate, message] = await canCreateAgent(
+    prisma,
+    request.user.user_id
+  );
+  if (!canCreate) {
+    return reply.status(400).send({ message });
+  }
 
   const modelInfo = await prisma.dialoqbaseModels.findFirst({
     where: {

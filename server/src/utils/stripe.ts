@@ -103,15 +103,24 @@ export enum PlanLookup {
 }
 
 export const MessageCredits = {
-  [PlanLookup.HOBBY_MONTHLY]: 100,
-  [PlanLookup.HOBBY_YEARLY]: 100,
-  [PlanLookup.STARTUP_MONTHLY]: 300,
-  [PlanLookup.STARTUP_YEARLY]: 300,
-  [PlanLookup.ENTERPRISE_MONTHLY]: 1000,
-  [PlanLookup.ENTERPRISE_YEARLY]: 1000,
+  [PlanLookup.HOBBY_MONTHLY]: 200,
+  [PlanLookup.HOBBY_YEARLY]: 200,
+  [PlanLookup.STARTUP_MONTHLY]: 700,
+  [PlanLookup.STARTUP_YEARLY]: 700,
+  [PlanLookup.ENTERPRISE_MONTHLY]: 1500,
+  [PlanLookup.ENTERPRISE_YEARLY]: 1500,
 };
 
 export const BotLimit = {
+  [PlanLookup.HOBBY_MONTHLY]: 2,
+  [PlanLookup.HOBBY_YEARLY]: 2,
+  [PlanLookup.STARTUP_MONTHLY]: 5,
+  [PlanLookup.STARTUP_YEARLY]: 5,
+  [PlanLookup.ENTERPRISE_MONTHLY]: 10,
+  [PlanLookup.ENTERPRISE_YEARLY]: 10,
+};
+
+export const AgentLimit = {
   [PlanLookup.HOBBY_MONTHLY]: 2,
   [PlanLookup.HOBBY_YEARLY]: 2,
   [PlanLookup.STARTUP_MONTHLY]: 5,
@@ -141,6 +150,29 @@ export const canCreateBot = async (prisma: PrismaClient, userId: number) => {
 
   if (activeBotCount === BotLimit[stripe.active_plan as PlanLookup])
     return [false, "Reached bot limit. Upgrade plan to increase limit."];
+
+  return [true, ""];
+};
+
+export const canCreateAgent = async (prisma: PrismaClient, userId: number) => {
+  const stripe = await prisma.stripe.findUnique({ where: { user_id: userId } });
+  const activeAgentCount = await prisma.agent.count({
+    where: { user_id: userId, disabled: false },
+  });
+
+  if (stripe === null || activeAgentCount === null) {
+    throw new Error("Validation didn't go through");
+  }
+
+  if (!stripe.active_plan || stripe.plan_status === PlanStatus.PAST_DUE) {
+    return [
+      false,
+      "You have no active subscription. Subscribe to create agent.",
+    ];
+  }
+
+  if (activeAgentCount === AgentLimit[stripe.active_plan as PlanLookup])
+    return [false, "Reached agent limit. Upgrade plan to increase limit."];
 
   return [true, ""];
 };

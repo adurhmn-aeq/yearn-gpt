@@ -195,9 +195,12 @@ export const DashboardNewBtn = () => {
                 </p>
               </figcaption>
             </figure>
-            <button className="flex justify-center items-center border-secondary-100 dark:border-[#182032] border-[1.2px] text-secondary-400 w-full dark:text-[#74819f] dark:opacity-80 p-3 py-2 rounded-lg text-sm font-medium">
+            <Link
+              to="/new/agent"
+              className="flex justify-center items-center border-secondary-100 dark:border-[#182032] border-[1.2px] text-secondary-400 w-full dark:text-[#74819f] dark:opacity-80 p-3 py-2 rounded-lg text-sm font-medium"
+            >
               Create Agent
-            </button>
+            </Link>
           </div>
           {/* end Grid Card*/}
 
