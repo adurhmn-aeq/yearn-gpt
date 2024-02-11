@@ -67,6 +67,26 @@ markdown-processing {
   box-shadow: none !important;
 }
 
+/*
+.light .ant-input {
+  background: #f8f8f8 !important;
+  border-color: #f8f8f8 !important;
+}
+.light .ant-input-affix-wrapper {
+  background: #f8f8f8 !important;
+  border-color: #f8f8f8 !important;
+} */
+
+.dark .ant-input {
+  background: #0e1320;
+  border-color: #0e1320;
+}
+
+.dark .ant-input-affix-wrapper {
+  background: #0e1320;
+  border-color: #0e1320;
+}
+
 /* remove background on placeholder */
 .ant-input-affix-wrapper .ant-input {
   background: transparent;
@@ -104,4 +124,14 @@ markdown-processing {
 .ant-input-affix-wrapper:focus,
 .ant-input-affix-wrapper-focused {
   border-color: #d0eac1 !important;
+}
+
+.dark .ant-select-selector {
+  background: #0e1320;
+  border-color: #0e1320;
+}
+
+.light .ant-select-selector {
+  background: #f8f8f8 !important;
+  border-color: #f8f8f8 !important;
 }

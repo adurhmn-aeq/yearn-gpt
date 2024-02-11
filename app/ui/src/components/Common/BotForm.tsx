@@ -469,11 +469,11 @@ export const BotForm = ({
                     classNames(
                       checked
                         ? "border-transparent"
-                        : "border-gray-300 dark:border-gray-700",
+                        : "border-[#f0f0f0] dark:border-[#151a25]",
                       active
-                        ? "border-indigo-500 ring-0 ring-green-500 dark:border-gray-700 dark:ring-gray-900"
+                        ? "border-primary-500 ring-0 ring-primary-500 dark:border-gray-700 dark:ring-gray-900"
                         : "",
-                      "relative  items-center justify-center flex cursor-pointer rounded-lg border bg-white p-4 shadow-sm focus:outline-none dark:bg-[#141414]"
+                      "relative  items-center justify-center flex cursor-pointer rounded-lg border bg-white p-4 focus:outline-none dark:bg-[#0d121c]"
                     )
                   }
                 >
@@ -534,7 +534,7 @@ export const BotForm = ({
           )}
 
           <Form.Item hidden={!showEmbeddingAndModels} noStyle>
-            <Divider />
+            <Divider className="" />
           </Form.Item>
 
           <Form.Item
@@ -597,7 +597,7 @@ export const BotForm = ({
             <button
               type="submit"
               disabled={isLoading}
-              className="flex w-full justify-center rounded-md border border-transparent bg-green-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+              className="flex w-full justify-center rounded-md border border-transparent bg-primary-500 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
             >
               {isLoading ? "Creating..." : "Create"}
             </button>

@@ -92,10 +92,10 @@ export const DashboardNewBtn = () => {
             <Link
               to="/new/bot"
               type="button"
-              className="relative flex flex-shrink-0 justify-center items-center rounded-lg h-10 w-auto overflow-clip px-6 py-1 bg-secondary-500 dark:bg-transparent border border-[#404040] dark:border-[#182032] min-w-[160px] shadow-[0_1px_2px_0_rgb(5,8,2,0.48),0_0_0_1px_rgb(5,8,2,1.0)] dark:shadow-none"
+              className="relative flex flex-shrink-0 justify-center items-center rounded-lg h-10 w-auto overflow-clip px-6 py-1 bg-secondary-500 dark:bg-transparent border-[1px] dark:border-[0.8px] border-[#404040] dark:border-copy-50 min-w-[160px] shadow-[0_1px_2px_0_rgb(5,8,2,0.48),0_0_0_1px_rgb(5,8,2,1.0)] dark:shadow-none dark:border-opacity-10"
             >
               <div className="absolute top-0 h-10 w-[120%] flex flex-shrink-0 justify-center items-center rounded-full bg-gradient-button from-[#ffffff40] via-[#ffffff00] to-[#050802]">
-                <span className="text-copy-500 text-sm font-work_sans font-normal dark:text-[#74819f]  whitespace-nowrap dark:opacity-60">
+                <span className="text-copy-500 text-sm font-work_sans font-normal dark:text-copy-500  whitespace-nowrap dark:opacity-40">
                   Create Agent
                 </span>
               </div>
@@ -330,7 +330,7 @@ export const DashboardNewBtn = () => {
                 </p>
               </figcaption>
             </figure>
-            <button className="flex justify-center items-center border-secondary-100 dark:border-[#182032] border-[1.2px] text-secondary-400 w-full dark:text-[#74819f] dark:opacity-80 p-3 py-2 rounded-lg text-sm font-medium">
+            <button className="flex justify-center items-center border-[1px] border-[#f0f0f0] dark:border-copy-50 dark:border-opacity-10 text-secondary-400 w-full dark:text-copy-500 p-3 py-2 rounded-lg text-sm font-normal dark:text-opacity-40">
               Audio Interview
             </button>
           </div>
@@ -412,7 +412,7 @@ export const DashboardNewBtn = () => {
             </figure>
             <Link
               to="/new/bot"
-              className="flex justify-center items-center border-secondary-100 dark:border-[#182032] border-[1.2px] text-secondary-400 w-full dark:text-[#74819f] dark:opacity-80 p-3 py-2 rounded-lg text-sm font-medium"
+              className="flex justify-center items-center border-[1px] border-[#f0f0f0] dark:border-copy-50 dark:border-opacity-10 text-secondary-400 w-full dark:text-copy-500 p-3 py-2 rounded-lg text-sm font-normal dark:text-opacity-40"
             >
               Video Interview
             </Link>

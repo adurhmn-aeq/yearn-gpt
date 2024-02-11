@@ -35,6 +35,10 @@ export default {
           800: "#04070a",
           900: "#030508",
         },
+        dark_surface: {
+          500: "#14151a",
+          600: "#181a20",
+        },
         copy: {
           50: "#fefffe",
           100: "#fcfefb",
