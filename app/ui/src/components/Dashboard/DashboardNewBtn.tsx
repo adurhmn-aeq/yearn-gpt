@@ -82,7 +82,7 @@ export const DashboardNewBtn = () => {
               </div>
               <figcaption className="flex flex-col gap-1">
                 <h5 className="font-work_sans capitalize text-base font-medium text-secondary-500 dark:text-copy-500 dark:opacity-60">
-                  Create Agent
+                  Create AI Agent
                 </h5>
                 <p className="font-work_sans text-sm text-secondary-500 dark:text-copy-500 dark:opacity-40 opacity-70">
                   AI conducts the video interview questions via video stream
@@ -96,7 +96,7 @@ export const DashboardNewBtn = () => {
             >
               <div className="absolute top-0 h-10 w-[120%] flex flex-shrink-0 justify-center items-center rounded-full bg-gradient-button from-[#ffffff40] via-[#ffffff00] to-[#050802]">
                 <span className="text-copy-500 text-sm font-work_sans font-normal dark:text-copy-500  whitespace-nowrap dark:opacity-40">
-                  Create Agent
+                  Create AI Agent
                 </span>
               </div>
             </Link>
@@ -210,13 +210,13 @@ export const DashboardNewBtn = () => {
               to="/new/agent"
               className="flex justify-center items-center border-secondary-100 dark:border-[#182032] border-[1.2px] text-secondary-400 w-full dark:text-[#74819f] dark:opacity-80 p-3 py-2 rounded-lg text-sm font-medium"
             >
-              Create Agent
+              Create Bot
             </Link>
           </div>
           {/* end Grid Card*/}
 
           {/* Start Grid Card*/}
-          <div className="bg-white dark:bg-[#0f141f] overflow-hidden p-5 rounded-3xl border-[1px] border-[#F7F7F7] dark:border-[#151a25] dark:shadow-[0 1px 4px #080b1136]">
+          {/* <div className="bg-white dark:bg-[#0f141f] overflow-hidden p-5 rounded-3xl border-[1px] border-[#F7F7F7] dark:border-[#151a25] dark:shadow-[0 1px 4px #080b1136]">
             <figure className="mb-5">
               <div className="bg-[#f9f9f8] dark:bg-[#0d121c] flex justify-center items-center py-6 px-4 rounded-2xl mb-5">
                 <svg
@@ -333,11 +333,11 @@ export const DashboardNewBtn = () => {
             <button className="flex justify-center items-center border-[1px] border-[#f0f0f0] dark:border-copy-50 dark:border-opacity-10 text-secondary-400 w-full dark:text-copy-500 p-3 py-2 rounded-lg text-sm font-normal dark:text-opacity-40">
               Audio Interview
             </button>
-          </div>
+          </div> */}
           {/* end Grid Card*/}
 
           {/* Start Grid Card*/}
-          <div className="bg-white dark:bg-[#0f141f] overflow-hidden p-5 rounded-3xl border-[1px] border-[#F7F7F7] dark:border-[#151a25] dark:shadow-[0 1px 4px #080b1136]">
+          {/* <div className="bg-white dark:bg-[#0f141f] overflow-hidden p-5 rounded-3xl border-[1px] border-[#F7F7F7] dark:border-[#151a25] dark:shadow-[0 1px 4px #080b1136]">
             <figure className="mb-5">
               <div className="bg-[#f9f9f8] dark:bg-[#0d121c] flex justify-center items-center py-6 px-4 rounded-2xl mb-5">
                 <svg
@@ -416,7 +416,7 @@ export const DashboardNewBtn = () => {
             >
               Video Interview
             </Link>
-          </div>
+          </div> */}
           {/* End Grid Card*/}
         </div>
         {/* end Welcome Grid Row*/}

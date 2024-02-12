@@ -39,22 +39,24 @@ export const SidebarItem = ({
 };
 
 export const ApplicationSidebar = () => {
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(true);
 
   return (
     <aside
       className={[
-        `px-4 py-4 transition transition-all duration-300`,
+        `px-4 py-4 transition transition-all duration-300 min-h-screen`,
         isCollapsed ? "w-[66px]" : "w-[240px]",
       ].join(" ")}
     >
       <div className="flex flex-col justify-between h-full">
         <div className="flex flex-col">
+          {/* Logo Item */}
           <SidebarItem
             isCollapsed={isCollapsed}
-            className="pr-0 pl-2 pt-[14px] rounded-md mb-4 relative"
+            className="pt-[14px] px-3 py-1 rounded-md mb-4 relative"
             leftSlot={
               <div className="flex">
+                {/* Logo*/}
                 <svg
                   width="42"
                   height="17"
@@ -69,10 +71,11 @@ export const ApplicationSidebar = () => {
                     } fill-[#020617] dark:fill-copy-50`}
                   />
                 </svg>
+                {/* collapse toggle*/}
                 <svg
                   viewBox="0 0 24 24"
                   fill="none"
-                  className={`w-5 h-5 cursor-pointer absolute end-0 top-[10px]`}
+                  className={`w-[22px] h-[22px] cursor-pointer absolute end-0 top-[10px]`}
                   onClick={() => setIsCollapsed((s) => !s)}
                 >
                   <path
@@ -92,10 +95,20 @@ export const ApplicationSidebar = () => {
           >
             {/* <span className="text-sm font-medium">Bilic</span> */}
           </SidebarItem>
-          <div className="flex flex-col gap-[4px]">
+
+          {/* Home */}
+          <div className="flex flex-col gap-[4px]"></div>
+          {/* <div
+            className={`${
+              isCollapsed ? "hidden" : ""
+            } pt-6 pb-3 px-2 text-xs uppercase text-secondary-500 dark:text-copy-500 dark:opacity-40 font-medium opacity-60`}
+          >
+            <p>Agents</p>
+          </div> */}
+          <div className="flex flex-col gap-[8px]">
             <SidebarItem
               isCollapsed={isCollapsed}
-              className="px-3 py-1 rounded-lg bg-white dark:bg-[#151a25]"
+              className="px-3 py-1"
               leftSlot={
                 <>
                   <svg
@@ -129,15 +142,6 @@ export const ApplicationSidebar = () => {
                 Home
               </span>
             </SidebarItem>
-          </div>
-          <div
-            className={`${
-              isCollapsed ? "hidden" : ""
-            } pt-6 pb-3 px-2 text-xs uppercase text-secondary-500 dark:text-copy-500 dark:opacity-40 font-medium opacity-60`}
-          >
-            <p>Agents</p>
-          </div>
-          <div className="flex flex-col gap-[4px]">
             <SidebarItem
               isCollapsed={isCollapsed}
               className="px-3 py-1"
@@ -172,7 +176,7 @@ export const ApplicationSidebar = () => {
               <span
                 className={`text-sm font-normal text-secondary-500 dark:text-copy-50 dark:opacity-60 whitespace-nowrap`}
               >
-                Video Transcript
+                AI Bots
               </span>
             </SidebarItem>
             <SidebarItem
@@ -227,205 +231,7 @@ export const ApplicationSidebar = () => {
               }
             >
               <span className="text-sm font-normal text-secondary-500 dark:text-copy-50 dark:opacity-60 whitespace-nowrap">
-                Audio Transcript
-              </span>
-            </SidebarItem>
-          </div>
-          <div
-            className={`${
-              isCollapsed ? "hidden" : ""
-            } pt-6 pb-3 px-2 text-xs uppercase text-secondary-500 dark:text-copy-500 dark:opacity-40 font-medium opacity-60`}
-          >
-            <p>Agents</p>
-          </div>
-          <div className="flex flex-col gap-[4px]">
-            {/* <SidebarItem
-              isCollapsed={isCollapsed}
-              className="px-2 py-1"
-              leftSlot={<LuBuilding2 />}
-            >
-              <span className="text-sm font-medium">Companies</span>
-            </SidebarItem> */}
-            <SidebarItem
-              isCollapsed={isCollapsed}
-              className="px-3 py-1"
-              leftSlot={
-                <>
-                  <svg
-                    width="20"
-                    height="21"
-                    viewBox="0 0 20 21"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M18.3333 9.25968V8.42635C18.3333 4.25968 16.6667 2.59302 12.5 2.59302H7.50001C3.33334 2.59302 1.66667 4.25968 1.66667 8.42635V13.4264C1.66667 17.593 3.33334 19.2597 7.50001 19.2597H9.16667"
-                      className="stroke-[#020617] dark:stroke-copy-50 dark:opacity-60"
-                      strokeWidth="1.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                    <path
-                      d="M11.75 15.093V13.8597C11.75 12.268 12.875 11.6263 14.25 12.418L15.3167 13.0347L16.3833 13.6513C17.7583 14.443 17.7583 15.743 16.3833 16.5347L15.3167 17.1513L14.25 17.768C12.875 18.5597 11.75 17.9097 11.75 16.3263V15.093Z"
-                      className="stroke-[#020617] dark:stroke-copy-50 dark:opacity-60"
-                      strokeWidth="1.5"
-                      strokeMiterlimit="10"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                    <path
-                      d="M6.05832 10.3494H10.225"
-                      className="stroke-[#020617] dark:stroke-copy-50 dark:opacity-60"
-                      strokeWidth="1.5"
-                      strokeMiterlimit="10"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                    <path
-                      d="M6.05832 7.01611H14.7098"
-                      className="stroke-[#020617] dark:stroke-copy-50 dark:opacity-60"
-                      strokeWidth="1.5"
-                      strokeMiterlimit="10"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                </>
-              }
-            >
-              <span className="text-sm font-normal text-secondary-500 dark:text-copy-50 dark:opacity-60 whitespace-nowrap">
-                Video Agent
-              </span>
-            </SidebarItem>
-            <SidebarItem
-              isCollapsed={isCollapsed}
-              className="px-3 py-1"
-              leftSlot={
-                <>
-                  <svg
-                    width="20"
-                    height="21"
-                    viewBox="0 0 20 21"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M18.3333 8.68278V7.84945C18.3333 3.68278 16.6667 2.01611 12.5 2.01611H7.49999C3.33332 2.01611 1.66666 3.68278 1.66666 7.84945V12.8494C1.66666 17.0161 3.33332 18.6828 7.49999 18.6828H9.16666"
-                      className="stroke-[#020617] dark:stroke-copy-50 dark:opacity-60"
-                      strokeWidth="1.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                    <path
-                      d="M10.3841 15.8312V13.8607C10.3841 13.6322 10.4984 13.4189 10.6886 13.2925L13.4016 11.4891C13.583 11.3685 13.8256 11.4986 13.8256 11.7164V18.1466C13.8256 18.3697 13.5725 18.4985 13.3921 18.3673L10.6649 16.3828C10.4884 16.2544 10.3841 16.0494 10.3841 15.8312Z"
-                      className="stroke-[#020617] dark:stroke-copy-50 dark:opacity-60"
-                      strokeWidth="1.5"
-                    />
-                    <path
-                      d="M15.7565 16.3238C16.1449 16.0628 16.4044 15.5378 16.391 14.9236C16.3833 14.313 16.1037 13.7947 15.7054 13.546"
-                      className="stroke-[#020617] dark:stroke-copy-50 dark:opacity-60"
-                      strokeWidth="1.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                    <path
-                      d="M17.1308 17.988C17.9049 17.299 18.4005 16.1633 18.3787 14.8908C18.3568 13.6183 17.8183 12.5006 17.0192 11.8364"
-                      className="stroke-[#020617] dark:stroke-copy-50 dark:opacity-60"
-                      strokeWidth="1.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                    <path
-                      d="M6.05832 10.3494H10.225"
-                      className="stroke-[#020617] dark:stroke-copy-50 dark:opacity-60"
-                      strokeWidth="1.5"
-                      strokeMiterlimit="10"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                    <path
-                      d="M6.05832 7.01611H14.7098"
-                      className="stroke-[#020617] dark:stroke-copy-50 dark:opacity-60"
-                      strokeWidth="1.5"
-                      strokeMiterlimit="10"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                </>
-              }
-            >
-              <span className="text-sm font-normal text-secondary-500 dark:text-copy-50 dark:dark:opacity-60 whitespace-nowrap">
-                Audio Agent
-              </span>
-            </SidebarItem>
-          </div>
-          <div
-            className={`${
-              isCollapsed ? "hidden" : ""
-            } pt-6 pb-3 px-2 text-xs uppercase text-secondary-500 dark:text-copy-500 dark:opacity-40 font-medium opacity-60`}
-          >
-            <p>Account</p>
-          </div>
-          <div className="flex flex-col gap-[4px]">
-            <SidebarItem
-              isCollapsed={isCollapsed}
-              className="px-3 py-1"
-              leftSlot={
-                <>
-                  <svg
-                    width="20"
-                    height="20"
-                    viewBox="0 0 20 20"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M16.0833 6.59999V10.8917C16.0833 13.4583 14.6167 14.5583 12.4167 14.5583H5.09165C4.71665 14.5583 4.35832 14.525 4.02498 14.45C3.81665 14.4167 3.61666 14.3584 3.43332 14.2917C2.18332 13.825 1.42499 12.7417 1.42499 10.8917V6.59999C1.42499 4.03332 2.89165 2.93335 5.09165 2.93335H12.4167C14.2833 2.93335 15.625 3.72501 15.9833 5.53335C16.0417 5.86668 16.0833 6.20832 16.0833 6.59999Z"
-                      className="stroke-[#020617] dark:stroke-copy-50 dark:dark:opacity-60"
-                      strokeWidth="1.5"
-                      strokeMiterlimit="10"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                    <path
-                      d="M18.5842 9.10009V13.3918C18.5842 15.9584 17.1176 17.0584 14.9176 17.0584H7.59257C6.97591 17.0584 6.41758 16.9751 5.93425 16.7918C4.94258 16.4251 4.26758 15.6668 4.02591 14.4501C4.35924 14.5251 4.71758 14.5584 5.09258 14.5584H12.4176C14.6176 14.5584 16.0842 13.4584 16.0842 10.8918V6.60009C16.0842 6.20842 16.0509 5.85845 15.9842 5.53345C17.5676 5.86678 18.5842 6.98342 18.5842 9.10009Z"
-                      className="stroke-[#020617] dark:stroke-copy-50 dark:dark:opacity-60"
-                      strokeWidth="1.5"
-                      strokeMiterlimit="10"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                    <path
-                      d="M8.74872 10.9498C9.96374 10.9498 10.9487 9.96484 10.9487 8.74982C10.9487 7.53479 9.96374 6.5498 8.74872 6.5498C7.53369 6.5498 6.54871 7.53479 6.54871 8.74982C6.54871 9.96484 7.53369 10.9498 8.74872 10.9498Z"
-                      className="stroke-[#020617] dark:stroke-copy-50 dark:dark:opacity-60"
-                      strokeWidth="1.5"
-                      strokeMiterlimit="10"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                    <path
-                      d="M3.98334 6.91675V10.5834"
-                      className="stroke-[#020617] dark:stroke-copy-50 dark:dark:opacity-60"
-                      strokeWidth="1.5"
-                      strokeMiterlimit="10"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                    <path
-                      d="M13.5181 6.91699V10.5837"
-                      className="stroke-[#020617] dark:stroke-copy-50 dark:dark:opacity-60"
-                      strokeWidth="1.5"
-                      strokeMiterlimit="10"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                </>
-              }
-            >
-              <span className="text-sm font-normal text-secondary-500 dark:text-copy-50 dark:dark:opacity-60 whitespace-nowrap">
-                Plans
+                AI Agents
               </span>
             </SidebarItem>
           </div>
