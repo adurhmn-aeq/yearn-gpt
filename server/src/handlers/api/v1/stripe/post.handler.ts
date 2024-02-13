@@ -32,16 +32,10 @@ export const webhookHandler = async (
       // handles creation + plan switch + deletion
       const customerSubscriptionUpdated = event.data
         .object as Stripe.Subscription;
-      const allowedBots =
-        BotLimit[
-          customerSubscriptionUpdated!.items!.data[0]!.price
-            .lookup_key as PlanLookup
-        ];
-      const allowedAgents =
-        AgentLimit[
-          customerSubscriptionUpdated!.items!.data[0]!.price
-            .lookup_key as PlanLookup
-        ];
+      const lookup = customerSubscriptionUpdated!.items!.data[0]!.price
+        .lookup_key as PlanLookup;
+      const allowedBots = BotLimit[lookup];
+      const allowedAgents = AgentLimit[lookup];
 
       if (
         customerSubscriptionUpdated.status === "active" ||
@@ -60,8 +54,19 @@ export const webhookHandler = async (
             plan_status: customerSubscriptionUpdated.status,
           },
         });
+
         // enable / disable bots & agents according to new plan
         if (customerSubscriptionUpdated.status === "active") {
+          // message credits reset
+          await prisma.stripe.updateMany({
+            where: {
+              customerId: customerSubscriptionUpdated.customer as string,
+            },
+            data: {
+              message_credits_remaining: MessageCredits[lookup],
+            },
+          });
+          
           const stripe = await prisma.stripe.findFirst({
             where: {
               customerId: customerSubscriptionUpdated.customer as string,
@@ -111,7 +116,7 @@ export const webhookHandler = async (
             select: { id: true },
           });
           if (enabledAgents.length > allowedAgents) {
-            console.log("disable bots");
+            console.log("disable agents");
             await prisma.agent.updateMany({
               where: {
                 id: {
@@ -156,6 +161,13 @@ export const webhookHandler = async (
             message_credits_remaining: 0,
           },
         });
+        // message credits reset
+        await prisma.stripe.updateMany({
+          where: { customerId: customerSubscriptionUpdated.customer as string },
+          data: {
+            message_credits_remaining: 0,
+          },
+        });
         // disable all bots and agents
         await prisma.bot.updateMany({ where: {}, data: { disabled: true } });
         await prisma.agent.updateMany({
@@ -166,23 +178,23 @@ export const webhookHandler = async (
       console.log("handled customer.subscription.updated");
       break;
 
-    case "invoice.paid":
-      // handles subscription renewal
-      const invoicePaid = event.data.object;
-      const lookup = invoicePaid.lines!.data[0]!.price!.lookup_key;
+    // case "invoice.paid":
+    //   // handles subscription renewal
+    //   const invoicePaid = event.data.object;
+    //   const lookup = invoicePaid.lines!.data[0]!.price!.lookup_key;
 
-      if (lookup) {
-        // reset message credits according to new plan
-        await prisma.stripe.updateMany({
-          where: { customerId: invoicePaid.customer as string },
-          data: {
-            message_credits_remaining: MessageCredits[lookup as PlanLookup],
-          },
-        });
-      }
+    //   if (lookup) {
+    //     // reset message credits according to new plan
+    //     await prisma.stripe.updateMany({
+    //       where: { customerId: invoicePaid.customer as string },
+    //       data: {
+    //         message_credits_remaining: MessageCredits[lookup as PlanLookup],
+    //       },
+    //     });
+    //   }
 
-      console.log("invoice.paid");
-      break;
+    //   console.log("invoice.paid");
+    //   break;
     default:
     // ... handle other event types
     // console.log(`Unhandled event type ${event.type}`);
@@ -191,3 +203,4 @@ export const webhookHandler = async (
   // Return a 200 res to acknowledge receipt of the event
   reply.status(200).send();
 };
+``;
