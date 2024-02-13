@@ -19,7 +19,7 @@ export const AgentForm = ({ isLoading, form, createAgent }: Props) => {
           onFinish={createAgent}
           className="space-y-6"
           initialValues={{
-            "init-msg": "Good day, how are you doing?",
+            initMsg: "Good day, how are you doing?",
           }}
         >
           <div className="sm:overflow-hidden ">

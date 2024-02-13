@@ -28,3 +28,13 @@ export interface GetAgentRequestById {
     id: string;
   };
 }
+
+export interface UpdateAgentRequest {
+  Body: {
+    id: string;
+    name?: string;
+    initMsg?: string;
+    prompt?: string;
+    model?: string;
+  };
+}

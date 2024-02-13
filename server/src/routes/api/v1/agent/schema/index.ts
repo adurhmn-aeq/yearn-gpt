@@ -20,6 +20,29 @@ export const createAgentSchema: FastifySchema = {
   },
 };
 
+export const updateAgentSchema: FastifySchema = {
+  body: {
+    type: "object",
+    properties: {
+      id: {
+        type: "string",
+      },
+      name: {
+        type: "string",
+      },
+      initMsg: {
+        type: "string",
+      },
+      prompt: {
+        type: "string",
+      },
+      model: {
+        type: "string",
+      },
+    },
+  },
+};
+
 export const getAgentByIdSchema: FastifySchema = {
   params: {
     type: "object",

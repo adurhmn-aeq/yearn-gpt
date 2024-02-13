@@ -3,6 +3,7 @@ import {
   CreateAgentRequest,
   AgentResponseRequest,
   CreateSessionRequest,
+  UpdateAgentRequest,
 } from "./types";
 import {
   apiKeyValidaton,
@@ -229,4 +230,52 @@ export const agentResponseHandler = async (
   });
 
   return { response: agentMessage };
+};
+
+export const updateAgentHandler = async (
+  request: FastifyRequest<UpdateAgentRequest>,
+  reply: FastifyReply
+) => {
+  const { name, initMsg, prompt, model, id } = request.body;
+
+  const prisma = request.server.prisma;
+
+  const modelInfo = await prisma.dialoqbaseModels.findFirst({
+    where: {
+      model_id: model,
+      hide: false,
+      deleted: false,
+    },
+  });
+
+  if (!modelInfo) {
+    return reply.status(400).send({
+      message: "Model not found",
+    });
+  }
+
+  const isAPIKeyAddedForProvider = apiKeyValidaton(
+    `${modelInfo.model_provider}`.toLowerCase()
+  );
+
+  if (!isAPIKeyAddedForProvider) {
+    return reply.status(400).send({
+      message: apiKeyValidatonMessage(modelInfo.model_provider || ""),
+    });
+  }
+
+  const agent = await prisma.agent.update({
+    where: {id, user_id: request.user.user_id},
+    data: {
+      ...(name ? {name} : null),
+      ...(prompt ? {prompt} : null),
+      ...(initMsg ? {initMsg} : null),
+      ...(model ? {model} : null),
+    },
+  });
+
+
+  return {
+    id: agent.id,
+  };
 };

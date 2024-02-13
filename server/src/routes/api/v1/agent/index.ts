@@ -1,3 +1,4 @@
+import { updateAgentHandler } from "./handlers/post.handler";
 import { FastifyPluginAsync } from "fastify";
 import {
   agentResponseHandler,
@@ -12,6 +13,7 @@ import {
   createAgentSchema,
   createSessionSchema,
   getAgentByIdSchema,
+  updateAgentSchema,
 } from "./schema";
 
 const root: FastifyPluginAsync = async (fastify, _): Promise<void> => {
@@ -23,7 +25,14 @@ const root: FastifyPluginAsync = async (fastify, _): Promise<void> => {
     },
     createAgentHandler
   );
-
+  fastify.put(
+    "/",
+    {
+      schema: updateAgentSchema,
+      onRequest: [fastify.authenticate],
+    },
+    updateAgentHandler
+  );
   // get bot info
   fastify.get(
     "/:id",
