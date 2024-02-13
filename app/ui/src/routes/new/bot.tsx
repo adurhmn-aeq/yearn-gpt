@@ -68,12 +68,12 @@ export default function NewBot() {
     <>
       <div className="flex min-h-full flex-col py-12 sm:px-6 lg:px-8 font-work_sans">
         <div className="sm:mx-auto sm:w-full sm:max-w-md">
-          <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900 dark:text-white">
+          <h2 className="mt-6 text-center text-3xl font-medium tracking-tight text-gray-900 dark:text-white">
             Create a new bot
           </h2>
         </div>
         <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-lg">
-          <div className="bg-white py-8 px-4 border border-[#F7F7F7] sm:rounded-3xl sm:px-10 dark:bg-[#0f141f] dark:border-[#151a25] dark:shadow-[0 1px 4px #080b1136] font-work_sans">
+          <div className="bg-white py-8 px-4 border border-[#F7F7F7] sm:rounded-3xl sm:px-10 dark:bg-[#0f141f] dark:border-[#151a25] dark:shadow-[0 1px 4px #080b1136] font-work_sans shadow-[0_1px_2px_0_rgb(228,229,231,0.24)]">
             <BotForm
               showEmbeddingAndModels={true}
               createBot={createBot}

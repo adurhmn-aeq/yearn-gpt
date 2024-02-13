@@ -9,25 +9,27 @@ import {
 import api from "../../services/api";
 
 const TickSVG = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 20 20"
-    fill="currentColor"
-    aria-hidden="true"
-    className="h-5 w-5 shrink-0 text-green-500"
-  >
-    <path
-      fillRule="evenodd"
-      d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
-      clipRule="evenodd"
-    ></path>
-  </svg>
+  <div className="h-6 w-6 rounded-full flex justify-center items-center bg-primary-50 dark:bg-[#161d2d]">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 20 20"
+      fill="currentColor"
+      aria-hidden="true"
+      className="h-3 w-3 shrink-0 text-primary-500 dark:text-copy-500 dark:text-opacity-60"
+    >
+      <path
+        fillRule="evenodd"
+        d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
+        clipRule="evenodd"
+      ></path>
+    </svg>
+  </div>
 );
 
 const pillActiveClass =
-  "inline-flex items-center justify-center transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-80 underline-offset-4 hover:underline dark:text-zinc-50 h-9 px-4 relative w-1/2 border-zinc-200 bg-zinc-300 text-black shadow-sm m-1 whitespace-nowrap rounded-md py-2 text-sm font-medium decoration-transparent focus:z-10 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-opacity-50 sm:w-auto sm:px-8";
+  "inline-flex items-center justify-center transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-80 underline-offset-4 hover:underline dark:text-zinc-50 h-9 px-4 relative w-1/2 border-zinc-200 bg-[#fff] dark:bg-[#121826] text-black shadow-sm m-1 whitespace-nowrap rounded-full py-2 text-sm font-medium decoration-transparent focus:z-10 focus:outline-none focus:ring-2 focus:ring-primary-50 focus:ring-opacity-50 sm:w-auto sm:px-8 dark:text-opacity-60";
 const pillInActiveClass =
-  "inline-flex items-center justify-center transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-80 underline-offset-4 hover:underline dark:text-zinc-50 h-9 px-4 relative w-1/2 border border-transparent text-zinc-600 m-1 whitespace-nowrap rounded-md py-2 text-sm font-medium decoration-transparent focus:z-10 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-opacity-50 sm:w-auto sm:px-8";
+  "inline-flex items-center justify-center transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-80 underline-offset-4 hover:underline dark:text-zinc-50 h-9 px-4 relative w-1/2 border border-transparent text-zinc-600 m-1 whitespace-nowrap rounded-full py-2 text-sm font-medium decoration-transparent focus:z-10 focus:outline-none focus:ring-0 focus:ring-transparent focus:ring-opacity-0 sm:w-auto sm:px-8 dark:text-opacity-60";
 
 const Header = ({
   activePill,
@@ -38,13 +40,13 @@ const Header = ({
 }) => {
   return (
     <div className="flex flex-col">
-      <h1 className="text-4xl font-extrabold text-black sm:text-center sm:text-6xl">
+      <h1 className="text-2xl font-extrabold text-secondary-500 sm:text-center lg:text-5xl dark:text-copy-500">
         Pricing Plans
       </h1>
-      <p className="mt-6 text-center">
+      <p className="mt-3 text-center dark:text-copy-500 dark:text-opacity-70">
         Get 2 months for free by subscribing yearly!
       </p>
-      <div className="relative mt-2 flex self-center rounded-lg border border-zinc-200 bg-zinc-100 p-0.5 sm:mt-4">
+      <div className="relative mt-2 flex self-center rounded-full border border-[#eaf6e5] bg-[#f6fbf4] p-0.5 lg:mt-6 dark:bg-[#0f141f] dark:border-[#151a25] dark:shadow-[0 1px 4px #080b1136]">
         <button
           onClick={togglePill}
           className={
@@ -80,52 +82,61 @@ function Plan({
   planStatus?: "active" | "past_due";
 }) {
   return (
-    <div className="divide-y divide-zinc-400 rounded-lg bg-zinc-100 shadow-sm ">
-      <div className="flex h-full flex-col justify-between p-4">
-        <div>
-          <div className="flex gap-2 h-[30px] items-center">
-            <h2 className="text-2xl font-semibold leading-6 text-black">
+    <div className="divide-y divide-zinc-400 bg-white border-[1px] border-[#f0f0f0] rounded-[24px] min-h-[600px] flex items-stretch dark:bg-[#0f141f] dark:border-[#151a25] dark:shadow-[0 1px 4px #080b1136]">
+      <div className="flex min-h-full flex-col py-6 px-8">
+        <div className="flex gap-2">
+          <div className="flex flex-col gap-[8px]">
+            <h2 className="text-2xl font-semibold text-secondary-500 dark:text-copy-500 dark:text-opacity-90">
               {PlanInfo.titles[lookup]}
             </h2>
-            {activePlan === lookup &&
-              (planStatus === "active" ? (
-                <div className="bg-green-200 ring-1 ring-green-700 text-green-700 py-1 px-2 rounded-full text-[12px]">
-                  Active
-                </div>
-              ) : planStatus === "past_due" ? (
-                <div className="bg-red-200 ring-1 ring-red-700 text-red-700 py-1 px-2 rounded-full text-[12px]">
-                  Past Due
-                </div>
-              ) : null)}
+            <small className="text-sm text-secondary-500 uppercase font-semibold dark:text-copy-500 dark:text-opacity-70">
+              {PlanInfo.heading[lookup]}
+            </small>
+            <p className="text-xs text-secondary-500 max-w-[252px] opacity-50 dark:text-copy-500">
+              {PlanInfo.description[lookup]}
+            </p>
           </div>
-          <div className="py-4">
-            {PlanInfo.features[lookup].map((feature, ind) => (
-              <li key={ind} className="mb-3 flex space-x-2">
-                <TickSVG />
-                <span className="text-sm font-semibold text-zinc-700">
-                  {feature}
-                </span>
-              </li>
-            ))}
-          </div>
+          {activePlan === lookup &&
+            (planStatus === "active" ? (
+              <div className="bg-green-200 ring-1 ring-green-700 text-green-700 py-1 px-2 rounded-full text-[12px]">
+                Active
+              </div>
+            ) : planStatus === "past_due" ? (
+              <div className="bg-red-200 ring-1 ring-red-700 text-red-700 py-1 px-2 rounded-full text-[12px]">
+                Past Due
+              </div>
+            ) : null)}
         </div>
-        <div>
-          <p className="mt-8">
-            <span className="white text-3xl font-bold">
+        <div className="mt-5 mb-7">
+          <p className="dark:opacity-80">
+            <span className="text-[44px] font-bold text-secondary-500 dark:text-copy-500">
               ${PlanInfo.prices[lookup]}
             </span>
-            <span className="text-base font-medium text-zinc-900">
+            <span className="text-base font-medium text-secondary-500 dark:text-copy-500">
               /{lookup.split("_")[1] === "yearly" ? "year" : "month"}
             </span>
           </p>
-          <button
-            disabled={isLoading}
-            onClick={() => onAction(lookup)}
-            className="inline-flex items-center justify-center whitespace-nowrap transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-80 bg-zinc-900 shadow hover:bg-zinc-800/90 dark:bg-zinc-50 dark:text-zinc-900 dark:hover:bg-zinc-50/90 h-9 px-4 mt-8 w-full rounded-md py-2 text-center text-sm font-semibold text-white"
-          >
-            {isLoading ? <Spin /> : activePlan ? "Manage" : "Subscribe"}
-          </button>
         </div>
+        <div>
+          <p className="font-semibold text-sm text-secondary-500 dark:text-copy-500 mb-5 dark:text-opacity-70">
+            What's Included
+          </p>
+          {PlanInfo.features[lookup].map((feature, ind) => (
+            <li key={ind} className="mb-3 flex space-x-2">
+              <TickSVG />
+              <span className="text-sm font-normal text-secondary-400 dark:text-copy-500 dark:text-opacity-60">
+                {feature}
+              </span>
+            </li>
+          ))}
+        </div>
+        <button
+          disabled={isLoading}
+          onClick={() => onAction(lookup)}
+          className="inline-flex items-center justify-center whitespace-nowrap transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-80 bg-zinc-900 shadow hover:bg-zinc-800/90 dark:bg-transparent dark:border-[1px] dark:border-[#182032] dark:text-copy-500 dark:text-opacity-60 dark:hover:bg-transparent h-9 px-4 mt-auto w-full rounded-lg py-2 text-center text-sm font-semibold text-white"
+        >
+          {isLoading ? <Spin /> : activePlan ? "Manage" : "Subscribe"}
+        </button>
       </div>
     </div>
   );

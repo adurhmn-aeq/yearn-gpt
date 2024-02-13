@@ -67,12 +67,11 @@ markdown-processing {
   box-shadow: none !important;
 }
 
-/*
 .light .ant-input {
-  background: #f8f8f8 !important;
-  border-color: #f8f8f8 !important;
+  background: #fff !important;
+  border-color: #f0f0f0 !important;
 }
-.light .ant-input-affix-wrapper {
+/* .light .ant-input-affix-wrapper {
   background: #f8f8f8 !important;
   border-color: #f8f8f8 !important;
 } */
@@ -132,6 +131,7 @@ markdown-processing {
 }
 
 .light .ant-select-selector {
-  background: #f8f8f8 !important;
-  border-color: #f8f8f8 !important;
+  background: #fff !important;
+  border-color: #f0f0f0 !important;
+  box-shadow: 0 1px 2px 0 rgb(228, 229, 231, 0.24);
 }
