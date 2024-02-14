@@ -2,9 +2,13 @@ import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 import api from "../../services/api";
 import { ChevronRightIcon, XCircleIcon } from "@heroicons/react/24/outline";
-import { Empty } from "antd";
+import { Divider, Empty } from "antd";
 import { sources } from "../../utils/sources";
 import { getSessionLink } from "../../utils/agent";
+import BotAgentCard from "./BotCard";
+import UtilityButton from "../../utils/widgets/UtilityButton";
+import BotCard from "./BotCard";
+import AgentCard from "./AgentCard";
 
 export const DashboardGrid = () => {
   // const { data, status } = useQuery(["getAllBots"], async () => {
@@ -15,10 +19,11 @@ export const DashboardGrid = () => {
     const response = await api.get("/agent/with-bots");
     return response.data;
   });
+  console.log("data", data);
 
   return (
-    <>
-      {status === "loading" && (
+    <div className="flex flex-col gap-[40px]">
+      {status === "loading" ? (
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
           {/* create skelon loadinf */}
           {[1, 2, 3, 4, 5, 6].map((item) => (
@@ -28,120 +33,7 @@ export const DashboardGrid = () => {
             ></div>
           ))}
         </div>
-      )}
-      {status === "success" && data.length === 0 && (
-        <Empty description="No bots created yet" />
-      )}
-      {status === "success" && data.length > 0 && (
-        <div className="grid grid-cols-1 mt-6 gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-          {data?.map(({ bot, agent }: any) =>
-            bot ? (
-              <Link
-                to={`/bot/${bot.id}`}
-                className="flex rounded-md hover:shadow-lg transition-shadow duration-300 ease-in-out cursor-pointer"
-                key={bot.id}
-              >
-                <div
-                  className={
-                    "w-full truncate rounded-md border border-gray-200 dark:bg-[#0a0a0a] dark:border-[#232222] " +
-                    (bot.disabled ? "bg-gray-400" : "bg-purple-200")
-                  }
-                >
-                  <div className="flex flex-1 items-center justify-between ">
-                    <div className="flex-1 truncate px-4 py-4">
-                      <h3 className="text-xl font-semibold text-gray-900 hover:text-gray-600 flex-shrink truncate dark:text-gray-200 dark:hover:text-gray-300">
-                        {bot.name}
-                      </h3>
-                      <div className="w-full">
-                        <div className="flex items-end justify-between">
-                          <span className="text-xs lowercase text-scale-1000 text-gray-600 dark:text-gray-400">
-                            {bot.model.replace("-dbase", "")}
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="flex-shrink-0 pr-2">
-                      <button
-                        type="button"
-                        className="inline-flex h-8 w-8 items-center justify-center rounded-full  bg-transparent text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-1 focus:ring-green-500  dark:text-white dark:hover:text-gray-300 dark:focus:ring-gray-900"
-                      >
-                        <span className="sr-only">Open options</span>
-                        <ChevronRightIcon
-                          className="h-6 w-6"
-                          aria-hidden="true"
-                        />
-                      </button>
-                    </div>
-                  </div>
-
-                  <div className="px-4 my-3 flex flex-wrap gap-2 text-gray-500 text-xs dark:text-gray-400">
-                    {bot.source?.map((source: any) => (
-                      <span title={`${source.type} source`}>
-                        {sources[source.type as keyof typeof sources]}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </Link>
-            ) : (
-              <Link
-                to={`/agent/${agent.id}`}
-                className="flex rounded-md hover:shadow-lg transition-shadow duration-300 ease-in-out cursor-pointer"
-                key={agent.id}
-              >
-                <div
-                  className={
-                    "w-full truncate rounded-md border border-gray-200 dark:bg-[#0a0a0a] dark:border-[#232222] " +
-                    (agent.disabled ? "bg-gray-400" : "bg-blue-200")
-                  }
-                >
-                  <div className="flex flex-1 items-center justify-between ">
-                    <div className="flex-1 truncate px-4 py-4">
-                      <h3 className="text-xl font-semibold text-gray-900 hover:text-gray-600 flex-shrink truncate dark:text-gray-200 dark:hover:text-gray-300">
-                        {agent.name}
-                      </h3>
-                      {/* <div className="w-full">
-                        <div className="flex items-end justify-between">
-                          <span className="text-xs lowercase text-scale-1000 text-gray-600 dark:text-gray-400">
-                            {bot.model.replace("-dbase", "")}
-                          </span>
-                        </div>
-                      </div> */}
-                    </div>
-                    <div className="flex-shrink-0 pr-2">
-                      <button
-                        type="button"
-                        className="inline-flex h-8 w-8 items-center justify-center rounded-full  bg-transparent text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-1 focus:ring-green-500  dark:text-white dark:hover:text-gray-300 dark:focus:ring-gray-900"
-                      >
-                        <span className="sr-only">Open options</span>
-                        <ChevronRightIcon
-                          className="h-6 w-6"
-                          aria-hidden="true"
-                        />
-                      </button>
-                    </div>
-                  </div>
-
-                  <div className="px-4 my-3 flex flex-wrap gap-2 text-gray-500 text-xs dark:text-gray-400">
-                    <button
-                      onClick={(e) => {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        navigator.clipboard.writeText(getSessionLink(agent.id));
-                      }}
-                      className="cursor-pointer relative inline-flex items-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-                    >
-                      Copy Link
-                    </button>
-                  </div>
-                </div>
-              </Link>
-            )
-          )}
-        </div>
-      )}
-
-      {status === "error" && (
+      ) : status === "error" ? (
         <div className="rounded-md bg-red-50 p-4">
           <div className="flex">
             <div className="flex-shrink-0">
@@ -157,7 +49,68 @@ export const DashboardGrid = () => {
             </div>
           </div>
         </div>
+      ) : (
+        <>
+          <div className="flex flex-col gap-[20px]">
+            <div className="flex gap-5 justify-between">
+              <h2 className="text-[#34353899] font-[600] text-[18px]">
+                My Bots
+              </h2>
+              <Link to={"/new/bot"}>
+                <UtilityButton>Create Bot</UtilityButton>
+              </Link>
+            </div>
+            <div className=" flex gap-[50px] flex-wrap">
+              {status === "success" && data.length > 0 && (
+                <>
+                  {data?.map(({ bot }: any, i: any) => {
+                    console.log("val:", bot, i);
+                    return bot ? (
+                      <Link to={`/bot/${bot.id}`} key={bot.id}>
+                        <BotCard bot={bot} />
+                      </Link>
+                    ) : null;
+                  })}
+                </>
+              )}
+              {status === "success" && data.length === 0 && (
+                <div className="flex justify-center items-center w-[100%]">
+                  <Empty description="No bots created yet" />
+                </div>
+              )}
+            </div>
+          </div>
+          <div className="flex flex-col gap-[20px]">
+            <div className="flex gap-5 justify-between">
+              <h2 className="text-[#34353899] font-[600] text-[18px]">
+                My Agents
+              </h2>
+              <Link to={"/new/agent"}>
+                <UtilityButton>Create Agent</UtilityButton>
+              </Link>
+            </div>
+            <div className=" flex gap-[50px] flex-wrap">
+              {status === "success" && data.length > 0 && (
+                <>
+                  {data?.map(({ bot, agent }: any, i: any) => {
+                    console.log("val:", bot, i);
+                    return agent ? (
+                      <Link to={`/agent/${agent.id}`} key={agent.id}>
+                        <AgentCard key={i} agent={agent} />
+                      </Link>
+                    ) : null;
+                  })}
+                </>
+              )}
+              {status === "success" && data.length === 0 && (
+                <div className="flex justify-center items-center w-[100%]">
+                  <Empty description="No Agents created yet" />
+                </div>
+              )}
+            </div>
+          </div>
+        </>
       )}
-    </>
+    </div>
   );
 };

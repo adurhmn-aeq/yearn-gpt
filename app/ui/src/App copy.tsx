@@ -36,7 +36,7 @@ import UsageRoot from "./routes/usage/root";
 const router = createHashRouter([
   {
     element: (
-      <DashboardLayout title="Dashboard">
+      <DashboardLayout>
         <Root />
       </DashboardLayout>
     ),
@@ -44,7 +44,7 @@ const router = createHashRouter([
   },
   {
     element: (
-      <DashboardLayout title="Bot">
+      <DashboardLayout>
         <NewBot />
       </DashboardLayout>
     ),
@@ -52,7 +52,7 @@ const router = createHashRouter([
   },
   {
     element: (
-      <DashboardLayout title="Agent">
+      <DashboardLayout>
         <NewAgent />
       </DashboardLayout>
     ),
@@ -170,7 +170,7 @@ const router = createHashRouter([
   {
     path: "/settings",
     element: (
-      <DashboardLayout title="Settings">
+      <DashboardLayout>
         <QueryBoundaries>
           <SettingsRoot />
         </QueryBoundaries>
@@ -180,7 +180,7 @@ const router = createHashRouter([
   {
     path: "/settings/application",
     element: (
-      <DashboardLayout title="Application">
+      <DashboardLayout>
         <QueryBoundaries>
           <SettingsApplicationRoot />
         </QueryBoundaries>
@@ -190,7 +190,7 @@ const router = createHashRouter([
   {
     path: "/settings/teams",
     element: (
-      <DashboardLayout title="Settings">
+      <DashboardLayout>
         <QueryBoundaries>
           <SettingsTeamsRoot />
         </QueryBoundaries>
@@ -200,7 +200,7 @@ const router = createHashRouter([
   {
     path: "/settings/model",
     element: (
-      <DashboardLayout title="Model">
+      <DashboardLayout>
         <QueryBoundaries>
           <SettingsModelRoot />
         </QueryBoundaries>
@@ -214,7 +214,7 @@ const router = createHashRouter([
   {
     path: "/pricing",
     element: (
-      <DashboardLayout title="Pricing">
+      <DashboardLayout>
         <PricingRoot />
       </DashboardLayout>
     ),
@@ -222,7 +222,7 @@ const router = createHashRouter([
   {
     path: "/usage",
     element: (
-      <DashboardLayout title="Usage">
+      <DashboardLayout>
         <UsageRoot />
       </DashboardLayout>
     ),

@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Avatar from "../components/Common/Avatar";
 import { ApplicationMenu } from "./ApplicationMenu";
 import { ApplicationSidebar } from "./ApplicationSidebar";
+import UpgradeButton from "../utils/widgets/upgradeButton";
 
 //@ts-ignore
 // function classNames(...classes) {
@@ -13,8 +14,10 @@ import { ApplicationSidebar } from "./ApplicationSidebar";
 
 export default function DashboardLayout({
   children,
+  title,
 }: {
   children: React.ReactNode;
+  title?: string;
 }) {
   const navigate = useNavigate();
 
@@ -40,84 +43,24 @@ export default function DashboardLayout({
       >
         <div className="flex h-full w-screen align-center">
           <ApplicationSidebar />
-          <div className="h-full py-2 pr-2 flex-1">
-            <div className="bg-white dark:bg-[#0b0f19] rounded-2xl w-full h-full border-[1px] border-[#f3f3f1] dark:border-[#151a25] overflow-y-scroll">
-              <Disclosure as="nav" className="">
-                {() => (
-                  <>
-                    <div className="mx-auto px-2 sm:px-6 lg:px-12 py-4">
-                      <div className="flex justify-between">
-                        <Link
-                          to="/"
-                          className="focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-700 flex items-center mr-4"
-                        >
-                          {/* <img
-                            className="h-8 w-auto"
-                            src="https://www.bilic.io/favicon.ico"
-                            alt="Dialoqbase"
-                          /> */}
-                          <span className="ml-1 text-base font-normal dark:text-white">
-                            Agents Bilic
-                          </span>
-                          <span className="inline-block flex-shrink-0 rounded-full bg-green-100 px-2 py-0.5 text-xs font-medium text-green-800 ml-2">
-                            {/* @ts-ignore */}
-                            {`v${__APP_VERSION__}`}
-                          </span>
-                        </Link>
-                        <div className=" ml-6 flex items-center gap-1">
-                          <Link
-                            to="/usage"
-                            className="focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-700 flex items-center px-3 dark:text-white"
-                          >
-                            <h1 className="text-slate-800 text-sm">Usage</h1>
-                          </Link>
-                          <Link
-                            to="/pricing"
-                            className="focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-700 flex items-center px-3 dark:text-white"
-                          >
-                            <h1 className="text-slate-800 text-sm">Pricing</h1>
-                          </Link>
-                          <ApplicationMenu />
-                        </div>
-                      </div>
-                    </div>
-
-                    <Disclosure.Panel className="sm:hidden">
-                      <div className="border-t border-gray-200 pt-4 pb-3">
-                        <div className="flex items-center px-4">
-                          <div className="flex-shrink-0">
-                            <Avatar username={profile?.username || "admin"} />
-                          </div>
-                          <div className="ml-3">
-                            <div className="text-base font-medium text-gray-800">
-                              {profile?.username}
-                            </div>
-                          </div>
-                        </div>
-                        <div className="mt-3 space-y-1">
-                          <Disclosure.Button
-                            as={Link}
-                            to="/settings"
-                            className="block px-4 py-2 text-base font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-800"
-                          >
-                            Settings
-                          </Disclosure.Button>
-                          <Disclosure.Button
-                            onClick={() => {
-                              logout();
-                              navigate("/login");
-                            }}
-                            className="block px-4 py-2 text-base font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-800"
-                          >
-                            Sign out
-                          </Disclosure.Button>
-                        </div>
-                      </div>
-                    </Disclosure.Panel>
-                  </>
-                )}
-              </Disclosure>
-              <>{children}</>
+          <div className="h-full  flex-1">
+            <div className="bg-white dark:bg-[#0b0f19] w-full h-full border-[1px] border-[#f3f3f1] dark:border-[#151a25] flex flex-col">
+              <div className="mx-auto px-2 sm:px-6 lg:px-12 py-6 border-b border-solid border-[#F0F0F0] w-[100%]">
+                <div className="flex justify-between items-center">
+                  <div className="relative">
+                    <img
+                      className="absolute right-[-25px] top-[-10px]"
+                      src="/providers/blink.svg"
+                      alt="blink"
+                    />
+                    <h2 className="text-[#343538] text-[32px] font-[600]">
+                      {title}
+                    </h2>
+                  </div>
+                  <UpgradeButton />
+                </div>
+              </div>
+              <div className="flex-1 overflow-auto">{children}</div>
             </div>
           </div>
         </div>
