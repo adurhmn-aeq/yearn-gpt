@@ -66,6 +66,71 @@ export const chatRequestHandler = async (
       }
     }
 
+    if (bot.disabled) {
+      return {
+        bot: {
+          text: "Bot is disabled. Contact the creator of this bot.",
+          sourceDocuments: [],
+        },
+        history: [
+          ...history,
+          {
+            type: "human",
+            text: message,
+          },
+          {
+            type: "ai",
+            text: "Bot is disabled. Contact the creator of this bot.",
+          },
+        ],
+      };
+    }
+
+    const stripe = await prisma.stripe.findFirst({
+      where: { user_id: bot.user_id! },
+      select: { message_credits_remaining: true },
+    });
+
+    if (!stripe) {
+      return {
+        bot: {
+          text: "Unable to find stripe",
+          sourceDocuments: [],
+        },
+        history: [
+          ...history,
+          {
+            type: "human",
+            text: message,
+          },
+          {
+            type: "ai",
+            text: "Unable to find stripe",
+          },
+        ],
+      };
+    }
+
+    if (stripe.message_credits_remaining <= 0) {
+      return {
+        bot: {
+          text: "Not enough message credits. Contact the creator of this bot.",
+          sourceDocuments: [],
+        },
+        history: [
+          ...history,
+          {
+            type: "human",
+            text: message,
+          },
+          {
+            type: "ai",
+            text: "Not enough message credits. Contact the creator of this bot.",
+          },
+        ],
+      };
+    }
+
     const temperature = bot.temperature;
 
     const sanitizedQuestion = message.trim().replaceAll("\n", " ");
@@ -307,7 +372,6 @@ export const chatRequestStreamHandler = async (
 
     if (bot.bot_protect) {
       if (!request.session.get("is_bot_allowed")) {
-
         reply.raw.setHeader("Content-Type", "text/event-stream");
 
         reply.sse({
@@ -336,6 +400,98 @@ export const chatRequestStreamHandler = async (
 
         return reply.raw.end();
       }
+    }
+
+    if (bot.disabled) {
+      reply.raw.setHeader("Content-Type", "text/event-stream");
+
+      reply.sse({
+        event: "result",
+        id: "",
+        data: JSON.stringify({
+          bot: {
+            text: "Bot is disabled. Contact the creator of this bot.",
+            sourceDocuments: [],
+          },
+          history: [
+            ...history,
+            {
+              type: "human",
+              text: message,
+            },
+            {
+              type: "ai",
+              text: "Bot is disabled. Contact the creator of this bot.",
+            },
+          ],
+        }),
+      });
+      await nextTick();
+
+      return reply.raw.end();
+    }
+
+    const stripe = await prisma.stripe.findFirst({
+      where: { user_id: bot.user_id! },
+      select: { message_credits_remaining: true },
+    });
+
+    if (!stripe) {
+      reply.raw.setHeader("Content-Type", "text/event-stream");
+
+      reply.sse({
+        event: "result",
+        id: "",
+        data: JSON.stringify({
+          bot: {
+            text: "Unable to find stripe. Contact the creator of this bot.",
+            sourceDocuments: [],
+          },
+          history: [
+            ...history,
+            {
+              type: "human",
+              text: message,
+            },
+            {
+              type: "ai",
+              text: "Unable to find stripe. Contact the creator of this bot.",
+            },
+          ],
+        }),
+      });
+      await nextTick();
+
+      return reply.raw.end();
+    }
+
+    if (stripe.message_credits_remaining <= 0) {
+      reply.raw.setHeader("Content-Type", "text/event-stream");
+
+      reply.sse({
+        event: "result",
+        id: "",
+        data: JSON.stringify({
+          bot: {
+            text: "Not enough message credits. Contact the creator of this bot.",
+            sourceDocuments: [],
+          },
+          history: [
+            ...history,
+            {
+              type: "human",
+              text: message,
+            },
+            {
+              type: "ai",
+              text: "Not enough message credits. Contact the creator of this bot.",
+            },
+          ],
+        }),
+      });
+      await nextTick();
+
+      return reply.raw.end();
     }
 
     const temperature = bot.temperature;

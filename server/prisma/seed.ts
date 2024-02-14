@@ -1,4 +1,5 @@
 import { PrismaClient } from "@prisma/client";
+import { createCustomer } from "../src/utils/stripe";
 const prisma = new PrismaClient();
 
 const LLMS: {
@@ -341,7 +342,7 @@ const EMBEDDING_MODELS: {
     name: "text-embedding-3-large (OpenAI)",
     model_type: "embedding",
     model_provider: "OpenAI",
-  }
+  },
 ];
 
 const newModels = async () => {
@@ -455,11 +456,30 @@ const inventoryForRootAdmin = async () => {
   }
 };
 
+const stripeForRootAdmin = async () => {
+  console.log("Seeding admin stripe...");
+  const stripe = await prisma.stripe.findFirst({ where: { user_id: 1 } });
+  if (!stripe) {
+    const customer = await createCustomer({
+      email: "",
+      userName: "admin",
+      userId: "1",
+    });
+    await prisma.stripe.create({
+      data: {
+        user_id: 1,
+        customerId: customer!.id,
+      },
+    });
+  }
+};
+
 const main = async () => {
   await newModels();
   await removeTensorflowSupport();
   await replaceOldEmbeddings();
   await inventoryForRootAdmin();
+  await stripeForRootAdmin();
 };
 
 main()

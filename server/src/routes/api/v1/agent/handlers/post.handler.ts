@@ -265,15 +265,14 @@ export const updateAgentHandler = async (
   }
 
   const agent = await prisma.agent.update({
-    where: {id, user_id: request.user.user_id},
+    where: { id, user_id: request.user.user_id },
     data: {
-      ...(name ? {name} : null),
-      ...(prompt ? {prompt} : null),
-      ...(initMsg ? {initMsg} : null),
-      ...(model ? {model} : null),
+      ...(name ? { name } : null),
+      ...(prompt ? { prompt } : null),
+      ...(initMsg ? { initMsg } : null),
+      ...(model ? { model } : null),
     },
   });
-
 
   return {
     id: agent.id,

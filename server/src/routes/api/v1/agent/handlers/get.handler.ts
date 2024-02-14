@@ -1,5 +1,5 @@
 import { FastifyReply, FastifyRequest } from "fastify";
-import { GetAgentRequestById } from "./types";
+import { GetAgentRequestById, GetSession, GetSessionListById } from "./types";
 
 export const getAllBotsAndAgentsHandler = async (
   request: FastifyRequest,
@@ -62,5 +62,68 @@ export const getAgentByIdHandler = async (
       message: "Agent not found",
     });
   }
-  return { ...agent, sessions: [] };
+
+  const sessions = await prisma.session.findMany({
+    where: {
+      agent_id: id,
+      user_id: request.user.user_id,
+    },
+    select: {
+      name: true,
+      email: true,
+    },
+  });
+
+  return { ...agent, sessions: sessions || [] };
+};
+
+export const getSessionList = async (
+  request: FastifyRequest<GetSessionListById>,
+  reply: FastifyReply
+) => {
+  const prisma = request.server.prisma;
+  const agentId = request.params.agentId;
+
+  const sessions = await prisma.session.findMany({
+    where: {
+      agent_id: agentId,
+      user_id: request.user.user_id,
+    },
+    select: {
+      name: true,
+      email: true,
+    },
+  });
+
+  if (!sessions) {
+    return reply.status(404).send({
+      message: "Session List not found",
+    });
+  }
+
+  return sessions;
+};
+
+export const getSession = async (
+  request: FastifyRequest<GetSession>,
+  reply: FastifyReply
+) => {
+  const prisma = request.server.prisma;
+  const { agentId, sessionId } = request.query;
+
+  const session = await prisma.session.findFirst({
+    where: {
+      id: sessionId,
+      agent_id: agentId,
+      user_id: request.user.user_id,
+    },
+  });
+
+  if (!session) {
+    return reply.status(404).send({
+      message: "Session not found",
+    });
+  }
+
+  return session;
 };
