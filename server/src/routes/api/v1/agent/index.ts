@@ -7,12 +7,16 @@ import {
   createSessionHandler,
   getAgentByIdHandler,
   getAllBotsAndAgentsHandler,
+  getSession,
+  getSessionList,
 } from "./handlers";
 import {
   agentResponseSchema,
   createAgentSchema,
   createSessionSchema,
   getAgentByIdSchema,
+  getSessionListSchema,
+  getSessionSchema,
   updateAgentSchema,
 } from "./schema";
 
@@ -32,6 +36,23 @@ const root: FastifyPluginAsync = async (fastify, _): Promise<void> => {
       onRequest: [fastify.authenticate],
     },
     updateAgentHandler
+  );
+  // get session list
+  fastify.get(
+    "/session/list",
+    {
+      schema: getSessionListSchema,
+      onRequest: [fastify.authenticate],
+    },
+    getSessionList
+  );
+  fastify.get(
+    "/session",
+    {
+      schema: getSessionSchema,
+      onRequest: [fastify.authenticate],
+    },
+    getSession
   );
   // get bot info
   fastify.get(

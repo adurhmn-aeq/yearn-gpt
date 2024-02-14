@@ -35,7 +35,9 @@ export default function DashboardLayout({
 
   return (
     <>
-      <main className={`bg-[#F9F9F8] dark:bg-secondary-500 text-neutral-700`}>
+      <main
+        className={`bg-[#F9F9F8] dark:bg-secondary-500 text-neutral-700 h-full`}
+      >
         <div className="flex h-full w-screen align-center">
           <ApplicationSidebar />
           <div className="h-full py-2 pr-2 flex-1">

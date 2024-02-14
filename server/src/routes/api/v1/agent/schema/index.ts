@@ -55,6 +55,33 @@ export const getAgentByIdSchema: FastifySchema = {
   },
 };
 
+export const getSessionListSchema: FastifySchema = {
+  params: {
+    type: "object",
+    required: ["agentId"],
+    properties: {
+      agentId: {
+        type: "string",
+      },
+    },
+  },
+};
+
+export const getSessionSchema: FastifySchema = {
+  querystring: {
+    type: "object",
+    required: ["agentId", "sessionId"],
+    properties: {
+      agentId: {
+        type: "string",
+      },
+      sessionId: {
+        type: "string",
+      },
+    },
+  },
+};
+
 export const agentResponseSchema: FastifySchema = {
   body: {
     type: "object",

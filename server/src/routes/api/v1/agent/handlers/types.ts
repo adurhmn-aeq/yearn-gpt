@@ -29,6 +29,19 @@ export interface GetAgentRequestById {
   };
 }
 
+export interface GetSessionListById {
+  Params: {
+    agentId: string;
+  };
+}
+
+export interface GetSession {
+  Querystring: {
+    agentId: string;
+    sessionId: string;
+  };
+}
+
 export interface UpdateAgentRequest {
   Body: {
     id: string;

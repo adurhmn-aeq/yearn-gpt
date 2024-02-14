@@ -25,6 +25,30 @@ export default function AgentPreview() {
     };
   });
 
+  // const { data: data2, status: status2 } = useQuery(
+  //   ["getSession"],
+  //   async () => {
+  //     const response = await api.get(`/agent/session`, {
+  //       params: {
+  //         agentId: "clsk3f8g10001k1frx0tubxh0",
+  //         sessionId: "clsl45odx0001k110kwqxha2h",
+  //       },
+  //     });
+  //     return response.data as {
+  //       id: string;
+  //       name: string;
+  //       email: string;
+  //       phone: string;
+  //       message: any[];
+  //       createdAt: string;
+  //       user_id: string;
+  //       agent_id: string;
+  //     };
+  //   }
+  // );
+
+  // console.log({ data, data2 });
+
   const { isLogged } = useAuth();
 
   React.useEffect(() => {
