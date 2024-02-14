@@ -434,7 +434,7 @@ export const BotForm = ({
           layout="vertical"
           onFinish={createBot}
           form={form}
-          className="space-y-6"
+          className="space-y-6 flex flex-col justify-between"
           initialValues={{
             embedding: "dialoqbase_eb_text-embedding-ada-002",
             model: "gpt-3.5-turbo-dbase",
@@ -456,11 +456,11 @@ export const BotForm = ({
               setSelectedSource(e);
             }}
           >
-            <RadioGroup.Label className="text-base font-medium text-gray-800 dark:text-gray-200">
-              Select a data source
+            <RadioGroup.Label className="text-base font-medium text-[#34353899] dark:text-gray-200">
+              A customized bot just for your specific needs!
             </RadioGroup.Label>
 
-            <div className="mt-4 grid grid-cols-1 gap-y-6 sm:grid-cols-3 sm:gap-x-4">
+            <div className="mt-4 flex flex-wrap justify-center py-2 gap-4">
               {availableSources.map((source) => (
                 <RadioGroup.Option
                   key={source.id}
@@ -468,38 +468,47 @@ export const BotForm = ({
                   className={({ checked, active }) =>
                     classNames(
                       checked
-                        ? "border-transparent"
+                        ? "border-transparent bg-[#343538]"
                         : "border-gray-300 dark:border-gray-700",
-                      active
-                        ? "border-indigo-500 ring-0 ring-green-500 dark:border-gray-700 dark:ring-gray-900"
-                        : "",
-                      "relative  items-center justify-center flex cursor-pointer rounded-lg border bg-white p-4 shadow-sm focus:outline-none dark:bg-[#141414]"
+                      // active
+                      //   ? "border-indigo-500 ring-0 ring-green-500 dark:border-gray-700 dark:ring-gray-900"
+                      //   : "",
+                      "relative drop-shadow-lg items-center justify-center flex cursor-pointer rounded-[20px] bg-white focus:outline-none dark:bg-[#141414] min-w-[110px] min-h-[110px]"
                     )
                   }
                 >
                   {({ checked, active }) => (
                     <>
-                      <span className="flex-shrink-0 flex items-center justify-centerrounded-lg">
+                      <span
+                        className={classNames(
+                          checked ? "text-white" : "",
+                          "flex-shrink-0 flex flex-col items-center justify-center rounded-lg gap-3 text-base shadow-sm"
+                        )}
+                      >
                         <RadioGroup.Label
                           as="span"
-                          className="block text-sm font-medium text-gray-900 dark:text-gray-200"
+                          className="block text-base font-medium text-gray-900 dark:text-gray-200"
                         >
                           <source.icon
-                            className="h-6 w-6 mr-3"
+                            className={classNames(
+                              checked ? "text-white" : "",
+                              active ? "" : "",
+                              "h-6 w-6"
+                            )}
                             aria-hidden="true"
                           />
                         </RadioGroup.Label>
                         {source.title}
                       </span>
 
-                      <span
+                      {/* <span
                         className={classNames(
                           active ? "border" : "border-2",
                           checked ? "border-indigo-500" : "border-transparent",
                           "pointer-events-none absolute -inset-px rounded-lg"
                         )}
                         aria-hidden="true"
-                      />
+                      /> */}
                     </>
                   )}
                 </RadioGroup.Option>
@@ -507,99 +516,106 @@ export const BotForm = ({
             </div>
           </RadioGroup>
 
-          {selectedSource && selectedSource.formComponent}
+          <div className="flex flex-col flex-1 border-2 border-[#34353833] rounded-[20px] p-6 pb-0 justify-between">
+            {selectedSource && selectedSource.formComponent}
 
-          {selectedSource && selectedSource.value === "rest" && (
-            <Row gutter={24}>
-              <Col span={12}>
-                <Form.Item name={["options", "headers"]} label="Headers">
-                  <Input.TextArea placeholder="Enter the headers" />
-                </Form.Item>
-              </Col>
-              <Col span={12}>
+            {selectedSource && selectedSource.value === "rest" && (
+              <Row gutter={24}>
+                <Col span={12}>
+                  <Form.Item name={["options", "headers"]} label="Headers">
+                    <Input.TextArea placeholder="Enter the headers" />
+                  </Form.Item>
+                </Col>
+                <Col span={12}>
+                  <Form.Item
+                    name={["options", "body"]}
+                    label="Body (JSON)"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Please enter a valid JSON",
+                      },
+                    ]}
+                  >
+                    <Input.TextArea placeholder="Enter the body" />
+                  </Form.Item>
+                </Col>
+              </Row>
+            )}
+
+            <div className="flex flex-col mt-auto">
+              <Form.Item hidden={!showEmbeddingAndModels} noStyle>
+                <Divider />
+              </Form.Item>
+
+              <div className="flex justify-between gap-6">
                 <Form.Item
-                  name={["options", "body"]}
-                  label="Body (JSON)"
-                  rules={[
-                    {
-                      required: true,
-                      message: "Please enter a valid JSON",
-                    },
-                  ]}
+                  className="w-full"
+                  hidden={!showEmbeddingAndModels}
+                  label={
+                    <span className="font-medium text-gray-800 text-sm dark:text-gray-200">
+                      Chat Model
+                    </span>
+                  }
+                  name="model"
                 >
-                  <Input.TextArea placeholder="Enter the body" />
+                  <Select
+                    showSearch
+                    filterOption={(input, option) =>
+                      (option?.label?.toLowerCase() ?? "").includes(
+                        input?.toLowerCase()
+                      ) ||
+                      (option?.value?.toLowerCase() ?? "").includes(
+                        input?.toLowerCase()
+                      )
+                    }
+                    filterSort={(optionA, optionB) =>
+                      (optionA?.label ?? "")
+                        .toLowerCase()
+                        .localeCompare((optionB?.label ?? "").toLowerCase())
+                    }
+                    placeholder="Select a chat model"
+                    options={botConfig.chatModel}
+                  />
                 </Form.Item>
-              </Col>
-            </Row>
-          )}
-
-          <Form.Item hidden={!showEmbeddingAndModels} noStyle>
-            <Divider />
-          </Form.Item>
-
-          <Form.Item
-            hidden={!showEmbeddingAndModels}
-            label={
-              <span className="font-medium text-gray-800 text-sm dark:text-gray-200">
-                Chat Model
-              </span>
-            }
-            name="model"
-          >
-            <Select
-              showSearch
-              filterOption={(input, option) =>
-                (option?.label?.toLowerCase() ?? "").includes(
-                  input?.toLowerCase()
-                ) ||
-                (option?.value?.toLowerCase() ?? "").includes(
-                  input?.toLowerCase()
-                )
-              }
-              filterSort={(optionA, optionB) =>
-                (optionA?.label ?? "")
-                  .toLowerCase()
-                  .localeCompare((optionB?.label ?? "").toLowerCase())
-              }
-              placeholder="Select a chat model"
-              options={botConfig.chatModel}
-            />
-          </Form.Item>
-          <Form.Item
-            hidden={!showEmbeddingAndModels}
-            label={
-              <span className="font-medium text-gray-800 text-sm dark:text-gray-200">
-                Embedding model
-              </span>
-            }
-            name="embedding"
-          >
-            <Select
-              showSearch
-              filterOption={(input, option) =>
-                (option?.label?.toLowerCase() ?? "").includes(
-                  input?.toLowerCase()
-                ) ||
-                (option?.value?.toLowerCase() ?? "").includes(
-                  input?.toLowerCase()
-                )
-              }
-              filterSort={(optionA, optionB) =>
-                (optionA?.label ?? "")
-                  .toLowerCase()
-                  .localeCompare((optionB?.label ?? "").toLowerCase())
-              }
-              options={botConfig.embeddingModel}
-            />
-          </Form.Item>
-
-          <Form.Item>
+                <Form.Item
+                  className="w-full"
+                  hidden={!showEmbeddingAndModels}
+                  label={
+                    <span className="font-medium text-gray-800 text-sm dark:text-gray-200">
+                      Embedding model
+                    </span>
+                  }
+                  name="embedding"
+                >
+                  <Select
+                    showSearch
+                    filterOption={(input, option) =>
+                      (option?.label?.toLowerCase() ?? "").includes(
+                        input?.toLowerCase()
+                      ) ||
+                      (option?.value?.toLowerCase() ?? "").includes(
+                        input?.toLowerCase()
+                      )
+                    }
+                    filterSort={(optionA, optionB) =>
+                      (optionA?.label ?? "")
+                        .toLowerCase()
+                        .localeCompare((optionB?.label ?? "").toLowerCase())
+                    }
+                    options={botConfig.embeddingModel}
+                  />
+                </Form.Item>
+              </div>
+            </div>
+          </div>
+          <Form.Item className="flex justify-end">
             <button
               type="submit"
               disabled={isLoading}
-              className="flex w-full justify-center rounded-md border border-transparent bg-green-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+              className="flex w-full justify-center rounded-[10px] border border-transparent bg-gray-800 py-2 px-8 text-sm font-medium text-white shadow-sm hover:bg-gray-950 focus:outline-none mb-4"
             >
-              {isLoading ? "Creating..." : "Create"}
+              {isLoading ? "Creating..." : "submit"}
             </button>
           </Form.Item>
         </Form>
