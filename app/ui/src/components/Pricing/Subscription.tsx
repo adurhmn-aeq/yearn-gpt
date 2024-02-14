@@ -27,7 +27,7 @@ const TickSVG = () => (
 );
 
 const pillActiveClass =
-  "inline-flex items-center justify-center transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-80 underline-offset-4 hover:underline dark:text-zinc-50 h-9 px-4 relative w-1/2 border-zinc-200 bg-[#fff] dark:bg-[#121826] text-black shadow-sm m-1 whitespace-nowrap rounded-full py-2 text-sm font-medium decoration-transparent focus:z-10 focus:outline-none focus:ring-2 focus:ring-primary-50 focus:ring-opacity-50 sm:w-auto sm:px-8 dark:text-opacity-60";
+  "inline-flex items-center justify-center transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-80 underline-offset-4 hover:underline dark:text-zinc-50 h-9 px-4 relative w-1/2 border-zinc-200 bg-[#fff] dark:bg-[#121826] text-black m-1 whitespace-nowrap rounded-full py-2 text-sm font-medium decoration-transparent focus:z-10 focus:outline-none focus:ring-2 focus:ring-primary-50 focus:ring-opacity-50 sm:w-auto sm:px-8 dark:text-opacity-60 shadow-[0_1px_2px_0_rgb(192,220,187,0.36),0_1px_1px_0_rgb(0,0,0,0.06)] dark:shadow-none";
 const pillInActiveClass =
   "inline-flex items-center justify-center transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-80 underline-offset-4 hover:underline dark:text-zinc-50 h-9 px-4 relative w-1/2 border border-transparent text-zinc-600 m-1 whitespace-nowrap rounded-full py-2 text-sm font-medium decoration-transparent focus:z-10 focus:outline-none focus:ring-0 focus:ring-transparent focus:ring-opacity-0 sm:w-auto sm:px-8 dark:text-opacity-60";
 
@@ -122,7 +122,7 @@ function Plan({
             What's Included
           </p>
           {PlanInfo.features[lookup].map((feature, ind) => (
-            <li key={ind} className="mb-3 flex space-x-2">
+            <li key={ind} className="mb-3 flex space-x-2 items-center">
               <TickSVG />
               <span className="text-sm font-normal text-secondary-400 dark:text-copy-500 dark:text-opacity-60">
                 {feature}
@@ -133,7 +133,7 @@ function Plan({
         <button
           disabled={isLoading}
           onClick={() => onAction(lookup)}
-          className="inline-flex items-center justify-center whitespace-nowrap transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-80 bg-zinc-900 shadow hover:bg-zinc-800/90 dark:bg-transparent dark:border-[1px] dark:border-[#182032] dark:text-copy-500 dark:text-opacity-60 dark:hover:bg-transparent h-9 px-4 mt-auto w-full rounded-lg py-2 text-center text-sm font-semibold text-white"
+          className="inline-flex items-center justify-center whitespace-nowrap transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-80 bg-zinc-900 shadow hover:bg-zinc-800/90 dark:bg-transparent dark:border-[1px] dark:border-[#182032] dark:text-copy-500 dark:text-opacity-60 dark:hover:bg-transparent h-9 px-4 mt-auto w-full rounded-full py-2 text-center text-sm font-semibold text-white"
         >
           {isLoading ? <Spin /> : activePlan ? "Manage" : "Subscribe"}
         </button>

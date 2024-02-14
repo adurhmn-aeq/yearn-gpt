@@ -67,13 +67,15 @@ export default function DashboardLayout({
                         to="/usage"
                         className="focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-700 flex items-center px-3 dark:text-white"
                       >
-                        <h1 className="text-slate-800 text-sm">Usage</h1>
+                        <h1 className="text-secondary-500 dark:text-copy-500 dark:text-opacity-60 text-sm">
+                          Usage
+                        </h1>
                       </Link>
                       <Link
                         to="/pricing"
                         className="focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-700 flex items-center px-3 dark:text-white"
                       >
-                        <h1 className="text-slate-800 dark:text-copy-500 dark:text-opacity-60 text-sm">
+                        <h1 className="text-secondary-500 dark:text-copy-500 dark:text-opacity-60 text-sm">
                           Pricing
                         </h1>
                       </Link>

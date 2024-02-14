@@ -102,6 +102,7 @@ markdown-processing {
 .ant-input:focus,
 .ant-input:active {
   border-color: #d0eac1 !important;
+  box-shadow: none !important;
 }
 
 .ant-input-affix-wrapper.ant-input-password:hover,
@@ -126,8 +127,8 @@ markdown-processing {
 }
 
 .dark .ant-select-selector {
-  background: #0e1320;
-  border-color: #0e1320;
+  background-color: #121826 !important;
+  border-color: #121826 !important;
 }
 
 .light .ant-select-selector {

@@ -476,7 +476,7 @@ export const BotForm = ({
                       active
                         ? "border-primary-500 ring-0 ring-primary-500 dark:border-gray-700 dark:ring-gray-900"
                         : "",
-                      "relative  items-center justify-center flex cursor-pointer rounded-lg border bg-white p-4 focus:outline-none dark:bg-[#0d121c] font-work_sans shadow-[0_1px_2px_0_rgb(228,229,231,0.24)]"
+                      "relative  items-center justify-center flex cursor-pointer rounded-lg border bg-white p-4 focus:outline-none dark:bg-[#0d121c] font-work_sans shadow-[0_1px_2px_0_rgb(228,229,231,0.24)] dark:shadow-[0_1px_2px_0_rgb(8,11,18,0.20),0_1px_1px_0_rgb(8,11,18,0.04)]"
                     )
                   }
                 >
@@ -553,6 +553,7 @@ export const BotForm = ({
           >
             <Select
               showSearch
+              size="large"
               filterOption={(input, option) =>
                 (option?.label?.toLowerCase() ?? "").includes(
                   input?.toLowerCase()
@@ -581,6 +582,7 @@ export const BotForm = ({
           >
             <Select
               showSearch
+              size="large"
               filterOption={(input, option) =>
                 (option?.label?.toLowerCase() ?? "").includes(
                   input?.toLowerCase()
@@ -602,7 +604,7 @@ export const BotForm = ({
             <button
               type="submit"
               disabled={isLoading}
-              className="flex w-full justify-center rounded-md border border-transparent bg-primary-500 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+              className="flex w-full justify-center rounded-md border border-transparent bg-primary-500 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 font-work_sans"
             >
               {isLoading ? "Creating..." : "Create"}
             </button>

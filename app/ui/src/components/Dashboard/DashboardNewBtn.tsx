@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 export const DashboardNewBtn = () => {
   return (
     <div className="mb-3">
-      <div className="lg:min-h-[400px] flex flex-col sm:flex-nowrap rounded-2xl py-2 px-8">
+      <div className="lg:min-h-[400px] flex flex-col sm:flex-nowrap rounded-2xl py-6 px-8">
         <div className="flex flex-col gap-1 mb-8">
           <h2 className="font-epilogue text-xl font-semibold text-secondary-500 dark:text-copy-500 dark:opacity-80">
             Get started with Bilic’s AI Agent
@@ -110,7 +110,7 @@ export const DashboardNewBtn = () => {
           {/* End Grid Card*/}
 
           {/* Start Grid Card*/}
-          <div className="bg-white dark:bg-[#0f141f] overflow-hidden p-5 rounded-3xl border-[1px] border-[#F7F7F7] dark:border-[#151a25] dark:shadow-[0 1px 4px #080b1136]">
+          <div className="bg-white dark:bg-[#0f141f] overflow-hidden p-5 rounded-3xl border-[1px] border-[#F7F7F7] dark:border-[#151a25] dark:shadow-[0_1px_4px_#080b1136]">
             <figure className="mb-5">
               <div className="bg-[#f9f9f8] dark:bg-[#0d121c] flex justify-center items-center py-6 px-4 rounded-2xl mb-5">
                 <svg
