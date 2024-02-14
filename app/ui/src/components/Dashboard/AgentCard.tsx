@@ -9,7 +9,7 @@ const AgentCard: FC<{ agent?: any }> = ({ agent }) => {
       <div className=" h-[100%] rounded-[18px] flex flex-col justify-center items-center gap-2">
         <img src="/providers/botImg.svg" alt="" />
         <h2 className="text-[20px] group-hover:text-[#51DC00] font-[600] text-[#343538]">
-          {agent.name}
+          {agent.name.length > 7 ? agent.name.slice(0, 7) + "..." : agent.name}
         </h2>
         <p className="text-[#34353880] font-[500] text-[14px]">
           {" "}

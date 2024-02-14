@@ -6,7 +6,7 @@ const BotCard: FC<{ bot?: any }> = ({ bot }) => {
       <div className=" h-[100%] rounded-[18px] flex flex-col justify-center items-center gap-2">
         <img src="/providers/botImg.svg" alt="" />
         <h2 className="text-[20px] group-hover:text-[#51DC00] font-[600] text-[#343538]">
-          {bot.name}
+          {bot.name.length > 7 ? bot.name.slice(0, 7) + "..." : bot.name}
         </h2>
         <p className="text-[#34353880] font-[500] text-[14px]">
           {bot.model.replace("-dbase", "")}
