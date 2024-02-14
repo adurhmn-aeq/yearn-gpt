@@ -125,7 +125,7 @@ export const AuthLogin = () => {
             </div>
           </div>
 
-          <div className="mt-8">
+          <div className="mt-6">
             <div>
               <Form
                 layout="vertical"
@@ -143,7 +143,7 @@ export const AuthLogin = () => {
                       message: "Please input your username!",
                     },
                   ]}
-                  style={{ fontFamily: "work sans" }}
+                  style={{ fontFamily: "work sans", marginBottom: "16px" }}
                 >
                   <Input
                     autoComplete="username"
@@ -162,6 +162,7 @@ export const AuthLogin = () => {
                       message: "Please input your password!",
                     },
                   ]}
+                  style={{ fontFamily: "work sans", marginTop: "16px" }}
                 >
                   <Input.Password
                     size="large"
@@ -170,7 +171,7 @@ export const AuthLogin = () => {
                     className="bg-[#f8f8f8] border-[#f8f8f8] py-[10] dark:bg-[#0e1320] dark:border-[#0e1320]"
                   />
                 </Form.Item>
-                <div>
+                <div className="pt-2 flex flex-col gap-3">
                   <button
                     type="submit"
                     disabled={isLoading || !!googleOAuthCode}
@@ -178,8 +179,6 @@ export const AuthLogin = () => {
                   >
                     {isLoading ? "Loading..." : "Sign in"}
                   </button>
-                </div>
-                <div>
                   <button
                     type="button"
                     disabled={isLoading || !!googleOAuthCode}
@@ -202,7 +201,7 @@ export const AuthLogin = () => {
               </Form>
             </div>
             {info?.isRegistrationAllowed ? (
-              <p className="mt-10 text-center text-sm text-gray-500">
+              <p className="mt-5 text-center text-sm text-gray-500">
                 Don't have an account?{" "}
                 <Link
                   to="/register"
@@ -212,7 +211,7 @@ export const AuthLogin = () => {
                 </Link>
               </p>
             ) : (
-              <p className="mt-10 text-center text-xs text-gray-500">
+              <p className="mt-5 text-center text-xs text-gray-500">
                 Registration is disabled by admin.
               </p>
             )}

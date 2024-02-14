@@ -19,7 +19,7 @@ export const DashboardGrid = () => {
   return (
     <>
       {status === "loading" && (
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-3 py-4 px-8">
           {/* create skelon loadinf */}
           {[1, 2, 3, 4, 5, 6].map((item) => (
             <div
@@ -33,7 +33,7 @@ export const DashboardGrid = () => {
         <Empty description="No bots created yet" />
       )}
       {status === "success" && data.length > 0 && (
-        <div className="grid grid-cols-1 mt-6 gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 mt-6 gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 px-8">
           {data?.map(({ bot, agent }: any) =>
             bot ? (
               <Link
@@ -142,7 +142,7 @@ export const DashboardGrid = () => {
       )}
 
       {status === "error" && (
-        <div className="rounded-md bg-red-50 p-4">
+        <div className="rounded-md bg-red-50 py-4 px-8">
           <div className="flex">
             <div className="flex-shrink-0">
               <XCircleIcon

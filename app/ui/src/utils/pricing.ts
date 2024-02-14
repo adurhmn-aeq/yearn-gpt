@@ -16,6 +16,26 @@ export const Plan = {
     enterprise_monthly: "Enterprise",
     enterprise_yearly: "Enterprise",
   },
+  heading: {
+    hobby_monthly: "For individuals & small businesses",
+    hobby_yearly: "For individuals & small businesses",
+    startup_monthly: "For small businesses",
+    startup_yearly: "For small businesses",
+    enterprise_monthly: "For medium to large businesses",
+    enterprise_yearly: "For medium to large businesses",
+  },
+  description: {
+    hobby_monthly: "Everything you need to support payments",
+    hobby_yearly: "Everything you need to support payments",
+    startup_monthly:
+      "Level up your business with professional reporting and more staff accounts",
+    startup_yearly:
+      "Level up your business with professional reporting and more staff accounts",
+    enterprise_monthly:
+      "Get the best with custom reporting and our lowest transaction fees",
+    enterprise_yearly:
+      "Get the best with custom reporting and our lowest transaction fees",
+  },
   prices: {
     hobby_monthly: 10,
     hobby_yearly: 100,

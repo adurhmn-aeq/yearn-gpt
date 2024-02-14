@@ -67,6 +67,25 @@ markdown-processing {
   box-shadow: none !important;
 }
 
+.light .ant-input {
+  background: #fff !important;
+  border-color: #f0f0f0 !important;
+}
+/* .light .ant-input-affix-wrapper {
+  background: #f8f8f8 !important;
+  border-color: #f8f8f8 !important;
+} */
+
+.dark .ant-input {
+  background: #0e1320;
+  border-color: #0e1320;
+}
+
+.dark .ant-input-affix-wrapper {
+  background: #0e1320;
+  border-color: #0e1320;
+}
+
 /* remove background on placeholder */
 .ant-input-affix-wrapper .ant-input {
   background: transparent;
@@ -83,6 +102,7 @@ markdown-processing {
 .ant-input:focus,
 .ant-input:active {
   border-color: #d0eac1 !important;
+  box-shadow: none !important;
 }
 
 .ant-input-affix-wrapper.ant-input-password:hover,
@@ -104,4 +124,15 @@ markdown-processing {
 .ant-input-affix-wrapper:focus,
 .ant-input-affix-wrapper-focused {
   border-color: #d0eac1 !important;
+}
+
+.dark .ant-select-selector {
+  background-color: #121826 !important;
+  border-color: #121826 !important;
+}
+
+.light .ant-select-selector {
+  background: #fff !important;
+  border-color: #f0f0f0 !important;
+  box-shadow: 0 1px 2px 0 rgb(228, 229, 231, 0.24);
 }

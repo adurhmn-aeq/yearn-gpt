@@ -16,12 +16,14 @@ import { RadioGroup } from "@headlessui/react";
 import {
   DocumentArrowUpIcon,
   DocumentTextIcon,
-  GlobeAltIcon,
   InboxIcon,
 } from "@heroicons/react/24/outline";
 import React from "react";
 import { SpiderIcon } from "../Icons/SpiderIcon";
 import { GithubIcon } from "../Icons/GithubIcon";
+import { GlobeIcon } from "../Icons/GlobeIcon";
+import { FileIcon } from "../Icons/FileIcon";
+import { FileUploadIcon } from "../Icons/FileUploadIcon";
 import { YoutubeIcon } from "../Icons/YoutubeIcon";
 import { ApiIcon } from "../Icons/ApiIcon";
 import { SitemapIcon } from "../Icons/SitemapIcon";
@@ -53,7 +55,7 @@ export const BotForm = ({
       id: 1,
       value: "website",
       title: "Webpage",
-      icon: GlobeAltIcon,
+      icon: GlobeIcon,
       formComponent: (
         <Form.Item
           name="content"
@@ -72,7 +74,7 @@ export const BotForm = ({
       id: 3,
       value: "text",
       title: "Text",
-      icon: DocumentTextIcon,
+      icon: FileIcon,
       formComponent: (
         <Form.Item
           name="content"
@@ -94,11 +96,12 @@ export const BotForm = ({
       id: 2,
       value: "file",
       title: "File",
-      icon: DocumentArrowUpIcon,
+      icon: FileUploadIcon,
       formComponent: (
         <>
           <Form.Item
             name="file"
+            className="font-work_sans"
             rules={[
               {
                 required: true,
@@ -153,7 +156,7 @@ export const BotForm = ({
                 return false;
               }}
             >
-              <div className="p-3">
+              <div className="p-3 font-work_sans">
                 <p className="ant-upload-drag-icon justify-center flex">
                   <InboxIcon className="h-10 w-10 text-gray-400" />
                 </p>
@@ -352,7 +355,7 @@ export const BotForm = ({
     {
       id: 8,
       value: "rest",
-      title: "REST API",
+      title: " REST API",
       icon: ApiIcon,
       formComponent: (
         <>
@@ -434,7 +437,7 @@ export const BotForm = ({
           layout="vertical"
           onFinish={createBot}
           form={form}
-          className="space-y-6"
+          className="space-y-6 font-work_sans"
           initialValues={{
             embedding: "dialoqbase_eb_text-embedding-ada-002",
             model: "gpt-3.5-turbo-dbase",
@@ -456,7 +459,7 @@ export const BotForm = ({
               setSelectedSource(e);
             }}
           >
-            <RadioGroup.Label className="text-base font-medium text-gray-800 dark:text-gray-200">
+            <RadioGroup.Label className="text-base font-work_sans font-medium text-gray-800 dark:text-gray-200">
               Select a data source
             </RadioGroup.Label>
 
@@ -469,11 +472,11 @@ export const BotForm = ({
                     classNames(
                       checked
                         ? "border-transparent"
-                        : "border-gray-300 dark:border-gray-700",
+                        : "border-[#f0f0f0] dark:border-[#151a25]",
                       active
-                        ? "border-indigo-500 ring-0 ring-green-500 dark:border-gray-700 dark:ring-gray-900"
+                        ? "border-primary-500 ring-0 ring-primary-500 dark:border-gray-700 dark:ring-gray-900"
                         : "",
-                      "relative  items-center justify-center flex cursor-pointer rounded-lg border bg-white p-4 shadow-sm focus:outline-none dark:bg-[#141414]"
+                      "relative  items-center justify-center flex cursor-pointer rounded-lg border bg-white p-4 focus:outline-none dark:bg-[#0d121c] font-work_sans shadow-[0_1px_2px_0_rgb(228,229,231,0.24)] dark:shadow-[0_1px_2px_0_rgb(8,11,18,0.20),0_1px_1px_0_rgb(8,11,18,0.04)]"
                     )
                   }
                 >
@@ -482,7 +485,7 @@ export const BotForm = ({
                       <span className="flex-shrink-0 flex items-center justify-centerrounded-lg">
                         <RadioGroup.Label
                           as="span"
-                          className="block text-sm font-medium text-gray-900 dark:text-gray-200"
+                          className="block text-sm font-work_sans font-medium text-gray-900 dark:text-gray-200"
                         >
                           <source.icon
                             className="h-6 w-6 mr-3"
@@ -495,7 +498,7 @@ export const BotForm = ({
                       <span
                         className={classNames(
                           active ? "border" : "border-2",
-                          checked ? "border-indigo-500" : "border-transparent",
+                          checked ? "border-primary-500" : "border-transparent",
                           "pointer-events-none absolute -inset-px rounded-lg"
                         )}
                         aria-hidden="true"
@@ -507,7 +510,9 @@ export const BotForm = ({
             </div>
           </RadioGroup>
 
-          {selectedSource && selectedSource.formComponent}
+          <div className="">
+            {selectedSource && selectedSource.formComponent}
+          </div>
 
           {selectedSource && selectedSource.value === "rest" && (
             <Row gutter={24}>
@@ -534,7 +539,7 @@ export const BotForm = ({
           )}
 
           <Form.Item hidden={!showEmbeddingAndModels} noStyle>
-            <Divider />
+            <Divider className="" />
           </Form.Item>
 
           <Form.Item
@@ -548,6 +553,7 @@ export const BotForm = ({
           >
             <Select
               showSearch
+              size="large"
               filterOption={(input, option) =>
                 (option?.label?.toLowerCase() ?? "").includes(
                   input?.toLowerCase()
@@ -576,6 +582,7 @@ export const BotForm = ({
           >
             <Select
               showSearch
+              size="large"
               filterOption={(input, option) =>
                 (option?.label?.toLowerCase() ?? "").includes(
                   input?.toLowerCase()
@@ -597,7 +604,7 @@ export const BotForm = ({
             <button
               type="submit"
               disabled={isLoading}
-              className="flex w-full justify-center rounded-md border border-transparent bg-green-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+              className="flex w-full justify-center rounded-md border border-transparent bg-primary-500 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 font-work_sans"
             >
               {isLoading ? "Creating..." : "Create"}
             </button>

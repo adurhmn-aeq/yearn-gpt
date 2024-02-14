@@ -109,7 +109,7 @@ export const AuthRegister = () => {
               </div>
             </div>
 
-            <div className="mt-8">
+            <div className="mt-6">
               <div>
                 <Form
                   layout="vertical"
@@ -127,7 +127,7 @@ export const AuthRegister = () => {
                         message: "Please input your username!",
                       },
                     ]}
-                    style={{ fontFamily: "work sans" }}
+                    style={{ fontFamily: "work sans", marginBottom: "16px" }}
                   >
                     <Input
                       size="large"
@@ -145,7 +145,7 @@ export const AuthRegister = () => {
                         message: "Please input your email",
                       },
                     ]}
-                    style={{ fontFamily: "work sans" }}
+                    style={{ fontFamily: "work sans", marginTop: "16px" }}
                   >
                     <Input
                       size="large"
@@ -164,7 +164,7 @@ export const AuthRegister = () => {
                         message: "Please input your password!",
                       },
                     ]}
-                    style={{ fontFamily: "work sans" }}
+                    style={{ fontFamily: "work sans", marginTop: "16px" }}
                   >
                     <Input.Password
                       size="large"
@@ -185,7 +185,7 @@ export const AuthRegister = () => {
                   </div>
                 </Form>
               </div>
-              <p className="mt-10 text-center text-sm text-gray-500">
+              <p className="mt-5 text-center text-sm text-gray-500">
                 Already have an account?{" "}
                 <Link
                   to="/login"
