@@ -1,5 +1,34 @@
 import { PrismaClient } from "@prisma/client";
-import { createCustomer } from "../src/utils/stripe";
+import Stripe from "stripe";
+
+export const getStripe = () => {
+  if (!process.env.STRIPE_SECRET_KEY) throw new Error("No Stripe Key Found");
+  return require("stripe")(process.env.STRIPE_SECRET_KEY) as Stripe;
+};
+
+export const createCustomer = async ({
+  userName,
+  email,
+  userId,
+}: {
+  userName: string;
+  email: string;
+  userId: string;
+}) => {
+  const stripe = getStripe();
+  try {
+    return await stripe.customers.create({
+      metadata: {
+        userName,
+        email,
+        userId,
+      },
+    });
+  } catch (err) {
+    console.log("createCustomer err", err);
+    return null;
+  }
+};
 const prisma = new PrismaClient();
 
 const LLMS: {
