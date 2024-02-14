@@ -17,7 +17,7 @@ export const AgentForm = ({ isLoading, form, createAgent }: Props) => {
           form={form}
           layout="vertical"
           onFinish={createAgent}
-          className="space-y-6"
+          className="space-y-6 font-work_sans"
           initialValues={{
             initMsg: "Good day, how are you doing?",
           }}
@@ -25,7 +25,11 @@ export const AgentForm = ({ isLoading, form, createAgent }: Props) => {
           <div className="">
             <div className="space-y-6 mb-4">
               <Form.Item
-                label="Agent Name"
+                label={
+                  <span className="font-medium font-work_sans text-secondary-500-800 text-sm dark:text-gray-200">
+                    Agent Name
+                  </span>
+                }
                 name="name"
                 className="font-work_sans font-medium text-secondary-500 dark:text-copy-500"
                 rules={[
@@ -42,7 +46,11 @@ export const AgentForm = ({ isLoading, form, createAgent }: Props) => {
                 />
               </Form.Item>
               <Form.Item
-                label="Initiation Message"
+                label={
+                  <span className="font-medium font-work_sans text-secondary-500-800 text-sm dark:text-gray-200">
+                    Initiation Message
+                  </span>
+                }
                 name="initMsg"
                 className="font-work_sans font-medium text-secondary-500 dark:text-gray-200"
                 rules={[
@@ -55,11 +63,15 @@ export const AgentForm = ({ isLoading, form, createAgent }: Props) => {
                 <Input
                   size="large"
                   type="text"
-                  className="mt-1 block w-full rounded-md  focus:ring-primary-500 focus:border-primary-200 sm:text-sm dark:bg-[#121826] dark:border-[#121826]"
+                  className="mt-1 block w-full rounded-md  focus:ring-primary-500 focus:border-primary-200 sm:text-sm dark:bg-[#121826] dark:border-[#121826] text-sm"
                 />
               </Form.Item>
               <Form.Item
-                label="Agent Prompt"
+                label={
+                  <span className="font-medium font-work_sans text-secondary-500-800 text-sm dark:text-gray-200">
+                    Agent Prompt
+                  </span>
+                }
                 name="prompt"
                 className="font-work_sans font-medium text-secondary-500 dark:text-gray-200"
                 rules={[
@@ -71,7 +83,7 @@ export const AgentForm = ({ isLoading, form, createAgent }: Props) => {
               >
                 <Input.TextArea
                   placeholder="Enter agent prompt"
-                  className=" block w-full sm:text-sm focus:ring-primary-500 focus:border-primary-200 min-h-[160px] rounded-md dark:bg-[#121826] dark:border-[#121826]"
+                  className="font-work_sans block w-full sm:text-sm focus:ring-primary-500 focus:border-primary-200 min-h-[160px] rounded-md dark:bg-[#121826] dark:border-[#121826]"
                 />
               </Form.Item>
               <Form.Item

@@ -25,8 +25,8 @@ export const Plan = {
     enterprise_yearly: "For medium to large businesses",
   },
   description: {
-    hobby_monthly: "Everything you need to support payments",
-    hobby_yearly: "Everything you need to support payments",
+    hobby_monthly: "Everything you need to support",
+    hobby_yearly: "Everything you need to support",
     startup_monthly:
       "Level up your business with professional reporting and more staff accounts",
     startup_yearly:

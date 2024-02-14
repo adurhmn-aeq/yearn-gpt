@@ -454,14 +454,15 @@ export const BotForm = ({
         >
           <RadioGroup
             value={selectedSource}
+            className="mb-[36px]"
             onChange={(e: any) => {
               _setSelectedSource(e);
               setSelectedSource(e);
             }}
           >
-            <RadioGroup.Label className="text-base font-work_sans font-medium text-gray-800 dark:text-gray-200">
+            {/* <RadioGroup.Label className="text-base font-work_sans font-medium text-gray-800 dark:text-gray-200">
               Select a data source
-            </RadioGroup.Label>
+            </RadioGroup.Label> */}
 
             <div className="mt-4 grid grid-cols-1 gap-y-6 sm:grid-cols-3 sm:gap-x-4">
               {availableSources.map((source) => (
@@ -472,7 +473,7 @@ export const BotForm = ({
                     classNames(
                       checked
                         ? "border-transparent"
-                        : "border-[#f0f0f0] dark:border-[#151a25]",
+                        : "border-[#e9efe6] dark:border-[#151a25]",
                       active
                         ? "border-primary-500 ring-0 ring-primary-500 dark:border-gray-700 dark:ring-gray-900"
                         : "",
@@ -539,13 +540,13 @@ export const BotForm = ({
           )}
 
           <Form.Item hidden={!showEmbeddingAndModels} noStyle>
-            <Divider className="" />
+            <Divider />
           </Form.Item>
 
           <Form.Item
             hidden={!showEmbeddingAndModels}
             label={
-              <span className="font-medium text-gray-800 text-sm dark:text-gray-200">
+              <span className="font-work_sans font-medium text-gray-800 text-sm dark:text-gray-200">
                 Chat Model
               </span>
             }
@@ -574,7 +575,7 @@ export const BotForm = ({
           <Form.Item
             hidden={!showEmbeddingAndModels}
             label={
-              <span className="font-medium text-gray-800 text-sm dark:text-gray-200">
+              <span className="font-work_sans font-medium text-gray-800 text-sm dark:text-gray-200">
                 Embedding model
               </span>
             }
@@ -583,6 +584,7 @@ export const BotForm = ({
             <Select
               showSearch
               size="large"
+              className="font-work_sans"
               filterOption={(input, option) =>
                 (option?.label?.toLowerCase() ?? "").includes(
                   input?.toLowerCase()
@@ -606,7 +608,7 @@ export const BotForm = ({
               disabled={isLoading}
               className="flex w-full justify-center rounded-md border border-transparent bg-primary-500 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 font-work_sans"
             >
-              {isLoading ? "Creating..." : "Create"}
+              {isLoading ? "Creating..." : "Create Bot"}
             </button>
           </Form.Item>
         </Form>
