@@ -78,7 +78,7 @@ export const MobileDashboardGrid = () => {
               My Agents
             </h2>
           </div>
-          <div className="pt-[35px]">
+          <div className="pt-[25px]">
             {activeState === "myBots" ? (
               <div className="flex gap-[20px] flex-wrap justify-center">
                 {status === "success" && data.length > 0 && (
