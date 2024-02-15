@@ -85,6 +85,7 @@ export const BotForm = ({
         >
           <Input.TextArea
             placeholder="Enter the text"
+            autoSize={{ minRows: 6, maxRows: 15 }}
             className=" block w-full shadow-sm sm:text-sm focus:ring-green-500 focus:border-indigo-500 border-gray-300 rounded-md"
           />
         </Form.Item>
@@ -153,7 +154,7 @@ export const BotForm = ({
                 return false;
               }}
             >
-              <div className="p-3">
+              <div className="p-2">
                 <p className="ant-upload-drag-icon justify-center flex">
                   <InboxIcon className="h-10 w-10 text-gray-400" />
                 </p>
@@ -434,7 +435,7 @@ export const BotForm = ({
           layout="vertical"
           onFinish={createBot}
           form={form}
-          className="space-y-6 flex flex-col justify-between"
+          className="space-y-6 flex flex-col justify-between !pt-6"
           initialValues={{
             embedding: "dialoqbase_eb_text-embedding-ada-002",
             model: "gpt-3.5-turbo-dbase",
@@ -467,9 +468,7 @@ export const BotForm = ({
                   value={source}
                   className={({ checked, active }) =>
                     classNames(
-                      checked
-                        ? "border-transparent bg-[#343538]"
-                        : "border-gray-300 dark:border-gray-700",
+                      checked ? "!bg-[#343538]" : " dark:border-gray-700",
                       // active
                       //   ? "border-indigo-500 ring-0 ring-green-500 dark:border-gray-700 dark:ring-gray-900"
                       //   : "",
@@ -548,7 +547,7 @@ export const BotForm = ({
                 <Divider />
               </Form.Item>
 
-              <div className="flex justify-between gap-6">
+              <div className="flex justify-between gap-1 flex-wrap md:flex-nowrap md:gap-6">
                 <Form.Item
                   className="w-full"
                   hidden={!showEmbeddingAndModels}
