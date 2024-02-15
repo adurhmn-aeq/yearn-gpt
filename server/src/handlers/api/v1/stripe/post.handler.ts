@@ -5,8 +5,10 @@ import {
   BotLimit,
   MessageCredits,
   PlanLookup,
+  SourceCharsPerBot,
   getStripe,
 } from "../../../../utils/stripe";
+import { GetResult } from "@prisma/client/runtime/library";
 
 export const webhookHandler = async (
   request: FastifyRequest,
@@ -25,6 +27,22 @@ export const webhookHandler = async (
   }
 
   const prisma = request.server.prisma;
+  let lookup: PlanLookup;
+  let stripe:
+    | (GetResult<
+        {
+          id: string;
+          customerId: string;
+          user_id: number;
+          active_plan: string;
+          subscription_id: string;
+          line_item_id: string;
+          plan_status: string;
+          message_credits_remaining: number;
+        },
+        any
+      > & {})
+    | null;
 
   // Handle the event
   switch (event.type) {
@@ -32,10 +50,15 @@ export const webhookHandler = async (
       // handles creation + plan switch + deletion
       const customerSubscriptionUpdated = event.data
         .object as Stripe.Subscription;
-      const lookup = customerSubscriptionUpdated!.items!.data[0]!.price
+      lookup = customerSubscriptionUpdated!.items!.data[0]!.price
         .lookup_key as PlanLookup;
       const allowedBots = BotLimit[lookup];
       const allowedAgents = AgentLimit[lookup];
+      stripe = await prisma.stripe.findFirst({
+        where: {
+          customerId: customerSubscriptionUpdated.customer as string,
+        },
+      });
 
       if (
         customerSubscriptionUpdated.status === "active" ||
@@ -66,12 +89,16 @@ export const webhookHandler = async (
               message_credits_remaining: MessageCredits[lookup],
             },
           });
-          
-          const stripe = await prisma.stripe.findFirst({
-            where: {
-              customerId: customerSubscriptionUpdated.customer as string,
-            },
-          });
+
+          // // source chars reset
+          // await prisma.bot.updateMany({
+          //   where: {
+          //     user_id: stripe?.user_id,
+          //   },
+          //   data: {
+          //     source_chars_remaining: SourceCharsPerBot[lookup],
+          //   },
+          // });
 
           const enabledBots = await prisma.bot.findMany({
             where: { user_id: stripe?.user_id, disabled: false },
@@ -143,39 +170,57 @@ export const webhookHandler = async (
         }
         // disable all bots & agents
         if (customerSubscriptionUpdated.status === "past_due") {
-          await prisma.bot.updateMany({ where: {}, data: { disabled: true } });
+          await prisma.bot.updateMany({
+            where: { user_id: stripe?.user_id },
+            data: { disabled: true },
+          });
           await prisma.agent.updateMany({
-            where: {},
+            where: { user_id: stripe?.user_id },
             data: { disabled: true },
           });
         }
-      } else if (customerSubscriptionUpdated.status === "canceled") {
-        // deletion
-        await prisma.stripe.updateMany({
-          where: { customerId: customerSubscriptionUpdated.customer as string },
-          data: {
-            active_plan: "",
-            line_item_id: "",
-            subscription_id: "",
-            plan_status: "",
-            message_credits_remaining: 0,
-          },
-        });
-        // message credits reset
-        await prisma.stripe.updateMany({
-          where: { customerId: customerSubscriptionUpdated.customer as string },
-          data: {
-            message_credits_remaining: 0,
-          },
-        });
-        // disable all bots and agents
-        await prisma.bot.updateMany({ where: {}, data: { disabled: true } });
-        await prisma.agent.updateMany({
-          where: {},
-          data: { disabled: true },
-        });
       }
       console.log("handled customer.subscription.updated");
+      break;
+
+    case "customer.subscription.deleted":
+      const customerSubscriptionDeleted = event.data.object;
+      lookup = customerSubscriptionDeleted!.items!.data[0]!.price
+        .lookup_key as PlanLookup;
+      stripe = await prisma.stripe.findFirst({
+        where: {
+          customerId: customerSubscriptionDeleted.customer as string,
+        },
+      });
+      await prisma.stripe.updateMany({
+        where: { customerId: customerSubscriptionDeleted.customer as string },
+        data: {
+          active_plan: "",
+          line_item_id: "",
+          subscription_id: "",
+          plan_status: "",
+          message_credits_remaining: 0,
+        },
+      });
+      // // source chars reset
+      // await prisma.bot.updateMany({
+      //   where: {
+      //     user_id: stripe?.user_id,
+      //   },
+      //   data: {
+      //     source_chars_remaining: 0,
+      //   },
+      // });
+      // disable all bots and agents
+      await prisma.bot.updateMany({
+        where: { user_id: stripe?.user_id },
+        data: { disabled: true },
+      });
+      await prisma.agent.updateMany({
+        where: { user_id: stripe?.user_id },
+        data: { disabled: true },
+      });
+      console.log("handled customer.subscription.deleted");
       break;
 
     // case "invoice.paid":
@@ -203,4 +248,3 @@ export const webhookHandler = async (
   // Return a 200 res to acknowledge receipt of the event
   reply.status(200).send();
 };
-``;
