@@ -54,7 +54,8 @@ export const DashboardGrid = () => {
     const response = await api.get("/agent/with-bots");
     return response.data;
   });
-  console.log("data", data);
+  const botsCount = data && data.filter(({ bot }: any) => bot);
+  const agentCount = data && data.filter(({ agent }: any) => agent);
 
   return (
     <div className="flex flex-col gap-[40px]">
@@ -100,7 +101,6 @@ export const DashboardGrid = () => {
               {status === "success" && data.length > 0 && (
                 <>
                   {data?.map(({ bot }: any, i: any) => {
-                    console.log("val:", bot, i);
                     return bot ? (
                       <Link to={`/bot/${bot.id}`} key={bot.id}>
                         <BotCard bot={bot} />
@@ -109,7 +109,7 @@ export const DashboardGrid = () => {
                   })}
                 </>
               )}
-              {status === "success" && data.length === 0 && (
+              {status === "success" && botsCount.length === 0 && (
                 <div className="flex justify-center items-center w-[100%]">
                   <Empty description="No bots created yet" />
                 </div>
@@ -129,7 +129,6 @@ export const DashboardGrid = () => {
               {status === "success" && data.length > 0 && (
                 <>
                   {data?.map(({ bot, agent }: any, i: any) => {
-                    console.log("val:", bot, i);
                     return agent ? (
                       <Link to={`/agent/${agent.id}`} key={agent.id}>
                         <AgentCard key={i} agent={agent} />
@@ -138,7 +137,7 @@ export const DashboardGrid = () => {
                   })}
                 </>
               )}
-              {status === "success" && data.length === 0 && (
+              {status === "success" && agentCount.length === 0 && (
                 <div className="flex justify-center items-center w-[100%]">
                   <Empty description="No Agents created yet" />
                 </div>
