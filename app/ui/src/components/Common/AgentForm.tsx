@@ -23,10 +23,15 @@ export const AgentForm = ({ isLoading, form, createAgent }: Props) => {
           }}
         >
           <div className="sm:overflow-hidden ">
-            <div className="space-y-6 border-t border rounded-t-md  bg-white px-4 py-5 sm:p-6 dark:bg-black dark:border-gray-800">
+            <div className="space-y-6 rounded-t-md bg-white dark:bg-black dark:border-gray-800">
               <Form.Item
-                label="Agent Name"
+                label={
+                  <span className="font-medium text-gray-800 text-xs dark:text-gray-200">
+                    Agent Name
+                  </span>
+                }
                 name="name"
+                required={false}
                 rules={[
                   {
                     required: true,
@@ -34,11 +39,20 @@ export const AgentForm = ({ isLoading, form, createAgent }: Props) => {
                   },
                 ]}
               >
-                <Input size="large" type="text" />
+                <Input
+                  size="large"
+                  type="text"
+                  className="!rounded-lg !border-2 !border-[#3E3F4233] focus:!border-[#3E3F42] !outline-none focus:!outline-none focus:!shadow-none !ring-0 hover:!border-[#3E3F42]"
+                />
               </Form.Item>
               <Form.Item
-                label="Initiation Message"
+                label={
+                  <span className="font-medium text-gray-800 text-xs dark:text-gray-200">
+                    Initiation Message
+                  </span>
+                }
                 name="initMsg"
+                required={false}
                 rules={[
                   {
                     required: true,
@@ -49,12 +63,18 @@ export const AgentForm = ({ isLoading, form, createAgent }: Props) => {
                 <Input
                   size="large"
                   type="text"
-                  className="mt-1 block w-full border-gray-300 rounded-md  focus:ring-green-500 focus:border-indigo-500 sm:text-sm"
+                  // className="mt-1 block w-full border-gray-300 rounded-md  focus:ring-green-500 focus:border-indigo-500 sm:text-sm"
+                  className="!rounded-lg !border-2 !border-[#3E3F4233] focus:!border-[#3E3F42] !outline-none focus:!outline-none focus:!shadow-none !ring-0 hover:!border-[#3E3F42]"
                 />
               </Form.Item>
               <Form.Item
-                label="Agent Prompt"
+                label={
+                  <span className="font-medium text-gray-800 text-xs dark:text-gray-200">
+                    Agent Prompt
+                  </span>
+                }
                 name="prompt"
+                required={false}
                 rules={[
                   {
                     required: true,
@@ -63,19 +83,22 @@ export const AgentForm = ({ isLoading, form, createAgent }: Props) => {
                 ]}
               >
                 <Input.TextArea
+                  autoSize={{ minRows: 6, maxRows: 10 }}
                   placeholder="Enter agent prompt"
-                  className=" block w-full shadow-sm sm:text-sm focus:ring-green-500 focus:border-indigo-500 border-gray-300 rounded-md"
+                  className="!bg-[#F9F9F8] !rounded-lg !border-2 !border-none focus:!border-[#3E3F42] !outline-none focus:!outline-none !ring-0 "
                 />
               </Form.Item>
               <Form.Item
+                className="border-t-2"
                 label={
-                  <span className="font-medium text-gray-800 text-sm dark:text-gray-200">
+                  <span className="font-medium text-gray-800 text-xs dark:text-gray-200 pt-4">
                     Chat Model
                   </span>
                 }
                 name="model"
               >
                 <Select
+                  className="!rounded-lg !border-2 !border-[#3E3F4233] focus:!border-[#3E3F42] !outline-none focus:!outline-none focus:!shadow-none !ring-0 hover:!border-[#3E3F42] hover:!ring-0"
                   showSearch
                   filterOption={(input, option) =>
                     (option?.label
@@ -93,11 +116,12 @@ export const AgentForm = ({ isLoading, form, createAgent }: Props) => {
                 />
               </Form.Item>
             </div>
-            <div className="bg-gray-50 border-x border-b rounded-b-md rounded-x-md px-4 py-3 text-right sm:px-6 dark:bg-[#141414] dark:border-gray-800">
+            <div className="pt-6 flex justify-end">
               <button
                 disabled={isLoading}
                 type="submit"
-                className="inline-flex justify-center rounded-md border border-transparent bg-green-600 py-2 px-4 text-sm font-medium text-white  hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+                // className="inline-flex justify-center rounded-md border border-transparent bg-green-600 py-2 px-4 text-sm font-medium text-white  hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+                className="flex  justify-center rounded-[10px] border border-transparent bg-gray-800 py-2 px-8 text-sm font-medium text-white shadow-sm hover:bg-gray-950 focus:outline-none"
               >
                 {isLoading ? "Saving..." : "Save"}
               </button>
