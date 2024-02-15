@@ -99,7 +99,7 @@ export const ApplicationSidebar = () => {
                 <Link key={i} to={val.link}>
                   <SidebarItem
                     isCollapsed={isCollapsed}
-                    className={`px-3 h-[48px] rounded-lg hover:bg-[#3435381A] dark:bg-[#151a25] cursor-pointer mt-2 ${
+                    className={`px-3 h-[48px] rounded-lg hover:bg-[#3435381A] dark:bg-[#151a25] cursor-pointer mt-1 ${
                       pathname === val.link ? "bg-[#3435381A]" : null
                     }`}
                     leftSlot={<>{val.icon}</>}
@@ -166,7 +166,7 @@ export const ApplicationSidebar = () => {
                 </span>
               </SidebarItem>
             </Link>
-            <div className="flex justify-center items-center mt-[auto] pt-[8px]">
+            <div className="flex justify-center items-center mt-[auto] pt-[8px] pb-3">
               <p className="text-[12px] font-[400] text-[#34353880]">
                 Copyright 2024 bilic.io
               </p>

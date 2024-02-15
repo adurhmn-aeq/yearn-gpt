@@ -15,7 +15,7 @@ export default function Root() {
   }, []);
 
   return (
-    <div className="mx-auto py-4 px-[40px] sm:px-6 lg:px-[40px] flex flex-col gap-[50px]">
+    <div className="mx-auto pt-6 pb-8 px-[40px] sm:px-6 lg:px-[40px] flex flex-col gap-[50px]">
       {/* Create Bot Button */}
       <div className="flex flex-col gap-8">
         <div className="">
