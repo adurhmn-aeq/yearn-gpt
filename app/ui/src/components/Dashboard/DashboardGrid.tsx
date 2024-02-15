@@ -9,6 +9,41 @@ import BotAgentCard from "./BotCard";
 import UtilityButton from "../../utils/widgets/UtilityButton";
 import BotCard from "./BotCard";
 import AgentCard from "./AgentCard";
+import TestCard from "./TestCard";
+import CarosalSlider from "../../utils/widgets/Slider";
+
+const slickSettings = {
+  dots: false,
+  arrows: false,
+  infinite: true,
+  speed: 500,
+  slidesToShow: 4,
+  slidesToScroll: 2,
+  initialSlide: 0,
+  responsive: [
+    {
+      breakpoint: 1024,
+      settings: {
+        slidesToShow: 3,
+        slidesToScroll: 1,
+      },
+    },
+    {
+      breakpoint: 600,
+      settings: {
+        slidesToShow: 2,
+        slidesToScroll: 1,
+      },
+    },
+    {
+      breakpoint: 350,
+      settings: {
+        slidesToShow: 1,
+        slidesToScroll: 1,
+      },
+    },
+  ],
+};
 
 export const DashboardGrid = () => {
   // const { data, status } = useQuery(["getAllBots"], async () => {
@@ -60,7 +95,8 @@ export const DashboardGrid = () => {
                 <UtilityButton>Create Bot</UtilityButton>
               </Link>
             </div>
-            <div className=" flex gap-[50px] flex-wrap">
+            <div className=" flex gap-[50px] flex-wrap w-full">
+              {/* <div className=" flex gap-[50px] w-full overflow-x-auto "> */}
               {status === "success" && data.length > 0 && (
                 <>
                   {data?.map(({ bot }: any, i: any) => {

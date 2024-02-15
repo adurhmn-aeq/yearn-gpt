@@ -43,7 +43,7 @@ export default function DashboardLayout({
       >
         <div className="flex h-full w-screen align-center">
           <ApplicationSidebar />
-          <div className="h-full  flex-1">
+          <div className="h-full flex-1">
             <div className="bg-white dark:bg-[#0b0f19] w-full h-full border-[1px] border-[#f3f3f1] dark:border-[#151a25] flex flex-col">
               <div className="mx-auto px-2 sm:px-6 lg:px-12 py-6 border-b border-solid border-[#F0F0F0] w-[100%]">
                 <div className="flex justify-between items-center">
@@ -61,6 +61,7 @@ export default function DashboardLayout({
                 </div>
               </div>
               <div className="flex-1 overflow-auto">{children}</div>
+              {/* <div className=" w-full h-full overflow-auto">{children}</div> */}
             </div>
           </div>
         </div>
