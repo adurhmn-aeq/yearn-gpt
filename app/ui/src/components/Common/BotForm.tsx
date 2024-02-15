@@ -472,7 +472,7 @@ export const BotForm = ({
                       // active
                       //   ? "border-indigo-500 ring-0 ring-green-500 dark:border-gray-700 dark:ring-gray-900"
                       //   : "",
-                      "relative drop-shadow-lg items-center justify-center flex cursor-pointer rounded-[20px] bg-white focus:outline-none dark:bg-[#141414] min-w-[110px] min-h-[110px]"
+                      "relative drop-shadow-lg items-center justify-center flex cursor-pointer rounded-[20px] bg-white focus:outline-none dark:bg-[#141414] min-w-[80px] min-h-[80px] md:min-w-[110px] md:min-h-[110px] "
                     )
                   }
                 >
@@ -481,12 +481,12 @@ export const BotForm = ({
                       <span
                         className={classNames(
                           checked ? "text-white" : "",
-                          "flex-shrink-0 flex flex-col items-center justify-center rounded-lg gap-3 text-base shadow-sm"
+                          "flex-shrink-0 flex flex-col items-center justify-center rounded-lg md:gap-3 gap-1 text-xs sm:text-sm md:text-base shadow-sm"
                         )}
                       >
                         <RadioGroup.Label
                           as="span"
-                          className="block text-base font-medium text-gray-900 dark:text-gray-200"
+                          className="block md:text-base text-xs font-medium text-gray-900 dark:text-gray-200"
                         >
                           <source.icon
                             className={classNames(
@@ -552,7 +552,7 @@ export const BotForm = ({
                   className="w-full"
                   hidden={!showEmbeddingAndModels}
                   label={
-                    <span className="font-medium text-gray-800 text-sm dark:text-gray-200">
+                    <span className="font-medium text-gray-800 text-xs sm:text-sm md:text-base dark:text-gray-200">
                       Chat Model
                     </span>
                   }
@@ -581,7 +581,7 @@ export const BotForm = ({
                   className="w-full"
                   hidden={!showEmbeddingAndModels}
                   label={
-                    <span className="font-medium text-gray-800 text-sm dark:text-gray-200">
+                    <span className="font-medium text-gray-800 text-xs sm:text-sm md:text-base dark:text-gray-200">
                       Embedding model
                     </span>
                   }

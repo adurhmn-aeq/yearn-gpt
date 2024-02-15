@@ -52,8 +52,8 @@ export default function NewAgent() {
             Create a new agent
           </h2>
         </div> */}
-        <div className="my-8 sm:mx-auto sm:w-full sm:max-w-lg">
-          <div className="bg-white py-10 px-4 border-2 sm:rounded-[20px] sm:px-16 dark:bg-black dark:border-gray-800">
+        <div className="my-8 mx-2 sm:mx-auto sm:w-full sm:max-w-lg">
+          <div className="bg-white py-10 px-4 border-2 rounded-[20px] sm:px-16 dark:bg-black dark:border-gray-800">
             {/* <BotForm;
               showEmbeddingAndModels={true}
               createBot={createBot}
