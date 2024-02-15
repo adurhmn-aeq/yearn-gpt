@@ -39,7 +39,9 @@ export default function DashboardLayout({
         className={`bg-[#F9F9F8] dark:bg-secondary-500 text-neutral-700 h-full`}
       >
         <div className="flex h-full w-screen align-center">
-          <ApplicationSidebar />
+          <div className="hidden sm:block">
+            <ApplicationSidebar />
+          </div>
           <div className="h-full py-2 pr-2 flex-1">
             <div className="bg-white dark:bg-[#0b0f19] rounded-2xl w-full h-full border-[1px] border-[#f3f3f1] dark:border-[#151a25] overflow-y-scroll">
               <Disclosure as="nav" className="">

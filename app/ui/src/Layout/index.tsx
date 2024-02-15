@@ -42,7 +42,9 @@ export default function DashboardLayout({
         className={`bg-[#F9F9F8] dark:bg-secondary-500 text-neutral-700 h-full`}
       >
         <div className="flex h-full w-screen align-center">
-          <ApplicationSidebar />
+          <div className="hidden sm:block">
+            <ApplicationSidebar />
+          </div>
           <div className="h-full flex-1">
             <div className="bg-white dark:bg-[#0b0f19] w-full h-full border-[1px] border-[#f3f3f1] dark:border-[#151a25] flex flex-col">
               <div className="mx-auto px-2 sm:px-6 lg:px-12 py-6 border-b border-solid border-[#F0F0F0] w-[100%]">
@@ -53,7 +55,7 @@ export default function DashboardLayout({
                       src="/providers/blink.svg"
                       alt="blink"
                     />
-                    <h2 className="text-[#343538] text-[32px] font-[600]">
+                    <h2 className="text-[26px] text-[#343538] sm:text-[32px] font-[600]">
                       {title}
                     </h2>
                   </div>
