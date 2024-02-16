@@ -69,8 +69,10 @@ export const getAgentByIdHandler = async (
       user_id: request.user.user_id,
     },
     select: {
+      id: true,
       name: true,
       email: true,
+      createdAt: true,
     },
   });
 
@@ -90,8 +92,10 @@ export const getSessionList = async (
       user_id: request.user.user_id,
     },
     select: {
+      id: true,
       name: true,
       email: true,
+      createdAt: true,
     },
   });
 
