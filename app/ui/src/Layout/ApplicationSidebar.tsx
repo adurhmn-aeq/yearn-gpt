@@ -55,7 +55,6 @@ export const ApplicationSidebar = ({
   return (
     <span
       className={[
-        "",
         !md ? "h-[100vh] absolute z-20 bg-[#F9F9F809] backdrop-blur-sm" : "",
         isOpen && !md ? "w-[100vw]" : "",
       ].join(" ")}
