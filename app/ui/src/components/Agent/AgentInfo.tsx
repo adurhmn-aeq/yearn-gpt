@@ -8,23 +8,32 @@ type Props = {
     initMsg: string;
     prompt: string;
     createdAt: string;
+    model: string;
   };
 };
 
 export default function AgentInfo({ info }: Props) {
+  console.log(info);
   return (
     <>
       {/* <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-lg">
         
       </div> */}
-      <div className="flex flex-col gap-3">
-        <h1 className="text-lg font-bold ml-3">Agent Information</h1>
-        <div className="bg-white py-8 px-4  sm:rounded-lg sm:px-10 dark:bg-black">
+      <div className="flex flex-col gap-3 p-4 min-w-[300px] text-sm">
+        <div className="flex items-center pl-5">
+          <img src="/providers/botImg.svg" alt="" />
+          <div className="flex flex-col">
+            <p>{info.name}</p>
+            <p>{info.model}</p>
+          </div>
+        </div>
+        {/* <h1 className="text-lg font-bold ml-3">Agent Information</h1> */}
+        <div className="bg-white sm:rounded-lg px-4 dark:bg-black">
           <div className="flex flex-col gap-5">
             <div className="flex flex-col gap-2">
-              <div className="text-sm">Agent Name:</div>
+              {/* <div className="text-sm">Agent Name:</div> */}
               {/* <div className="ring-1 ring-gray-300 p-2 rounded-md text-sm text-gray-600"> */}
-              {info.name}
+              {/* {info.name} */}
               {/* </div> */}
             </div>
             <div className="flex flex-col gap-2">
