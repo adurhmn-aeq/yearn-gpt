@@ -11,8 +11,8 @@ export const Plan = {
   titles: {
     hobby_monthly: "Hobby",
     hobby_yearly: "Hobby",
-    startup_monthly: "Starter",
-    startup_yearly: "Starter",
+    startup_monthly: "Startup",
+    startup_yearly: "Startup",
     enterprise_monthly: "Enterprise",
     enterprise_yearly: "Enterprise",
   },
