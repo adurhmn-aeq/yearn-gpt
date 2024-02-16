@@ -104,7 +104,7 @@ export default function DashboardLayout({
                   <UpgradeButton />
       > */}
       <div className="flex h-screen w-screen align-center">
-        <div className="hidden sm:block">
+        <div className="">
           <ApplicationSidebar
             isOpen={isSidebarOpen}
             toggleSidebar={toggleSidebar}
