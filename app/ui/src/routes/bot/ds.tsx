@@ -14,12 +14,16 @@ export default function BotDSRoot() {
     async () => {
       const response = await api.get(`/bot/${param.id}/source`);
       return response.data as {
-        data: {
+        sources: {
           id: string;
           type: string;
           content: string;
           status: string;
+          disabled: boolean;
+          source_chars: number;
         }[];
+        sourceCharsUsed: number;
+        totalSourceChars: number;
       };
     },
     {
@@ -35,9 +39,12 @@ export default function BotDSRoot() {
 
   return (
     <div className="mx-auto my-3 w-full max-w-7xl">
-
       {status === "loading" && <SkeletonLoading />}
-      {status === "success" && <DsTable data={botData.data} />}
+      {status === "success" && (
+        <>
+          <DsTable {...botData} />
+        </>
+      )}
     </div>
   );
 }

@@ -42,6 +42,7 @@ model Bot {
   BotPlayground               BotPlayground[]
   source                      BotSource[]
   disabled                    Boolean          @default(false)
+  source_chars_remaining      Int              @default(0)
 }
 
 model Agent {
@@ -73,18 +74,20 @@ model Session {
 }
 
 model BotSource {
-  id        String        @id @default(cuid())
-  botId     String
-  type      String        @default("website")
-  content   String?
-  location  String?
-  isPending Boolean       @default(true)
-  status    String        @default("pending")
-  createdAt DateTime      @default(now())
-  updatedAt DateTime      @updatedAt
-  options   Json?         @db.Json
-  document  BotDocument[]
-  bot       Bot           @relation(fields: [botId], references: [id])
+  id           String        @id @default(cuid())
+  botId        String
+  type         String        @default("website")
+  content      String?
+  location     String?
+  isPending    Boolean       @default(true)
+  status       String        @default("pending")
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  options      Json?         @db.Json
+  document     BotDocument[]
+  bot          Bot           @relation(fields: [botId], references: [id])
+  source_chars Int           @default(0)
+  disabled     Boolean       @default(false)
 }
 
 model BotDocument {

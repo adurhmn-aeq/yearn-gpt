@@ -3,11 +3,12 @@ import { DialoqbaseVectorStore } from "../../utils/store";
 import { embeddings } from "../../utils/embeddings";
 import { DialoqbaseRestApi } from "../../loader/rest";
 import { PrismaClient } from "@prisma/client";
+import { consumeDataSource, validateDataSource } from "../../utils/common";
 
 export const restQueueController = async (
   source: QSource,
   prisma: PrismaClient
-) => {
+): Promise<[boolean, number]> => {
   let options = JSON.parse(JSON.stringify(source.options));
 
   const loader = new DialoqbaseRestApi({
@@ -30,6 +31,10 @@ export const restQueueController = async (
     throw new Error("Embedding not found. Please verify the embedding id");
   }
 
+  const bot = await prisma.bot.findFirst({ where: { id: source.botId } });
+  const [isValid, sourceChars] = validateDataSource(docs, bot);
+  if (!isValid) return [false, sourceChars];
+
   await DialoqbaseVectorStore.fromDocuments(
     docs,
     embeddings(
@@ -42,4 +47,7 @@ export const restQueueController = async (
       sourceId: source.id,
     }
   );
+
+  consumeDataSource(docs, prisma, source.botId);
+  return [true, sourceChars];
 };

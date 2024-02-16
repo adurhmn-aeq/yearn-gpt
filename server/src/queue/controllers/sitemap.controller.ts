@@ -4,9 +4,7 @@ import { websiteQueueController } from "./website.controller";
 const prisma = new PrismaClient();
 import Sitemapper from "sitemapper";
 
-export const sitemapQueueController = async (
-  source: QSource,
-) => {
+export const sitemapQueueController = async (source: QSource) => {
   const url = source.content!;
 
   const sitemapper = new Sitemapper({
@@ -17,9 +15,10 @@ export const sitemapQueueController = async (
       : 2,
     retries: process.env.SITEMAPPER_MAX_RETRIES
       ? parseInt(process.env.SITEMAPPER_MAX_RETRIES)
-      : 1,
+      : 2,
     requestHeaders: {
-      "User-Agent": process.env.SITEMAPPER_USER_AGENT ||
+      "User-Agent":
+        process.env.SITEMAPPER_USER_AGENT ||
         "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:81.0) Gecko/20100101 Firefox/81.0'",
     },
   });
@@ -44,18 +43,23 @@ export const sitemapQueueController = async (
       },
     });
 
-    await websiteQueueController({
-      ...newSource,
-      embedding: source.embedding,
-    }, prisma);
+    const [isValid, sourceChars] = await websiteQueueController(
+      {
+        ...newSource,
+        embedding: source.embedding,
+      },
+      prisma
+    );
 
     await prisma.botSource.update({
       where: {
         id: newSource.id,
       },
       data: {
-        status: "FINISHED",
+        status: isValid ? "FINISHED" : "FAILED",
         isPending: false,
+        disabled: !isValid,
+        source_chars: sourceChars,
       },
     });
   }

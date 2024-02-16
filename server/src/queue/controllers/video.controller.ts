@@ -6,11 +6,12 @@ import { embeddings } from "../../utils/embeddings";
 import { DialoqbaseAudioVideoLoader } from "../../loader/audio-video";
 import { convertMp4ToWave } from "../../utils/ffmpeg";
 import { PrismaClient } from "@prisma/client";
+import { consumeDataSource, validateDataSource } from "../../utils/common";
 
 export const videoQueueController = async (
   source: QSource,
   prisma: PrismaClient
-) => {
+): Promise<[boolean, number]> => {
   console.log("loading video");
 
   const location = source.location!;
@@ -38,6 +39,10 @@ export const videoQueueController = async (
     throw new Error("Embedding not found. Please verify the embedding id");
   }
 
+  const bot = await prisma.bot.findFirst({ where: { id: source.botId } });
+  const [isValid, sourceChars] = validateDataSource(chunks, bot);
+  if (!isValid) return [false, sourceChars];
+
   await DialoqbaseVectorStore.fromDocuments(
     chunks,
     embeddings(
@@ -50,4 +55,7 @@ export const videoQueueController = async (
       sourceId: source.id,
     }
   );
+
+  consumeDataSource(chunks, prisma, source.botId);
+  return [true, sourceChars];
 };

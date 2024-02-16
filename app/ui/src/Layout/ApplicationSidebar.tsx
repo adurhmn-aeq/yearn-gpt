@@ -159,7 +159,7 @@ export const ApplicationSidebar = ({
                     </p>
                   </div>
                 </div>
-                <UpgradeButton />
+                <UpgradeButton onClick={() => navigate("/pricing")} />
               </div>
               <Link
                 to={"/login"}

@@ -4,11 +4,12 @@ import { DialoqbaseVectorStore } from "../../utils/store";
 import { embeddings } from "../../utils/embeddings";
 import { TextLoader } from "langchain/document_loaders/fs/text";
 import { PrismaClient } from "@prisma/client";
+import { consumeDataSource, validateDataSource } from "../../utils/common";
 
 export const txtQueueController = async (
   source: QSource,
   prisma: PrismaClient
-) => {
+): Promise<[boolean, number]> => {
   console.log("loading txt");
 
   const location = source.location!;
@@ -32,6 +33,10 @@ export const txtQueueController = async (
     throw new Error("Embedding not found. Please verify the embedding id");
   }
 
+  const bot = await prisma.bot.findFirst({ where: { id: source.botId } });
+  const [isValid, sourceChars] = validateDataSource(chunks, bot);
+  if (!isValid) return [false, sourceChars];
+
   await DialoqbaseVectorStore.fromDocuments(
     chunks,
     embeddings(
@@ -44,4 +49,7 @@ export const txtQueueController = async (
       sourceId: source.id,
     }
   );
+
+  consumeDataSource(chunks, prisma, source.botId);
+  return [true, sourceChars];
 };

@@ -33,13 +33,18 @@ const MessageCreditsUsage = ({
 };
 
 export default function Usage() {
-  const { data, isLoading } = useQuery(["fetchUsage"], async () => {
-    const response = await api.get("/stripe/usage");
-    return response.data as {
-      message_credits_used?: number;
-      message_credits_remaining?: number;
-    };
-  });
+  const { data, isLoading } = useQuery(
+    ["fetchUsage"],
+    async () => {
+      const response = await api.get("/stripe/usage");
+      return response.data as {
+        active_plan: string;
+        message_credits_used: number;
+        message_credits_total: number;
+      };
+    },
+    { refetchInterval: 10000 }
+  );
 
   console.log({ data });
 
