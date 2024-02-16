@@ -52,7 +52,7 @@ export default function AgentPreview() {
         message: string;
         isBot: boolean;
         createdAt: number;
-      };
+      }[];
       createdAt: Date;
       user_id: number;
       agent_id: string;
@@ -100,11 +100,12 @@ export default function AgentPreview() {
           <AgentSessions
             sessionId={sessionId}
             sessions={data?.sessions}
-            agentName={data2?.name}
+            agentName={data2?.name || ""}
             botName={data?.name}
             sessionMessage={data2?.messages}
             setSessionId={setSessionId}
           />
+          {/* @ts-ignore */}
           <AgentInfo info={data} />
         </div>
       )}

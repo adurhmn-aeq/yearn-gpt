@@ -4,7 +4,7 @@ type Props = {
   sessions: any[];
   sessionId: string;
   sessionMessage:
-    | { id: string; message: string; isBot: boolean; createdAt: number }
+    | { id: string; message: string; isBot: boolean; createdAt: number }[]
     | undefined;
   setSessionId: Dispatch<SetStateAction<string>>;
   agentName: string;
