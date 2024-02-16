@@ -2,12 +2,15 @@
 
 import { PropsWithChildren, useState } from "react";
 import { TbChevronLeft } from "react-icons/tb";
-import { Progress } from "antd";
+import { Progress, Spin } from "antd";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { NavRoutes } from "../utils/constants";
 import UpgradeButton from "../utils/widgets/upgradeButton";
 import { useAuth } from "../context/AuthContext";
 import useBreakpoint from "../hooks/useBreakpoint";
+import { useQuery } from "@tanstack/react-query";
+import api from "../services/api";
+import { Plan } from "../utils/pricing";
 
 type SidebarItemProps = {
   isCollapsed: boolean;
@@ -52,6 +55,19 @@ export const ApplicationSidebar = ({
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
+  const { data, isLoading, isSuccess } = useQuery(["fetchUsage"], async () => {
+    const response = await api.get("/stripe/usage");
+    return response.data as {
+      active_plan: string;
+      message_credits_total: number;
+      message_credits_used: number;
+    };
+  });
+
+  const progressPercentage = isSuccess
+    ? (data?.message_credits_used / data?.message_credits_total) * 100
+    : 0;
+  console.log("progressPercentage", data?.active_plan);
   return (
     <span
       className={[
@@ -140,13 +156,21 @@ export const ApplicationSidebar = ({
               </div>
               <div className="border border-solid border-[#343538] rounded-[20px] px-[15px] py-[20px] flex flex-col justify-center items-center w-full gap-[20px] mt-2">
                 <img src="/providers/planArrow.svg" alt="plan" />
-                <h2 className="font-[600] text-[20px] text-[#343538]">
-                  Free Plan
-                </h2>
+                {isLoading ? (
+                  <Spin />
+                ) : (
+                  <h2 className="font-[600] text-[20px] text-[#343538]">
+                    {data?.active_plan
+                      ? Plan.titles[
+                          data?.active_plan as keyof typeof Plan.titles
+                        ]
+                      : "free Plan"}
+                  </h2>
+                )}
                 <div className="w-[206px]">
                   <Progress
                     style={{ margin: 0 }}
-                    percent={50}
+                    percent={progressPercentage}
                     strokeColor={"#343538"}
                     showInfo={false}
                   />
@@ -154,9 +178,13 @@ export const ApplicationSidebar = ({
                     <p className="font-[400] text-[12px] text-[#34353880]">
                       Message Credits
                     </p>
-                    <p className="font-[600] text-[12px] text-[#343538]">
-                      50/100
-                    </p>
+                    {isLoading ? (
+                      <Spin size="small" />
+                    ) : (
+                      <p className="font-[600] text-[12px] text-[#343538]">
+                        {`${data?.message_credits_used}/${data?.message_credits_total}`}
+                      </p>
+                    )}
                   </div>
                 </div>
                 <UpgradeButton onClick={() => navigate("/pricing")} />
