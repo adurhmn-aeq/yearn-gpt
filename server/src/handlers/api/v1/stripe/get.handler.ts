@@ -105,10 +105,14 @@ export const getUsageHandler = async (
   if (!user || !stripe) return {};
 
   return {
+    active_plan: stripe?.active_plan || "",
     message_credits_used:
       (MessageCredits[stripe!.active_plan as PlanLookup] || 0) -
       stripe!.message_credits_remaining,
-    message_credits_remaining: stripe!.message_credits_remaining,
+    message_credits_total:
+      stripe.plan_status !== "active"
+        ? 0
+        : MessageCredits[stripe.active_plan as PlanLookup],
   };
 };
 
