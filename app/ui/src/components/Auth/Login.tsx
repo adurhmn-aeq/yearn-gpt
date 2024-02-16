@@ -98,7 +98,7 @@ export const AuthLogin = () => {
   };
 
   return (
-    <div className="flex min-h-full bg-white dark:bg-secondary-500">
+    <div className="flex min-h-full bg-white dark:bg-secondary-500 h-screen w-screen">
       <AuthSidebar
         imagePath={sliderImages}
         heading={<AuthSidebarHeading></AuthSidebarHeading>}
