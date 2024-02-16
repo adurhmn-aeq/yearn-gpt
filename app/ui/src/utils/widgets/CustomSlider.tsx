@@ -60,14 +60,14 @@ const CustomSlider: FC<{ children: React.ReactNode }> = ({ children }) => {
   const scrollLeft = () => {
     const container = containerRef.current;
     if (container) {
-      container.scrollLeft -= 270;
+      container.scrollLeft -= 470;
     }
   };
 
   const scrollRight = () => {
     const container = containerRef.current;
     if (container) {
-      container.scrollLeft += 270;
+      container.scrollLeft += 470;
     }
   };
 
@@ -96,8 +96,17 @@ const CustomSlider: FC<{ children: React.ReactNode }> = ({ children }) => {
         className="overflow-x-auto flex gap-[50px] px-[15px] py-[15px]"
         ref={containerRef}
       >
-        {children}
-        {/* <div className="flex gap-[50px] py-[15px] px-[10px]">{children}</div> */}
+        {/* {children} */}
+
+        {React.Children.map(children, (child, index) => (
+          <div
+            key={index}
+            className="scroll-section"
+            style={{ scrollSnapAlign: "start" }}
+          >
+            {child}
+          </div>
+        ))}
       </div>
     </div>
   );
