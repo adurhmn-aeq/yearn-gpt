@@ -1,0 +1,22 @@
+#custumslider::-webkit-scrollbar {
+  width: 0px !important;
+  display: none;
+}
+
+#custumslider::-webkit-scrollbar-track {
+  background: transparent;
+  /* background: red; */
+  width: 0px !important;
+}
+
+#custumslider::-webkit-scrollbar-thumb {
+  background: transparent;
+  /* background: red; */
+  width: 0px !important;
+}
+
+#custumslider::-webkit-scrollbar-thumb:hover {
+  background: transparent;
+  /* background: red; */
+  width: 0px !important;
+}

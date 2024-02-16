@@ -99,15 +99,17 @@ export const DashboardGrid = () => {
             </div>
             <div className=" flex gap-[50px] flex-wrap w-full">
               {/* <div className=" flex gap-[50px] w-full overflow-x-auto "> */}
-              {status === "success" && data.length > 0 && (
+              {status === "success" && botsCount.length > 0 && (
                 <>
-                  {data?.map(({ bot }: any, i: any) => {
-                    return bot ? (
-                      <Link to={`/bot/${bot.id}`} key={bot.id}>
-                        <BotCard bot={bot} />
-                      </Link>
-                    ) : null;
-                  })}
+                  <CustomSlider>
+                    {data?.map(({ bot }: any, i: any) => {
+                      return bot ? (
+                        <Link to={`/bot/${bot.id}`} key={bot.id}>
+                          <BotCard bot={bot} />
+                        </Link>
+                      ) : null;
+                    })}
+                  </CustomSlider>
                 </>
               )}
               {status === "success" && botsCount.length === 0 && (
@@ -127,15 +129,17 @@ export const DashboardGrid = () => {
               </Link>
             </div>
             <div className=" flex gap-[50px] flex-wrap">
-              {status === "success" && data.length > 0 && (
+              {status === "success" && agentCount.length > 0 && (
                 <>
-                  {data?.map(({ bot, agent }: any, i: any) => {
-                    return agent ? (
-                      <Link to={`/agent/${agent.id}`} key={agent.id}>
-                        <AgentCard key={i} agent={agent} />
-                      </Link>
-                    ) : null;
-                  })}
+                  <CustomSlider>
+                    {data?.map(({ bot, agent }: any, i: any) => {
+                      return agent ? (
+                        <Link to={`/agent/${agent.id}`} key={agent.id}>
+                          <AgentCard key={i} agent={agent} />
+                        </Link>
+                      ) : null;
+                    })}
+                  </CustomSlider>
                 </>
               )}
               {status === "success" && agentCount.length === 0 && (
