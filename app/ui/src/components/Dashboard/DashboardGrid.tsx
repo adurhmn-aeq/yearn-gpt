@@ -11,6 +11,7 @@ import BotCard from "./BotCard";
 import AgentCard from "./AgentCard";
 import TestCard from "./TestCard";
 import CarosalSlider from "../../utils/widgets/Slider";
+import CustomSlider from "../../utils/widgets/CustomSlider";
 
 const slickSettings = {
   dots: false,
