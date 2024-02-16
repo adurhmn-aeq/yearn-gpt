@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate, useParams } from "react-router-dom";
 import api from "../../services/api";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { SkeletonLoading } from "../../components/Common/SkeletonLoading";
 import { Cooking } from "../../components/Common/Cooking";
 import AgentInfo from "../../components/Agent/AgentInfo";
@@ -10,6 +10,7 @@ import { useAuth } from "../../context/AuthContext";
 // import { PreviewIframe } from "../../components/Bot/Preview/PreviewIFrame";
 
 export default function AgentPreview() {
+  const [sessionId, setSessionId] = useState("");
   const param = useParams<{ id: string }>();
   const navigate = useNavigate();
   const { data, status } = useQuery(["getAgentById", param.id], async () => {
@@ -30,32 +31,33 @@ export default function AgentPreview() {
     };
   });
 
-  const { data: data2, status: status2 } = useQuery(
-    ["getSessionById", param.id],
-    async () => {
-      const response = await api.get(`/agent/session`, {
-        params: {
-          agentId: "clsolymjv0001k1t3itao9hrv", // param.id
-          sessionId: "clsolyutm0003k1t38hu42szf", // data.sessions[i].id
-        },
-      });
-      return response.data as {
+  const {
+    data: data2,
+    status: status2,
+    refetch,
+  } = useQuery(["getSessionById", param.id], async () => {
+    const response = await api.get(`/agent/session`, {
+      params: {
+        agentId: param.id, // param.id
+        sessionId: sessionId, // data.sessions[i].id
+      },
+    });
+    return response.data as {
+      id: string;
+      name: string;
+      email: string;
+      phone: string;
+      messages: {
         id: string;
-        name: string;
-        email: string;
-        phone: string;
-        messages: {
-          id: string;
-          message: string;
-          isBot: boolean;
-          createdAt: number;
-        };
-        createdAt: Date;
-        user_id: number;
-        agent_id: string;
+        message: string;
+        isBot: boolean;
+        createdAt: number;
       };
-    }
-  );
+      createdAt: Date;
+      user_id: number;
+      agent_id: string;
+    };
+  });
 
   console.log({ data, data2 });
 
@@ -71,7 +73,19 @@ export default function AgentPreview() {
     if (status === "error") {
       navigate("/");
     }
-  }, [status]);
+  }, [data]);
+
+  React.useEffect(() => {
+    if (status === "success" && data) {
+      setSessionId(data.sessions[0].id);
+    }
+  }, [data, status]);
+
+  React.useEffect(() => {
+    if (sessionId) {
+      refetch();
+    }
+  }, [sessionId]);
 
   return (
     <>
@@ -82,9 +96,16 @@ export default function AgentPreview() {
       )}
       {status === "success" && !data && <Cooking />}
       {status === "success" && data && (
-        <div className="flex justify-center p-3 gap-8">
+        <div className="flex h-full w-full py-6 px-4">
+          <AgentSessions
+            sessionId={sessionId}
+            sessions={data?.sessions}
+            agentName={data2?.name}
+            botName={data?.name}
+            sessionMessage={data2?.messages}
+            setSessionId={setSessionId}
+          />
           <AgentInfo info={data} />
-          <AgentSessions sessions={data.sessions} />
         </div>
       )}
     </>

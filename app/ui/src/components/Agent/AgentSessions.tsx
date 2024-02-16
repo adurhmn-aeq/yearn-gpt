@@ -1,19 +1,71 @@
+import { Dispatch, SetStateAction } from "react";
+
 type Props = {
   sessions: any[];
+  sessionId: string;
+  sessionMessage:
+    | { id: string; message: string; isBot: boolean; createdAt: number }
+    | undefined;
+  setSessionId: Dispatch<SetStateAction<string>>;
+  agentName: string;
+  botName: string;
 };
 
-export default function AgentSessions({ sessions }: Props) {
+export default function AgentSessions({
+  sessions,
+  sessionId,
+  sessionMessage,
+  setSessionId,
+  agentName,
+  botName,
+}: Props) {
   return (
     <>
-      <div className="flex flex-col gap-3">
-        <h1 className="text-lg font-bold ml-3">Sessions</h1>
-        <div className="bg-white py-8 px-4 w-[500px] border sm:rounded-lg sm:px-10 dark:bg-black dark:border-gray-800">
-          {sessions.map(({ name, email }) => (
-            <div className="p-3 rounded-md shadow-md ring-1 hover:shadow-xl hover:ring-2 flex justify-between hover:cursor-pointer">
-              <p className="text-gray-700 ">{name}</p>
-              <p className="text-gray-700 ">{email}</p>
-            </div>
-          ))}
+      <div className="flex max-h-full">
+        <div className="flex flex-col shadow-lg">
+          <h1 className="text-lg font-semibold pl-6 my-4">Sessions</h1>
+          <div className="flex flex-col  bg-white px-4  w-[260px] dark:bg-black dark:border-gray-800 overflow-y-auto">
+            {sessions.map(({ id, name, email }, index) => (
+              <div
+                key={index}
+                className={[
+                  sessionId === id ? "text-[#51DC00]" : "text-[#343538]",
+                  "flex gap-2 flex-col px-2 py-4 border-b-2 border-[#F0F0F04D] hover:bg-[#F0F0F04D]  hover:shadow-xl justify-between hover:cursor-pointer",
+                ].join(" ")}
+                onClick={() => {
+                  setSessionId(id);
+                }}
+              >
+                <p className="font-semibold text-sm">{name}</p>
+                <p className="opacity-80 text-xs">{email}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+        {/* Messages */}
+        <div className="flex flex-col w-[400px] bg-[#F9F9F899] gap-4 p-4 overflow-y-auto">
+          {sessionMessage ? (
+            sessionMessage?.map(({ isBot, message }, index) => (
+              <div
+                key={index}
+                className={[isBot ? "text-left" : "text-right", "text-xs"].join(
+                  " "
+                )}
+              >
+                <p
+                  className={[
+                    !isBot ? "text-[#51DC00]" : "text-[#343538]",
+                    "mb-2",
+                  ].join(" ")}
+                >
+                  {isBot ? botName : agentName}
+                </p>
+                <p className="text-[#343538]">{message}</p>
+              </div>
+            ))
+          ) : (
+            <p className="my-auto self-center">Loading...</p>
+          )}
         </div>
       </div>
     </>
