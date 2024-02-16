@@ -102,6 +102,15 @@ export enum PlanLookup {
   ENTERPRISE_YEARLY = "enterprise_yearly",
 }
 
+export const PlanName = {
+  [PlanLookup.HOBBY_MONTHLY]: "Hobby",
+  [PlanLookup.HOBBY_YEARLY]: "Hobby",
+  [PlanLookup.STARTUP_MONTHLY]: "Startup",
+  [PlanLookup.STARTUP_YEARLY]: "Startup",
+  [PlanLookup.ENTERPRISE_MONTHLY]: "Enterprise",
+  [PlanLookup.ENTERPRISE_YEARLY]: "Enterprise",
+};
+
 export const MessageCredits = {
   [PlanLookup.HOBBY_MONTHLY]: 200,
   [PlanLookup.HOBBY_YEARLY]: 200,
@@ -109,6 +118,15 @@ export const MessageCredits = {
   [PlanLookup.STARTUP_YEARLY]: 700,
   [PlanLookup.ENTERPRISE_MONTHLY]: 1500,
   [PlanLookup.ENTERPRISE_YEARLY]: 1500,
+};
+
+export const SourceCharsPerBot = {
+  [PlanLookup.HOBBY_MONTHLY]: 60000,
+  [PlanLookup.HOBBY_YEARLY]: 60000,
+  [PlanLookup.STARTUP_MONTHLY]: 150000,
+  [PlanLookup.STARTUP_YEARLY]: 150000,
+  [PlanLookup.ENTERPRISE_MONTHLY]: 300000,
+  [PlanLookup.ENTERPRISE_YEARLY]: 300000,
 };
 
 export const BotLimit = {
@@ -145,13 +163,25 @@ export const canCreateBot = async (prisma: PrismaClient, userId: number) => {
   }
 
   if (!stripe.active_plan || stripe.plan_status === PlanStatus.PAST_DUE) {
-    return [false, "You have no active subscription. Subscribe to create bot."];
+    return [
+      false,
+      "You have no active subscription. Subscribe to create bot.",
+      0,
+    ];
   }
 
   if (activeBotCount === BotLimit[stripe.active_plan as PlanLookup])
-    return [false, "Reached bot limit. Upgrade plan to increase limit."];
+    return [
+      false,
+      "Reached bot limit. Upgrade plan to increase limit.",
+      SourceCharsPerBot[stripe!.active_plan as keyof typeof SourceCharsPerBot],
+    ];
 
-  return [true, ""];
+  return [
+    true,
+    "",
+    SourceCharsPerBot[stripe!.active_plan as keyof typeof SourceCharsPerBot],
+  ];
 };
 
 export const canCreateAgent = async (prisma: PrismaClient, userId: number) => {

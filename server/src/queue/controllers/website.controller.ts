@@ -8,11 +8,12 @@ import { DialoqbasePDFLoader } from "../../loader/pdf";
 import { DialoqbaseWebLoader } from "../../loader/web";
 import { CheerioWebBaseLoader } from "langchain/document_loaders/web/cheerio";
 import { PrismaClient } from "@prisma/client";
+import { consumeDataSource, validateDataSource } from "../../utils/common";
 
 export const websiteQueueController = async (
   source: QSource,
   prisma: PrismaClient
-) => {
+): Promise<[boolean, number]> => {
   // check if url is html or pdf or other
   // if html, use cheerio
 
@@ -21,6 +22,11 @@ export const websiteQueueController = async (
   const type = response.headers["content-type"];
 
   console.log("website type is", type);
+
+  const bot = await prisma.bot.findFirst({ where: { id: source.botId } });
+
+  let isValid: boolean = true;
+  let sourceChars: number = 0;
 
   if (type.includes("application/pdf")) {
     const response = await axios.get(source.content!, {
@@ -52,6 +58,9 @@ export const websiteQueueController = async (
       throw new Error("Embedding not found. Please verify the embedding id");
     }
 
+    [isValid, sourceChars] = validateDataSource(chunks, bot);
+    if (!isValid) return [false, sourceChars];
+
     await DialoqbaseVectorStore.fromDocuments(
       chunks,
       embeddings(
@@ -64,6 +73,9 @@ export const websiteQueueController = async (
         sourceId: source.id,
       }
     );
+
+    consumeDataSource(chunks, prisma, source.botId);
+    return [true, sourceChars];
   } else {
     let docs: any[] = [];
     if (process.env.USE_LEGACY_WEB_LOADER === "true") {
@@ -94,6 +106,9 @@ export const websiteQueueController = async (
       throw new Error("Embedding not found. Please verify the embedding id");
     }
 
+    const [isValid, sourceChars] = validateDataSource(chunks, bot);
+    if (!isValid) return [false, sourceChars];
+
     await DialoqbaseVectorStore.fromDocuments(
       chunks,
       embeddings(
@@ -106,5 +121,8 @@ export const websiteQueueController = async (
         sourceId: source.id,
       }
     );
+
+    consumeDataSource(chunks, prisma, source.botId);
+    return [true, sourceChars];
   }
 };

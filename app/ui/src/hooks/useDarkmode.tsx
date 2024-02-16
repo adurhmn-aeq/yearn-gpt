@@ -7,7 +7,7 @@ type DarkModeState = {
 };
 
 export const useDarkModeStore = create<DarkModeState>((set) => ({
-  mode: "system",
+  mode: "light",
   setMode: (mode) => set({ mode }),
 }));
 
@@ -41,8 +41,10 @@ export const useDarkMode = () => {
         setMode(systemTheme);
       }
     } else {
-      setMode(getSystemTheme());
-      localStorage.setItem("theme", getSystemTheme());
+      // setMode(getSystemTheme());
+      // localStorage.setItem("theme", getSystemTheme());
+      setMode("light");
+      localStorage.setItem("theme", "light");
     }
   }, []);
 

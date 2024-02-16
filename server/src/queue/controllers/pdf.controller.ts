@@ -5,11 +5,12 @@ import { DialoqbaseVectorStore } from "../../utils/store";
 import { embeddings } from "../../utils/embeddings";
 import { DialoqbasePDFLoader } from "../../loader/pdf";
 import { PrismaClient } from "@prisma/client";
+import { consumeDataSource, validateDataSource } from "../../utils/common";
 
 export const pdfQueueController = async (
   source: QSource,
   prisma: PrismaClient
-) => {
+): Promise<[boolean, number]> => {
   console.log("loading pdf");
 
   const location = source.location!;
@@ -34,6 +35,10 @@ export const pdfQueueController = async (
     throw new Error("Embedding not found. Please verify the embedding id");
   }
 
+  const bot = await prisma.bot.findFirst({ where: { id: source.botId } });
+  const [isValid, sourceChars] = validateDataSource(chunks, bot);
+  if (!isValid) return [false, sourceChars];
+
   await DialoqbaseVectorStore.fromDocuments(
     chunks,
     embeddings(
@@ -46,4 +51,7 @@ export const pdfQueueController = async (
       sourceId: source.id,
     }
   );
+
+  consumeDataSource(chunks, prisma, source.botId);
+  return [true, sourceChars];
 };

@@ -19,7 +19,8 @@ const bullPlugin: FastifyPluginAsync = fp(async (server, options) => {
 
   await queue.isReady();
   const path = join(__dirname, "../queue/index.js");
-  const concurrency = parseInt(process.env.DB_QUEUE_CONCURRENCY || "1");
+  // const concurrency = parseInt(process.env.DB_QUEUE_CONCURRENCY || "1");
+  const concurrency = 1; // handle data source refetch sie effect before increasing concurrency
   queue.process(concurrency, path);
 
   server.decorate("queue", queue);

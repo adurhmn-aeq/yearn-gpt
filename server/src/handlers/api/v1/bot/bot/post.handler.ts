@@ -39,7 +39,10 @@ export const createBotHandler = async (
   //   });
   // }
 
-  const [canCreate, message] = await canCreateBot(prisma, request.user.user_id);
+  const [canCreate, message, sourceChars] = await canCreateBot(
+    prisma,
+    request.user.user_id
+  );
   if (!canCreate) {
     return reply.status(400).send({ message });
   }
@@ -135,6 +138,7 @@ export const createBotHandler = async (
         streaming: isStreamingAvilable,
         user_id: request.user.user_id,
         haveDataSourcesBeenAdded: true,
+        source_chars_remaining: sourceChars as number,
       },
     });
     const botSource = await prisma.botSource.create({
@@ -176,6 +180,7 @@ export const createBotHandler = async (
         user_id: request.user.user_id,
         haveDataSourcesBeenAdded: false,
         qaPrompt: HELPFUL_ASSISTANT_WITHOUT_CONTEXT_PROMPT,
+        source_chars_remaining: sourceChars as number,
       },
     });
 
@@ -278,6 +283,17 @@ export const refreshSourceByIdHandler = async (
       message: "Source not found",
     });
   }
+
+  // will be decremented again when job is handled
+  await prisma.bot.update({
+    where: {
+      id: bot_id,
+      user_id: request.user.user_id,
+    },
+    data: {
+      source_chars_remaining: { increment: botSource.source_chars },
+    },
+  });
 
   await prisma.botSource.update({
     where: {

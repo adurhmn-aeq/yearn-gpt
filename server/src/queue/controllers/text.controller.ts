@@ -3,11 +3,12 @@ import { DialoqbaseVectorStore } from "../../utils/store";
 import { embeddings } from "../../utils/embeddings";
 import { RecursiveCharacterTextSplitter } from "langchain/text_splitter";
 import { PrismaClient } from "@prisma/client";
+import { consumeDataSource, validateDataSource } from "../../utils/common";
 
 export const textQueueController = async (
   source: QSource,
   prisma: PrismaClient
-) => {
+): Promise<[boolean, number]> => {
   const textSplitter = new RecursiveCharacterTextSplitter({
     chunkSize: 1000,
     chunkOverlap: 200,
@@ -33,6 +34,10 @@ export const textQueueController = async (
     throw new Error("Embedding not found. Please verify the embedding id");
   }
 
+  const bot = await prisma.bot.findFirst({ where: { id: source.botId } });
+  const [isValid, sourceChars] = validateDataSource(chunks, bot);
+  if (!isValid) return [false, sourceChars];
+
   await DialoqbaseVectorStore.fromDocuments(
     chunks,
     embeddings(
@@ -45,4 +50,7 @@ export const textQueueController = async (
       sourceId: source.id,
     }
   );
+
+  consumeDataSource(chunks, prisma, source.botId);
+  return [true, sourceChars];
 };
