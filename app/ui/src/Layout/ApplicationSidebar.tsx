@@ -47,7 +47,7 @@ export const ApplicationSidebar = () => {
   return (
     <aside
       className={[
-        `px-4 py-4 transition transition-all duration-300 bg-[#F9F9F8] min-h-full overflow-auto shadow-[6px_0px_30px_0px_#0000001A] z-0 `,
+        `px-4 py-4 transition transition-all duration-300 bg-[#F9F9F8] h-full overflow-auto shadow-[6px_0px_30px_0px_#0000001A] z-0 `,
         isCollapsed ? "w-[66px]" : "w-[276px]",
       ].join(" ")}
     >

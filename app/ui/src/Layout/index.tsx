@@ -38,36 +38,35 @@ export default function DashboardLayout({
 
   return (
     <>
-      <main
+      {/* <main
         className={`bg-[#F9F9F8] dark:bg-secondary-500 text-neutral-700 h-full`}
-      >
-        <div className="flex h-full w-screen align-center">
-          <div className="hidden sm:block">
-            <ApplicationSidebar />
-          </div>
-          <div className="h-full flex-1">
-            <div className="bg-white dark:bg-[#0b0f19] w-full h-full border-[1px] border-[#f3f3f1] dark:border-[#151a25] flex flex-col">
-              <div className="mx-auto px-2 sm:px-6 lg:px-12 py-6 border-b border-solid border-[#F0F0F0] w-[100%]">
-                <div className="flex justify-between items-center">
-                  <div className="relative">
-                    <img
-                      className="absolute right-[-25px] top-[-10px]"
-                      src="/providers/blink.svg"
-                      alt="blink"
-                    />
-                    <h2 className="text-[26px] text-[#343538] sm:text-[32px] font-[600]">
-                      {title}
-                    </h2>
-                  </div>
-                  <UpgradeButton />
+      > */}
+      <div className="flex h-screen w-screen align-center">
+        <div className="hidden sm:block">
+          <ApplicationSidebar />
+        </div>
+        <div className="bg-white flex-1 overflow-x-hidden">
+          <div className="bg-white dark:bg-[#0b0f19] border-[1px] border-[#f3f3f1] dark:border-[#151a25] flex flex-col h-full w-full">
+            <div className="mx-auto px-2 sm:px-6 lg:px-12 py-6 border-b border-solid border-[#F0F0F0] w-[100%]">
+              <div className="flex justify-between items-center">
+                <div className="relative">
+                  <img
+                    className="absolute right-[-25px] top-[-10px]"
+                    src="/providers/blink.svg"
+                    alt="blink"
+                  />
+                  <h2 className="text-[26px] text-[#343538] sm:text-[32px] font-[600]">
+                    {title}
+                  </h2>
                 </div>
+                <UpgradeButton />
               </div>
-              <div className="flex-1 overflow-auto">{children}</div>
-              {/* <div className=" w-full h-full overflow-auto">{children}</div> */}
             </div>
+            <div className="flex-1 overflow-auto">{children}</div>
           </div>
         </div>
-      </main>
+      </div>
+      {/* </main> */}
     </>
   );
 }

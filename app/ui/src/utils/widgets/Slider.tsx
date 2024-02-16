@@ -20,7 +20,7 @@ const CarosalSlider: FC<{
       {numberOfChildren > 1 && (
         <div
           onClick={() => slider && slider.slickPrev()}
-          className="bg-[black] h-[30px] w-[30px] flex justify-center rounded-[50%] items-center absolute top-[50%] left-0 font-[600] cursor-pointer text-[#FFFFFF] translate-y-[-50%]"
+          className="bg-[black] h-[30px] w-[30px] flex justify-center rounded-[50%] items-center absolute top-[50%] left-[-13px] font-[600] cursor-pointer text-[#FFFFFF] translate-y-[-50%]"
         >
           &lt;
         </div>
@@ -28,7 +28,7 @@ const CarosalSlider: FC<{
       {numberOfChildren > 1 && (
         <div
           onClick={() => slider && slider.slickNext()}
-          className="bg-[black] h-[30px] w-[30px] flex justify-center rounded-[50%] items-center absolute top-[50%] right-0 font-[600] cursor-pointer text-[#FFFFFF] translate-y-[-50%]"
+          className="bg-[black] h-[30px] w-[30px] flex justify-center rounded-[50%] items-center absolute top-[50%] right-[-13px] font-[600] cursor-pointer text-[#FFFFFF] translate-y-[-50%]"
         >
           &gt;
         </div>
