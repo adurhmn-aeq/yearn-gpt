@@ -21,33 +21,43 @@ export default function AgentPreview() {
       initMsg: string;
       prompt: string;
       createdAt: string;
-      sessions: any[];
+      sessions: {
+        name: string;
+        email: string;
+        id: string;
+        createdAt: string;
+      }[];
     };
   });
 
-  // const { data: data2, status: status2 } = useQuery(
-  //   ["getSession"],
-  //   async () => {
-  //     const response = await api.get(`/agent/session`, {
-  //       params: {
-  //         agentId: "clsk3f8g10001k1frx0tubxh0",
-  //         sessionId: "clsl45odx0001k110kwqxha2h",
-  //       },
-  //     });
-  //     return response.data as {
-  //       id: string;
-  //       name: string;
-  //       email: string;
-  //       phone: string;
-  //       message: any[];
-  //       createdAt: string;
-  //       user_id: string;
-  //       agent_id: string;
-  //     };
-  //   }
-  // );
+  const { data: data2, status: status2 } = useQuery(
+    ["getSessionById", param.id],
+    async () => {
+      const response = await api.get(`/agent/session`, {
+        params: {
+          agentId: "clsolymjv0001k1t3itao9hrv", // param.id
+          sessionId: "clsolyutm0003k1t38hu42szf", // data.sessions[i].id
+        },
+      });
+      return response.data as {
+        id: string;
+        name: string;
+        email: string;
+        phone: string;
+        messages: {
+          id: string;
+          message: string;
+          isBot: boolean;
+          createdAt: number;
+        };
+        createdAt: Date;
+        user_id: number;
+        agent_id: string;
+      };
+    }
+  );
 
-  // console.log({ data, data2 });
+  console.log({ data, data2 });
 
   const { isLogged } = useAuth();
 
