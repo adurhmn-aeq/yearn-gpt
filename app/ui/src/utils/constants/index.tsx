@@ -26,7 +26,7 @@ export const NavRoutes = [
   },
 
   {
-    name: "Bots",
+    name: "Create Bot",
     link: "/new/bot",
     icon: (
       <svg
@@ -55,7 +55,7 @@ export const NavRoutes = [
     ),
   },
   {
-    name: "Agents",
+    name: "Create Agent",
     link: "/new/agent",
     icon: (
       <svg

@@ -16,15 +16,22 @@ import React from "react";
 import { GithubIcon } from "../../Icons/GithubIcon";
 import { YoutubeIcon } from "../../Icons/YoutubeIcon";
 import { ApiIcon } from "../../Icons/ApiIcon";
+import DSMetrics from "./DSMetrics";
 export const DsTable = ({
-  data,
+  sources,
+  sourceCharsUsed,
+  totalSourceChars,
 }: {
-  data: {
+  sources: {
     id: string;
     type: string;
     content: string;
     status: string;
+    disabled: boolean;
+    source_chars: number;
   }[];
+  sourceCharsUsed: number;
+  totalSourceChars: number;
 }) => {
   const statusColor = (status: string) => {
     switch (status.toLowerCase()) {
@@ -125,14 +132,18 @@ export const DsTable = ({
           </button>
         </div>
       </div>
+      <DSMetrics
+        sourceCharsUsed={sourceCharsUsed}
+        totalSourceChars={totalSourceChars}
+      />
       <div className="mt-8 flex flex-col">
         <div className="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
             <div className="overflow-hidden bg-white ring-1 ring-black ring-opacity-5 md:rounded-lg dark:bg-[#262626]">
-              {data.length === 0 && (
+              {sources.length === 0 && (
                 <Empty description="No data sources found." className="m-8" />
               )}
-              {data.length > 0 && (
+              {sources.length > 0 && (
                 <table className="min-w-full divide-y divide-gray-300">
                   <thead className="bg-gray-50 dark:bg-[#141414]">
                     <tr>
@@ -152,6 +163,12 @@ export const DsTable = ({
                         scope="col"
                         className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-gray-200"
                       >
+                        Characters
+                      </th>
+                      <th
+                        scope="col"
+                        className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-gray-200"
+                      >
                         Status
                       </th>
                       <th
@@ -165,8 +182,18 @@ export const DsTable = ({
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-200 bg-white dark:bg-[#0a0a0a] dark:divide-gray-800">
-                    {data.map((source) => (
-                      <tr key={source.id}>
+                    {sources.map((source) => (
+                      <tr
+                        key={source.id}
+                        className={
+                          source.disabled ? "bg-red-100 cursor-auto" : ""
+                        }
+                        title={
+                          source.disabled
+                            ? "Source characters limit reached. Upgrade plan to enable this source."
+                            : ""
+                        }
+                      >
                         <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
                           {typeIcon(source.type)}
                         </td>
@@ -174,6 +201,9 @@ export const DsTable = ({
                           {source.content.length > 50
                             ? source.content.substring(0, 50) + "..."
                             : source.content}
+                        </td>
+                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                          {source.source_chars}
                         </td>
                         <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                           <Tag color={statusColor(source.status)}>

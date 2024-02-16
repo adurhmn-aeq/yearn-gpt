@@ -5,7 +5,7 @@ import TelegramBot from "../../../../../integration/telegram";
 
 export const deleteSourceByIdHandler = async (
   request: FastifyRequest<GetSourceByIds>,
-  reply: FastifyReply,
+  reply: FastifyReply
 ) => {
   const prisma = request.server.prisma;
   const bot_id = request.params.id;
@@ -43,6 +43,18 @@ export const deleteSourceByIdHandler = async (
     });
   }
 
+  if (!botSource.disabled) {
+    await prisma.bot.update({
+      where: {
+        id: bot_id,
+        user_id: request.user.user_id,
+      },
+      data: {
+        source_chars_remaining: { increment: botSource.source_chars },
+      },
+    });
+  }
+
   await prisma.botDocument.deleteMany({
     where: {
       botId: bot.id,
@@ -63,7 +75,7 @@ export const deleteSourceByIdHandler = async (
 
 export const deleteBotByIdHandler = async (
   request: FastifyRequest<GetBotRequestById>,
-  reply: FastifyReply,
+  reply: FastifyReply
 ) => {
   const prisma = request.server.prisma;
   const id = request.params.id;
@@ -130,7 +142,7 @@ export const deleteBotByIdHandler = async (
   await prisma.botPlayground.deleteMany({
     where: {
       botId: bot.id,
-    }
+    },
   });
 
   await prisma.bot.delete({

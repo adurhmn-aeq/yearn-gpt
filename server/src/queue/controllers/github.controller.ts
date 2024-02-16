@@ -5,11 +5,12 @@ import { DialoqbaseVectorStore } from "../../utils/store";
 import { embeddings } from "../../utils/embeddings";
 import { DialoqbaseGithub } from "../../loader/github";
 import { PrismaClient } from "@prisma/client";
+import { consumeDataSource, validateDataSource } from "../../utils/common";
 
 export const githubQueueController = async (
   source: QSource,
   prisma: PrismaClient
-) => {
+): Promise<[boolean, number]> => {
   let options = JSON.parse(JSON.stringify(source.options));
 
   const loader = new DialoqbaseGithub({
@@ -37,6 +38,10 @@ export const githubQueueController = async (
     throw new Error("Embedding not found. Please verify the embedding id");
   }
 
+  const bot = await prisma.bot.findFirst({ where: { id: source.botId } });
+  const [isValid, sourceChars] = validateDataSource(chunks, bot);
+  if (!isValid) return [false, sourceChars];
+
   await DialoqbaseVectorStore.fromDocuments(
     chunks,
     embeddings(
@@ -49,4 +54,7 @@ export const githubQueueController = async (
       sourceId: source.id,
     }
   );
+
+  consumeDataSource(chunks, prisma, source.botId);
+  return [true, sourceChars];
 };

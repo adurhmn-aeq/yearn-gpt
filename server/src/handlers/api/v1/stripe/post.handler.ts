@@ -5,10 +5,11 @@ import {
   BotLimit,
   MessageCredits,
   PlanLookup,
-  // SourceCharsPerBot,
+  SourceCharsPerBot,
   getStripe,
 } from "../../../../utils/stripe";
 import { GetResult } from "@prisma/client/runtime/library";
+import { refreshAllBotSources } from "../../../../utils/common";
 
 export const webhookHandler = async (
   request: FastifyRequest,
@@ -90,15 +91,17 @@ export const webhookHandler = async (
             },
           });
 
-          // // source chars reset
-          // await prisma.bot.updateMany({
-          //   where: {
-          //     user_id: stripe?.user_id,
-          //   },
-          //   data: {
-          //     source_chars_remaining: SourceCharsPerBot[lookup],
-          //   },
-          // });
+          // source chars reset
+          await prisma.bot.updateMany({
+            where: {
+              user_id: stripe?.user_id,
+            },
+            data: {
+              source_chars_remaining: SourceCharsPerBot[lookup],
+            },
+          });
+          // enable/disable bot sources
+          refreshAllBotSources(stripe?.user_id || -1, prisma, request);
 
           const enabledBots = await prisma.bot.findMany({
             where: { user_id: stripe?.user_id, disabled: false },
@@ -202,15 +205,18 @@ export const webhookHandler = async (
           message_credits_remaining: 0,
         },
       });
-      // // source chars reset
-      // await prisma.bot.updateMany({
-      //   where: {
-      //     user_id: stripe?.user_id,
-      //   },
-      //   data: {
-      //     source_chars_remaining: 0,
-      //   },
-      // });
+      // source chars reset
+      await prisma.bot.updateMany({
+        where: {
+          user_id: stripe?.user_id,
+        },
+        data: {
+          source_chars_remaining: 0,
+        },
+      });
+      // enable/disable bot sources
+      refreshAllBotSources(stripe?.user_id || -1, prisma, request);
+
       // disable all bots and agents
       await prisma.bot.updateMany({
         where: { user_id: stripe?.user_id },

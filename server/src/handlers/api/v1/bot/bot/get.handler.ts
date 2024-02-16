@@ -1,6 +1,7 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 
 import { GetBotRequestById } from "./types";
+import { PlanLookup, SourceCharsPerBot } from "../../../../../utils/stripe";
 
 export const getBotByIdEmbeddingsHandler = async (
   request: FastifyRequest<GetBotRequestById>,
@@ -49,6 +50,12 @@ export const getBotByIdAllSourcesHandler = async (
     },
   });
 
+  const stripe = await prisma.stripe.findFirst({
+    where: {
+      user_id: request.user.user_id,
+    },
+  });
+
   if (!bot) {
     return reply.status(404).send({
       message: "Bot not found",
@@ -65,7 +72,13 @@ export const getBotByIdAllSourcesHandler = async (
   });
 
   return {
-    data: sources,
+    sources,
+    totalSourceChars: SourceCharsPerBot[stripe?.active_plan as PlanLookup] || 0,
+    sourceCharsUsed: sources.reduce(
+      (acc, cur) =>
+        acc + (cur.disabled || cur.isPending ? 0 : cur.source_chars),
+      0
+    ),
   };
 };
 

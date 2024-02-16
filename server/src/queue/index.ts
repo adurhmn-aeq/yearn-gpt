@@ -32,44 +32,55 @@ export default async function queueHandler(job: Job, done: DoneCallback) {
             status: "PROCESSING",
           },
         });
+        let isValid: boolean = true;
+        let sourceChars: number = 0;
         switch (source.type.toLowerCase()) {
           case "website":
-            await websiteQueueController(source, prisma);
+            [isValid, sourceChars] = await websiteQueueController(
+              source,
+              prisma
+            );
             break;
           case "text":
-            await textQueueController(source, prisma);
+            [isValid, sourceChars] = await textQueueController(source, prisma);
             break;
           case "pdf":
-            await pdfQueueController(source, prisma);
+            [isValid, sourceChars] = await pdfQueueController(source, prisma);
             break;
           case "crawl":
             await crawlQueueController(source);
             break;
 
           case "docx":
-            await DocxQueueController(source, prisma);
+            [isValid, sourceChars] = await DocxQueueController(source, prisma);
             break;
 
           case "csv":
-            await csvQueueController(source, prisma);
+            [isValid, sourceChars] = await csvQueueController(source, prisma);
             break;
           case "github":
-            await githubQueueController(source, prisma);
+            [isValid, sourceChars] = await githubQueueController(
+              source,
+              prisma
+            );
             break;
           case "txt":
-            await txtQueueController(source, prisma);
+            [isValid, sourceChars] = await txtQueueController(source, prisma);
             break;
           case "mp3":
-            await audioQueueController(source, prisma);
+            [isValid, sourceChars] = await audioQueueController(source, prisma);
             break;
           case "mp4":
-            await videoQueueController(source, prisma);
+            [isValid, sourceChars] = await videoQueueController(source, prisma);
             break;
           case "youtube":
-            await youtubeQueueController(source, prisma);
+            [isValid, sourceChars] = await youtubeQueueController(
+              source,
+              prisma
+            );
             break;
           case "rest":
-            await restQueueController(source, prisma);
+            [isValid, sourceChars] = await restQueueController(source, prisma);
             break;
           case "sitemap":
             await sitemapQueueController(source);
@@ -83,8 +94,10 @@ export default async function queueHandler(job: Job, done: DoneCallback) {
             id: source.id,
           },
           data: {
-            status: "FINISHED",
+            status: isValid ? "FINISHED" : "FAILED",
             isPending: false,
+            disabled: !isValid,
+            source_chars: sourceChars,
           },
         });
 

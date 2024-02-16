@@ -59,7 +59,7 @@ export default function DashboardLayout({
                     {title}
                   </h2>
                 </div>
-                <UpgradeButton />
+                <UpgradeButton onClick={() => navigate("/pricing")} />
               </div>
             </div>
             <div className="flex-1 overflow-auto">{children}</div>
