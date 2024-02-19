@@ -1,91 +1,94 @@
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate, useParams } from "react-router-dom";
 import api from "../../services/api";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { SkeletonLoading } from "../../components/Common/SkeletonLoading";
 import { Cooking } from "../../components/Common/Cooking";
 import AgentInfo from "../../components/Agent/AgentInfo";
 import AgentSessions from "../../components/Agent/AgentSessions";
 import { useAuth } from "../../context/AuthContext";
-// import { PreviewIframe } from "../../components/Bot/Preview/PreviewIFrame";
 
 export default function AgentPreview() {
-  const param = useParams<{ id: string }>();
+  const [sessionId, setSessionId] = useState<string>("");
+  const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const { data, status } = useQuery(["getAgentById", param.id], async () => {
-    const response = await api.get(`/agent/${param.id}`);
-    return response.data as {
-      id: string;
-      user_id: number;
-      name: string;
-      initMsg: string;
-      prompt: string;
-      createdAt: string;
-      sessions: {
-        name: string;
-        email: string;
-        id: string;
-        createdAt: string;
-      }[];
-    };
-  });
-
-  const { data: data2, status: status2 } = useQuery(
-    ["getSessionById", param.id],
+  const { data: agentData, status: agentStatus } = useQuery(
+    ["getAgentById", id],
     async () => {
-      const response = await api.get(`/agent/session`, {
-        params: {
-          agentId: "clsolymjv0001k1t3itao9hrv", // param.id
-          sessionId: "clsolyutm0003k1t38hu42szf", // data.sessions[i].id
-        },
-      });
-      return response.data as {
-        id: string;
-        name: string;
-        email: string;
-        phone: string;
-        messages: {
-          id: string;
-          message: string;
-          isBot: boolean;
-          createdAt: number;
-        };
-        createdAt: Date;
-        user_id: number;
-        agent_id: string;
-      };
+      const response = await api.get(`/agent/${id}`);
+      return response.data;
     }
   );
 
-  console.log({ data, data2 });
+  const {
+    data: sessionData,
+    status: sessionStatus,
+    refetch: refetchSession,
+  } = useQuery(
+    ["getSessionById", id, sessionId],
+    async () => {
+      const response = await api.get(`/agent/session`, {
+        params: {
+          agentId: id,
+          sessionId: sessionId,
+        },
+      });
+      return response.data;
+    },
+    {
+      enabled: !!sessionId,
+    }
+  );
 
   const { isLogged } = useAuth();
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (!isLogged) {
       navigate("/login");
     }
   }, [isLogged, navigate]);
 
-  React.useEffect(() => {
-    if (status === "error") {
+  useEffect(() => {
+    if (agentStatus === "error") {
       navigate("/");
     }
-  }, [status]);
+  }, [agentStatus]);
+
+  useEffect(() => {
+    if (agentData?.sessions && agentData.sessions.length > 0) {
+      setSessionId(agentData.sessions[0].id);
+    }
+  }, [agentData]);
+
+  useEffect(() => {
+    if (sessionId) {
+      refetchSession();
+    }
+  }, [sessionId, refetchSession]);
 
   return (
     <>
-      {status === "loading" && (
+      {agentStatus === "loading" && (
         <div className="mx-auto my-3 w-full max-w-7xl">
           <SkeletonLoading />
         </div>
       )}
-      {status === "success" && !data && <Cooking />}
-      {status === "success" && data && (
-        <div className="flex justify-center p-3 gap-8">
-          <AgentInfo info={data} />
-          <AgentSessions sessions={data.sessions} />
+      {agentStatus === "success" && !agentData && <Cooking />}
+      {agentStatus === "success" && agentData && (
+        <div className="flex h-full w-full py-6 px-4">
+          <AgentSessions
+            sessionId={sessionId}
+            sessions={agentData.sessions}
+            agentName={agentData?.name || ""}
+            botName={agentData?.name || ""}
+            sessionMessage={sessionData?.messages}
+            setSessionId={setSessionId}
+          />
+          <AgentInfo info={agentData} />
         </div>
+      )}
+      {agentStatus === "error" && (
+        <div>An error occurred. Please try again later.</div>
       )}
     </>
   );
