@@ -10,6 +10,7 @@ type AuthProviderProps = {
 type Profile = {
   username: string;
   avatar: string;
+  email: string;
 };
 
 interface AppContextInterface {
@@ -24,10 +25,15 @@ const AuthContext = createContext<AppContextInterface>({
     username: "...",
     avatar:
       "https://avatars.dicebear.com/api/jdenticon/formshet.svg?background=%230000ff",
+    email: "...",
   },
   isLogged: false,
-  login: () => {},
-  logout: () => {},
+  login: () => {
+    return;
+  },
+  logout: () => {
+    return;
+  },
 });
 export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [userToken, setUserToken] = useCookie("db_token");
@@ -40,6 +46,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       setProfile({
         username: localProfile?.username,
         avatar: `https://api.dicebear.com/5.x/fun-emoji/svg?seed=${localProfile?.username}`,
+        email: localProfile?.email,
       });
     }
   }, [localProfile]);

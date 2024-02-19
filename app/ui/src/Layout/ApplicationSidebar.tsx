@@ -118,16 +118,16 @@ export const ApplicationSidebar = ({
                 <div className="flex gap-3">
                   <img
                     className="w-[48px] h-[48px] rounded-md"
-                    src="/providers/surwaysparrow.svg"
+                    src={profile?.avatar}
                     alt=""
                   />
                   <div className="flex flex-col justify-around">
                     <h2 className="text-[14px] text-[#343538] font-[600]">
-                      John Doe
+                      {profile?.username}
                     </h2>
 
                     <p className="text-[12px] text-[#34353880] font-[400]">
-                      johndoe@gmail.com
+                      {profile?.email}
                     </p>
                   </div>
                 </div>
