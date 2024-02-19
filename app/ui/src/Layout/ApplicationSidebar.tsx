@@ -55,14 +55,18 @@ export const ApplicationSidebar = ({
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
-  const { data, isLoading, isSuccess } = useQuery(["fetchUsage"], async () => {
-    const response = await api.get("/stripe/usage");
-    return response.data as {
-      active_plan: string;
-      message_credits_total: number;
-      message_credits_used: number;
-    };
-  });
+  const { data, isLoading, isSuccess } = useQuery(
+    ["fetchUsage"],
+    async () => {
+      const response = await api.get("/stripe/usage");
+      return response.data as {
+        active_plan: string;
+        message_credits_total: number;
+        message_credits_used: number;
+      };
+    },
+    { refetchInterval: 10000 }
+  );
 
   const progressPercentage = isSuccess
     ? (data?.message_credits_used / data?.message_credits_total) * 100
@@ -161,10 +165,12 @@ export const ApplicationSidebar = ({
                 ) : (
                   <h2 className="font-[600] text-[20px] text-[#343538]">
                     {data?.active_plan
-                      ? Plan.titles[
-                          data?.active_plan as keyof typeof Plan.titles
-                        ]
-                      : "free Plan"}
+                      ? `${
+                          Plan.titles[
+                            data?.active_plan as keyof typeof Plan.titles
+                          ]
+                        } Plan`
+                      : "Free Plan"}
                   </h2>
                 )}
                 <div className="w-[206px]">

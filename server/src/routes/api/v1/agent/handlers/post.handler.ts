@@ -166,6 +166,46 @@ export const agentResponseHandler = async (
     });
   }
 
+  if (agentInfo.disabled) {
+    return {
+      response: {
+        id: createId(),
+        isBot: true,
+        message: "Agent is disabled! Please contact the creator of this agent.",
+        createdAt: new Date().getTime(),
+      },
+    };
+  }
+
+  const stripe = await prisma.stripe.findFirst({
+    where: { user_id: agentInfo!.user_id! },
+    select: { message_credits_remaining: true, user_id: true },
+  });
+
+  if (!stripe) {
+    return {
+      response: {
+        id: createId(),
+        isBot: true,
+        message:
+          "Unable to find stripe! Please contact the creator of this agent.",
+        createdAt: new Date().getTime(),
+      },
+    };
+  }
+
+  if (stripe.message_credits_remaining <= 0) {
+    return {
+      response: {
+        id: createId(),
+        isBot: true,
+        message:
+          "Not enough message credits! Please contact the creator of this agent.",
+        createdAt: new Date().getTime(),
+      },
+    };
+  }
+
   // generate agent message
   let agentResponse = "";
   if (isInitReq) {
@@ -227,6 +267,13 @@ export const agentResponseHandler = async (
   await prisma.session.update({
     where: { id: session },
     data: { messages: { push: agentMessage } },
+  });
+
+  await prisma.stripe.update({
+    where: { user_id: agentInfo!.user_id! },
+    data: {
+      message_credits_remaining: { decrement: 1 },
+    },
   });
 
   return { response: agentMessage };
