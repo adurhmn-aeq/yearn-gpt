@@ -283,6 +283,13 @@ export const chatRequestHandler = async (
       },
     });
 
+    await prisma.stripe.update({
+      where: { user_id: bot.user_id! },
+      data: {
+        message_credits_remaining: { decrement: 1 },
+      },
+    });
+
     return {
       bot: {
         text: botResponse,
@@ -714,6 +721,13 @@ export const chatRequestStreamHandler = async (
           },
         ],
       }),
+    });
+
+    await prisma.stripe.update({
+      where: { user_id: bot.user_id! },
+      data: {
+        message_credits_remaining: { decrement: 1 },
+      },
     });
     await nextTick();
     return reply.raw.end();
