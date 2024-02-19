@@ -38,13 +38,13 @@ const Header = ({
 }) => {
   return (
     <div className="flex flex-col">
-      <h1 className="text-[26px] font-[600] text-[#343538] sm:text-center sm:text-[39px]">
+      <h1 className="text-[24px] font-[600] text-[#343538] text-center sm:text-[39px]">
         Plans
       </h1>
-      <p className="mt-4 text-center text-[#34353899] font-[500] text-[16px]">
+      <p className="mt-4 text-center text-[#34353899] font-[500] text-[14px] sm:text-[16px]">
         Get 2 months for free by subscribing yearly!
       </p>
-      <div className="relative mt-2 flex self-center rounded-[50px] bg-[#51DC0014] p-[7px] sm:mt-4 lg:mt-6 ">
+      <div className="relative mt-4 flex self-center rounded-[50px] bg-[#51DC0014] p-[7px] sm:mt-4 lg:mt-6 ">
         <button
           onClick={togglePill}
           className={
@@ -109,8 +109,8 @@ function Plan({
             </p>
           </div>
           <div>
-            <p className="mt-8 mb-8">
-              <span className="text-[54px] font-[600] text-[#343538]">
+            <p className="mt-4 mb-4 sm:mt-8 sm:mb-8">
+              <span className="text-[40px] sm:text-[54px] font-[600] text-[#343538]">
                 ${PlanInfo.prices[lookup]}
               </span>
               <span className="text-[16px] font-[600] text-[#343538]">
@@ -118,7 +118,7 @@ function Plan({
               </span>
             </p>
           </div>
-          <div className="py-4 flex flex-col gap-[16px]">
+          <div className="sm:py-4 flex flex-col gap-[16px]">
             <h2 className="text-[14px] text-[#343538] font-[600]">
               What’s Included
             </h2>
