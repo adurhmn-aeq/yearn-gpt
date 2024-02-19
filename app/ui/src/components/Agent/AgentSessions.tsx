@@ -1,3 +1,4 @@
+import { Spin } from "antd";
 import { Dispatch, SetStateAction } from "react";
 
 type Props = {
@@ -58,7 +59,7 @@ export default function AgentSessions({
               >
                 <p
                   className={[
-                    isBot ? "text-[#51DC00]" : "text-[#343538]",
+                    !isBot ? "text-[#51DC00]" : "text-[#343538]",
                     "mb-2",
                   ].join(" ")}
                 >
@@ -68,7 +69,9 @@ export default function AgentSessions({
               </div>
             ))
           ) : (
-            <p className="my-auto self-center">Loading...</p>
+            <span className="my-auto self-center">
+              <Spin size="small" />
+            </span>
           )}
         </div>
       </div>

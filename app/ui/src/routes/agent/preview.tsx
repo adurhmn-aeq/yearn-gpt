@@ -7,9 +7,12 @@ import { Cooking } from "../../components/Common/Cooking";
 import AgentInfo from "../../components/Agent/AgentInfo";
 import AgentSessions from "../../components/Agent/AgentSessions";
 import { useAuth } from "../../context/AuthContext";
+import useBreakpoint from "../../hooks/useBreakpoint";
+import AgentSessionsMobile from "../../components/Agent/AgentSessionsMobile";
 
 export default function AgentPreview() {
   const [sessionId, setSessionId] = useState<string>("");
+  const md = useBreakpoint({ breakpoint: "md" });
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const { data: agentData, status: agentStatus } = useQuery(
@@ -55,7 +58,7 @@ export default function AgentPreview() {
   }, [agentStatus]);
 
   useEffect(() => {
-    if (agentData?.sessions && agentData.sessions.length > 0) {
+    if (agentData && agentData?.sessions && agentData.sessions.length > 0) {
       setSessionId(agentData.sessions[0].id);
     }
   }, [agentData]);
@@ -74,19 +77,28 @@ export default function AgentPreview() {
         </div>
       )}
       {agentStatus === "success" && !agentData && <Cooking />}
-      {agentStatus === "success" && agentData && (
-        <div className="flex h-full w-full py-6 px-4">
-          <AgentSessions
+      {agentStatus === "success" &&
+        agentData &&
+        (md ? (
+          <div className="flex h-full max-w-[970px] mx-auto py-6 px-4 overflow-x-auto">
+            <AgentSessions
+              sessionId={sessionId}
+              sessions={agentData.sessions}
+              agentName={sessionData?.name || ""}
+              botName={agentData?.name || ""}
+              sessionMessage={sessionData?.messages}
+              setSessionId={setSessionId}
+            />
+            <AgentInfo info={agentData} />
+          </div>
+        ) : (
+          <AgentSessionsMobile
+            agentData={agentData}
+            sessionData={sessionData}
             sessionId={sessionId}
-            sessions={agentData.sessions}
-            agentName={agentData?.name || ""}
-            botName={agentData?.name || ""}
-            sessionMessage={sessionData?.messages}
             setSessionId={setSessionId}
           />
-          <AgentInfo info={agentData} />
-        </div>
-      )}
+        ))}
       {agentStatus === "error" && (
         <div>An error occurred. Please try again later.</div>
       )}
