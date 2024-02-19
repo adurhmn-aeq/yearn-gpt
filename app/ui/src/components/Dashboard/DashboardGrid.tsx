@@ -102,7 +102,7 @@ export const DashboardGrid = () => {
               {status === "success" && botsCount.length > 0 && (
                 <>
                   <CustomSlider>
-                    {data?.map(({ bot }: any, i: any) => {
+                    {botsCount?.map(({ bot }: any, i: any) => {
                       return bot ? (
                         <Link to={`/bot/${bot.id}`} key={bot.id}>
                           <BotCard bot={bot} />
@@ -132,7 +132,7 @@ export const DashboardGrid = () => {
               {status === "success" && agentCount.length > 0 && (
                 <>
                   <CustomSlider>
-                    {data?.map(({ bot, agent }: any, i: any) => {
+                    {agentCount?.map(({ agent }: any, i: any) => {
                       return agent ? (
                         <Link to={`/agent/${agent.id}`} key={agent.id}>
                           <AgentCard key={i} agent={agent} />

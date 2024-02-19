@@ -71,7 +71,7 @@ export const ApplicationSidebar = ({
   const progressPercentage = isSuccess
     ? (data?.message_credits_used / data?.message_credits_total) * 100
     : 0;
-  console.log("progressPercentage", data?.active_plan);
+
   return (
     <span
       className={[
