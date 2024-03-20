@@ -111,6 +111,7 @@ export default function BotPlaygroundLayout({
                 leaveFrom="translate-x-0"
                 leaveTo="-translate-x-full"
               >
+                {/* <Dialog.Panel className="relative flex w-full max-w-xs flex-1 flex-col bg-white pt-5 pb-4 dark:bg-[#171717]"> */}
                 <Dialog.Panel className="relative flex w-full max-w-xs flex-1 flex-col bg-white pt-5 pb-4 dark:bg-[#171717]">
                   <Transition.Child
                     as={Fragment}
@@ -167,7 +168,7 @@ export default function BotPlaygroundLayout({
                           )}
                         >
                           <item.icon
-                             className={classNames(
+                            className={classNames(
                               location.pathname ===
                                 item.href.replace(":id", params.id!)
                                 ? "text-gray-500"
@@ -194,7 +195,7 @@ export default function BotPlaygroundLayout({
           <div className="flex flex-grow flex-col overflow-y-auto border-r border-gray-200 bg-white pt-5 dark:bg-[#171717] dark:border-gray-600">
             <div className="mt-14 flex flex-grow flex-col">
               <nav className="flex-1 space-y-1 px-2 pb-4">
-              {navigation.map((item) => (
+                {navigation.map((item) => (
                   <Tooltip placement="right" key={item.name} title={item.name}>
                     <Link
                       to={{

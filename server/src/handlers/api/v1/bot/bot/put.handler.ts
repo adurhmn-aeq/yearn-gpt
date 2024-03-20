@@ -67,8 +67,9 @@ export const updateBotByIdHandler = async (
 
     if (
       !request.body.disabled &&
-      (stripe.plan_status === PlanStatus.PAST_DUE ||
-        botsCount === BotLimit[stripe.active_plan as PlanLookup])
+      (!stripe.active_plan ||
+        stripe.plan_status === PlanStatus.PAST_DUE ||
+        botsCount >= BotLimit[stripe.active_plan as PlanLookup])
     ) {
       return reply.status(400).send({
         message:
