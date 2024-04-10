@@ -8,7 +8,7 @@ const UtilityButton: FC<ButtonProps> = ({ onClick, children }) => {
   return (
     <button
       onClick={onClick}
-      className="h-[38px] bg-[#343538] px-[20px] rounded-md text-[#FFFFFF] font-[500] text-[12px]"
+      className="h-[38px] bg-[#1967FC] px-[20px] rounded-md text-[#FFFFFF] font-[500] text-[12px]"
     >
       {children}
     </button>

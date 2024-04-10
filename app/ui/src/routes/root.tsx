@@ -22,11 +22,11 @@ export default function Root() {
         <div className="">
           <h2 className="text-[24px] text-[#343538] sm:text-[39px] text-center">
             <span className="font-[500]">AI-Driven</span>{" "}
-            <span className="font-[500] text-[#51DC00]">bots and agents</span>{" "}
-            for{" "}
+            <span className="font-[500] text-[#1967FC]">bots</span> for any kind
+            of{" "}
             <span className="font-[900]">
-              FINANCE
-              <br className="hidden md:block" /> SECURITY
+              IDO
+              <br className="hidden md:block" /> PROJECTS
             </span>{" "}
             and{" "}
             <span className="font-[500] relative">

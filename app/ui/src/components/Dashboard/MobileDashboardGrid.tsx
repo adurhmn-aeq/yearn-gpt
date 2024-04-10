@@ -62,12 +62,12 @@ export const MobileDashboardGrid = () => {
               onClick={() => setActiveState("myBots")}
               className={` ${
                 activeState === "myBots" ? "text-[#343538]" : "text-[#34353880]"
-              } cursor-pointer`}
+              } `}
             >
               My Bots
             </h2>
 
-            <h2
+            {/* <h2
               onClick={() => setActiveState("myAgents")}
               className={` ${
                 activeState === "myAgents"
@@ -76,30 +76,29 @@ export const MobileDashboardGrid = () => {
               } cursor-pointer`}
             >
               My Agents
-            </h2>
+            </h2> */}
           </div>
           <div className="pt-[25px]">
-            {activeState === "myBots" ? (
-              <div className="flex gap-[20px] flex-wrap justify-center">
-                {status === "success" && data.length > 0 && (
-                  <>
-                    {data?.map(({ bot }: any, i: any) => {
-                      return bot ? (
-                        <Link to={`/bot/${bot.id}`} key={bot.id}>
-                          <BotCard bot={bot} />
-                        </Link>
-                      ) : null;
-                    })}
-                  </>
-                )}
-                {status === "success" && botsCount.length === 0 && (
-                  <div className="flex justify-center items-center w-[100%]">
-                    <Empty description="No bots created yet" />
-                  </div>
-                )}
-              </div>
-            ) : (
-              <div className="flex gap-[20px] flex-wrap justify-center">
+            <div className="flex gap-[20px] flex-wrap justify-center">
+              {status === "success" && data.length > 0 && (
+                <>
+                  {data?.map(({ bot }: any, i: any) => {
+                    return bot ? (
+                      <Link to={`/bot/${bot.id}`} key={bot.id}>
+                        <BotCard bot={bot} />
+                      </Link>
+                    ) : null;
+                  })}
+                </>
+              )}
+              {status === "success" && botsCount.length === 0 && (
+                <div className="flex justify-center items-center w-[100%]">
+                  <Empty description="No bots created yet" />
+                </div>
+              )}
+            </div>
+
+            {/* <div className="flex gap-[20px] flex-wrap justify-center">
                 {status === "success" && data.length > 0 && (
                   <>
                     {data?.map(({ bot, agent }: any, i: any) => {
@@ -116,8 +115,7 @@ export const MobileDashboardGrid = () => {
                     <Empty description="No Agents created yet" />
                   </div>
                 )}
-              </div>
-            )}
+              </div> */}
           </div>
         </div>
       )}

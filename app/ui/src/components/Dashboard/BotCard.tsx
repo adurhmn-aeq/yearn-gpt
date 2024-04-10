@@ -11,7 +11,7 @@ const BotCard: FC<{ bot?: any }> = ({ bot }) => {
         <img src="/providers/botImg.svg" alt="" />
         <h2
           className={`text-[20px] ${
-            bot.disabled ? "text-[#343538]" : "group-hover:text-[#51DC00]"
+            bot.disabled ? "text-[#343538]" : "group-hover:text-[#1967FC]"
           } font-[600] text-[#343538]`}
         >
           {bot.name.length > 7 ? bot.name.slice(0, 7) + "..." : bot.name}

@@ -101,15 +101,13 @@ export const DashboardGrid = () => {
               {/* <div className=" flex gap-[50px] w-full overflow-x-auto "> */}
               {status === "success" && botsCount.length > 0 && (
                 <>
-                  <CustomSlider>
-                    {botsCount?.map(({ bot }: any, i: any) => {
-                      return bot ? (
-                        <Link to={`/bot/${bot.id}`} key={bot.id}>
-                          <BotCard bot={bot} />
-                        </Link>
-                      ) : null;
-                    })}
-                  </CustomSlider>
+                  {botsCount?.map(({ bot }: any, i: any) => {
+                    return bot ? (
+                      <Link to={`/bot/${bot.id}`} key={bot.id}>
+                        <BotCard bot={bot} />
+                      </Link>
+                    ) : null;
+                  })}
                 </>
               )}
               {status === "success" && botsCount.length === 0 && (
@@ -119,7 +117,7 @@ export const DashboardGrid = () => {
               )}
             </div>
           </div>
-          <div className="flex flex-col gap-[20px]">
+          {/* <div className="flex flex-col gap-[20px]">
             <div className="flex gap-5 justify-between">
               <h2 className="text-[#34353899] font-[600] text-[18px]">
                 My Agents
@@ -148,7 +146,7 @@ export const DashboardGrid = () => {
                 </div>
               )}
             </div>
-          </div>
+          </div> */}
         </>
       )}
     </div>

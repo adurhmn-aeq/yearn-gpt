@@ -44,20 +44,20 @@ const router = createHashRouter([
   },
   {
     element: (
-      <DashboardLayout title="Bot">
+      <DashboardLayout title="Create New Bot">
         <NewBot />
       </DashboardLayout>
     ),
     path: "/new/bot",
   },
-  {
-    element: (
-      <DashboardLayout title="Agent">
-        <NewAgent />
-      </DashboardLayout>
-    ),
-    path: "/new/agent",
-  },
+  // {
+  //   element: (
+  //     <DashboardLayout title="Agent">
+  //       <NewAgent />
+  //     </DashboardLayout>
+  //   ),
+  //   path: "/new/agent",
+  // },
   {
     path: "/credit",
     element: (

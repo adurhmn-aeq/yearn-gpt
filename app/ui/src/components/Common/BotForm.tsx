@@ -468,7 +468,7 @@ export const BotForm = ({
                   value={source}
                   className={({ checked, active }) =>
                     classNames(
-                      checked ? "!bg-[#343538]" : " dark:border-gray-700",
+                      checked ? "!bg-[#1967FC]" : " dark:border-gray-700",
                       // active
                       //   ? "border-indigo-500 ring-0 ring-green-500 dark:border-gray-700 dark:ring-gray-900"
                       //   : "",
@@ -612,7 +612,7 @@ export const BotForm = ({
             <button
               type="submit"
               disabled={isLoading}
-              className="flex w-full justify-center rounded-[10px] border border-transparent bg-gray-800 py-2 px-8 text-sm font-medium text-white shadow-sm hover:bg-gray-950 focus:outline-none mb-4"
+              className="flex w-full justify-center rounded-[10px] border border-transparent bg-[#1967FC] py-2 px-8 text-sm font-medium text-white shadow-sm hover:bg-[#0945b7] focus:outline-none mb-4"
             >
               {isLoading ? "Creating..." : "submit"}
             </button>
