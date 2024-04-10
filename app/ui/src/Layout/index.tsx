@@ -118,7 +118,7 @@ export default function DashboardLayout({
               </button>
               <Link to={"/"}>
                 <div className="flex gap-3 items-center cursor-pointer">
-                  <svg
+                  {/* <svg
                     width="60"
                     height="18"
                     viewBox="0 0 42 17"
@@ -134,7 +134,12 @@ export default function DashboardLayout({
                     <p className="text-[12px] text-[#FFFFFF] font-[600] px-2 py-[2px]">
                       AGENTS
                     </p>
-                  </div>
+                  </div> */}
+                  <img
+                    className="w-[133px]"
+                    src="./providers/yearnLogo.svg"
+                    alt=""
+                  />
                 </div>
               </Link>
             </div>

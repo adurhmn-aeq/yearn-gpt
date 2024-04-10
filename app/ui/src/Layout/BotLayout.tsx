@@ -141,15 +141,21 @@ export default function BotLayout({
                   >
                     <img
                       className="h-8 w-auto"
+                      src="./providers/yearnLogo.svg"
+                      alt="Dialoqbase"
+                    />
+
+                    {/* <img
+                      className="h-8 w-auto"
                       src="https://www.bilic.io/favicon.ico"
                       alt="Dialoqbase"
                     />
                     +{" "}
                     <span className="ml-1 text-xl font-bold">Agents Bilic</span>
                     <span className="inline-block flex-shrink-0 rounded-full bg-green-100 px-2 py-0.5 text-xs font-medium text-green-800 ml-2">
-                      {/* @ts-ignore */}
+                      
                       {`v${__APP_VERSION__}`}
-                    </span>
+                    </span> */}
                   </Link>
                   <div className="mt-5 h-0 flex-1 overflow-y-auto">
                     <nav className="space-y-1 px-2">
@@ -229,7 +235,7 @@ export default function BotLayout({
         </div>
 
         <div className="flex flex-col">
-          <div className="sticky top-0 z-[999] flex h-14  bg-white border-b border-gray-200 dark:bg-black dark:border-gray-800">
+          <div className="sticky top-0 z-[2] flex h-14  bg-white border-b border-gray-200 dark:bg-black dark:border-gray-800">
             <button
               type="button"
               className="border-r border-gray-200 px-4 text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-green-500 md:hidden dark:border-gray-800 dark:text-gray-200"
@@ -243,15 +249,19 @@ export default function BotLayout({
               className="focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-700 flex items-center px-3 dark:text-white"
             >
               <img
+                className="h-8 w-auto hidden sm:block"
+                src="./providers/yearnLogo.svg"
+                alt=""
+              />
+              {/* <img
                 className="h-8 w-auto"
                 src="https://www.bilic.io/favicon.ico"
                 alt="Dialoqbase"
               />
               <span className="ml-1 text-xl font-bold">Agents Bilic</span>
               <span className="inline-block flex-shrink-0 rounded-full bg-green-100 px-2 py-0.5 text-xs font-medium text-green-800 ml-2">
-                {/* @ts-ignore */}
                 {`v${__APP_VERSION__}`}
-              </span>
+              </span> */}
             </Link>
 
             <div className="flex flex-1 justify-end px-4">
