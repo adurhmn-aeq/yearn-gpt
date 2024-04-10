@@ -120,6 +120,7 @@ export default function PlaygroundSettings({ close }: { close: () => void }) {
                 <Form.Item label="Speech to Text Languages" name="language">
                   <select
                     className="w-full h-10 px-3 text-base placeholder-gray-600 border rounded-lg focus:shadow-outline dark:bg-[#0a0a0a] dark:border-gray-700"
+                    className="w-full h-10 px-3 text-base placeholder-gray-600 border rounded-lg focus:shadow-outline dark:bg-[#0a0a0a] dark:border-gray-700"
                     name="language"
                     id="language"
                   >
@@ -169,6 +170,7 @@ export default function PlaygroundSettings({ close }: { close: () => void }) {
                 name="textToSpeechType"
               >
                 <select
+                  className="w-full h-10 px-3 text-base placeholder-gray-600 border rounded-lg focus:shadow-outline dark:bg-[#0a0a0a] dark:border-gray-700"
                   className="w-full h-10 px-3 text-base placeholder-gray-600 border rounded-lg focus:shadow-outline dark:bg-[#0a0a0a] dark:border-gray-700"
                   name="textToSpeechType"
                   id="textToSpeechType"

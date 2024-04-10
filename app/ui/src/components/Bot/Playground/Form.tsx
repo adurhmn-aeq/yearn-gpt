@@ -116,6 +116,7 @@ export const PlaygroundgForm = () => {
                     })();
                   }
                 }}
+                ref={textareaRef}
                 className="rounded-full pl-4 pr-2 py-2 w-full resize-none bg-transparent focus-within:outline-none sm:text-sm focus:ring-0 focus-visible:ring-0 ring-0 dark:ring-0 border-0 dark:text-gray-100"
                 required
                 rows={1}
