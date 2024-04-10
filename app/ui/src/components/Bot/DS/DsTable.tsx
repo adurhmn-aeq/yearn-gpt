@@ -145,7 +145,7 @@ export const DsTable = ({
               )}
               {sources.length > 0 && (
                 <table className="min-w-full divide-y divide-gray-300">
-                  <thead className="bg-gray-50 dark:bg-[#292828]">
+                  <thead className="bg-gray-50 dark:bg-[#141414]">
                     <tr>
                       <th
                         scope="col"

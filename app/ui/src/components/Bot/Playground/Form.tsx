@@ -1,12 +1,9 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useMessage } from "../../../hooks/useMessage";
 import { useForm } from "@mantine/form";
-import React, { useState } from "react";
+import React from "react";
 import { useStoreMessage } from "../../../store";
 import { useSpeechRecognition } from "../../../hooks/useSpeechRecognition";
-import { Tooltip } from "antd";
-import { MicrophoneIcon } from "@heroicons/react/24/outline";
-import useDynamicTextareaSize from "../../../hooks/useDynamicTextareaSize";
 
 export const PlaygroundgForm = () => {
   const { onSubmit } = useMessage();
@@ -18,8 +15,6 @@ export const PlaygroundgForm = () => {
   });
 
   const client = useQueryClient();
-  const textareaRef = React.useRef<HTMLTextAreaElement>(null);
-  const [typing, setTyping] = useState<boolean>(false);
 
   const {
     defaultSpeechToTextLanguage,
@@ -28,6 +23,7 @@ export const PlaygroundgForm = () => {
     setElevenLabsDefaultVoice,
   } = useStoreMessage();
 
+  const [hideListening, setHideListening] = React.useState(false);
   const {
     transcript,
     listening,
@@ -37,9 +33,6 @@ export const PlaygroundgForm = () => {
   } = useSpeechRecognition();
 
   React.useEffect(() => {
-    if (textareaRef.current) {
-      textareaRef?.current?.focus();
-    }
     const defaultLanguageFromLocalStorage = localStorage.getItem(
       "defaultSpeechToTextLanguage"
     );
@@ -70,6 +63,21 @@ export const PlaygroundgForm = () => {
     form.setFieldValue("message", transcript);
   }, [transcript]);
 
+  React.useEffect(() => {
+    if (!browserSupportsSpeechRecognition) {
+      setHideListening(true);
+    } else {
+      setHideListening(false);
+    }
+  }, [browserSupportsSpeechRecognition]);
+
+  const textareaRef = React.useRef<HTMLTextAreaElement>(null);
+  React.useEffect(() => {
+    if (textareaRef.current) {
+      textareaRef.current.focus();
+    }
+  }, []);
+
   const { mutateAsync: sendMessage, isLoading: isSending } = useMutation(
     onSubmit,
     {
@@ -83,7 +91,12 @@ export const PlaygroundgForm = () => {
     }
   );
 
-  useDynamicTextareaSize(textareaRef, form.values.message, 300);
+  const resetHeight = () => {
+    const textarea = textareaRef.current;
+    if (textarea) {
+      textarea.style.height = "auto";
+    }
+  };
 
   return (
     <div className="p-3 md:p-6 md:bg-white dark:bg-[#1e1e1e] border rounded-t-xl   border-black/10 dark:border-gray-600">
@@ -92,26 +105,22 @@ export const PlaygroundgForm = () => {
           <form
             onSubmit={form.onSubmit(async (value) => {
               form.reset();
+              resetHeight();
               await sendMessage(value.message);
             })}
-            className="shrink-0 flex-grow  flex flex-col items-center "
+            className="shrink-0 flex-grow  flex items-center "
           >
             <div className="flex items-center p-2 rounded-xl border  bg-gray-100 w-full dark:bg-[#1e1e1e] dark:border-gray-600">
               <textarea
-                ref={textareaRef}
                 onKeyDown={(e) => {
-                  if (
-                    !typing &&
-                    e.key === "Enter" &&
-                    !e.shiftKey &&
-                    !isSending
-                  ) {
+                  if (e.key === "Enter" && !e.shiftKey && !isSending) {
                     e.preventDefault();
                     form.onSubmit(async (value) => {
                       if (value.message.trim().length === 0) {
                         return;
                       }
                       form.reset();
+                      resetHeight();
                       await sendMessage(value.message);
                     })();
                   }
@@ -120,43 +129,29 @@ export const PlaygroundgForm = () => {
                 className="rounded-full pl-4 pr-2 py-2 w-full resize-none bg-transparent focus-within:outline-none sm:text-sm focus:ring-0 focus-visible:ring-0 ring-0 dark:ring-0 border-0 dark:text-gray-100"
                 required
                 rows={1}
-                style={{ minHeight: "60px" }}
                 tabIndex={0}
-                placeholder="Type a message..."
-                onCompositionStart={() => setTyping(true)}
-                onCompositionEnd={() => setTyping(false)}
+                placeholder={
+                  !listening ? "Type your message…" : "Listening......"
+                }
                 {...form.getInputProps("message")}
               />
-              <div className="flex mt-4 justify-end gap-3">
-                <Tooltip title="Voice Message">
-                  <button
-                    hidden={!browserSupportsSpeechRecognition}
-                    type="button"
-                    onClick={() => {
-                      if (!listening) {
-                        listen({
-                          lang: defaultSpeechToTextLanguage,
-                        });
-                      } else {
-                        stop();
-                      }
-                    }}
-                    className={`flex items-center justify-center dark:text-gray-300`}
-                  >
-                    {!listening ? (
-                      <MicrophoneIcon className="h-5 w-5" />
-                    ) : (
-                      <div className="relative">
-                        <span className="animate-ping absolute inline-flex h-3 w-3 rounded-full bg-red-400 opacity-75"></span>
-                        <MicrophoneIcon className="h-5 w-5" />
-                      </div>
-                    )}
-                  </button>
-                </Tooltip>
-
+              {!hideListening && (
                 <button
-                  disabled={isSending || form.values.message.length === 0}
-                  className="inline-flex items-center rounded-md border border-transparent bg-black px-2 py-2  font-medium leading-4 text-white shadow-sm hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:bg-white dark:text-gray-800 dark:hover:bg-gray-100 dark:focus:ring-gray-500 dark:focus:ring-offset-gray-100 disabled:opacity-50 "
+                  disabled={isSending}
+                  onClick={() => {
+                    if (!listening) {
+                      listen({
+                        lang: defaultSpeechToTextLanguage,
+                      });
+                    } else {
+                      stop();
+                    }
+                  }}
+                  type="button"
+                  className={`p-0 mr-2 text-gray-500  ${
+                    listening &&
+                    "animate-pulse ring-2 ring-blue-500 rounded-full ring-opacity-50"
+                  }`}
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -165,18 +160,41 @@ export const PlaygroundgForm = () => {
                     strokeLinecap="round"
                     strokeLinejoin="round"
                     strokeWidth="2"
-                    className="h-4 w-4 mr-2"
+                    className="h-6 w-6"
                     viewBox="0 0 24 24"
                   >
-                    <path d="M9 10L4 15 9 20"></path>
-                    <path d="M20 4v7a4 4 0 01-4 4H4"></path>
+                    <path d="M12 2a3 3 0 00-3 3v7a3 3 0 006 0V5a3 3 0 00-3-3z"></path>
+                    <path d="M19 10v2a7 7 0 01-14 0v-2"></path>
+                    <path d="M12 19L12 22"></path>
                   </svg>
-                  Send
                 </button>
-              </div>
+              )}
+              <button
+                disabled={isSending || form.values.message.length === 0}
+                className="mx-2  flex items-center justify-center w-10 h-10  text-white bg-black rounded-xl disabled:opacity-50"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  className="h-6 w-6"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M9 10L4 15 9 20"></path>
+                  <path d="M20 4v7a4 4 0 01-4 4H4"></path>
+                </svg>
+              </button>
             </div>
           </form>
         </div>
+        {/* <div className="text-center text-xs text-gray-500 dark:text-gray-400">
+          <span className="inline-block">
+            {"LLM can make mistakes, please verify the answer always."}
+          </span>
+        </div> */}
       </div>
     </div>
   );

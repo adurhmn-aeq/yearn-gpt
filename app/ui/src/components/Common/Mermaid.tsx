@@ -27,9 +27,26 @@ const Mermaid = React.memo((props: { code: string }) => {
 
   const { isProcessing } = useMessage();
 
+  React.useEffect(() => {
+    if (isBtnPressed) {
+      setTimeout(() => {
+        setIsBtnPressed(false);
+      }, 4000);
+    }
+  }, [isBtnPressed]);
+
+  React.useEffect(() => {
+    if (isBtnCopied) {
+      setTimeout(() => {
+        setIsBtnCopied(false);
+      }, 4000);
+    }
+  }, [isBtnCopied]);
+
   const renderMermaid = async () => {
     try {
       // check parse error
+
       const isError = await mermaid.parse(props.code);
 
       if (!isError) {
@@ -95,10 +112,6 @@ const Mermaid = React.memo((props: { code: string }) => {
                 link.click();
 
                 setIsBtnPressed(true);
-
-                setTimeout(() => {
-                  setIsBtnPressed(false);
-                }, 4000);
               }}
               className="flex gap-1.5 items-center rounded bg-none p-1 text-xs text-gray-200 hover:bg-gray-700 hover:text-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 focus:ring-offset-gray-100"
             >
@@ -115,10 +128,6 @@ const Mermaid = React.memo((props: { code: string }) => {
               onClick={() => {
                 navigator.clipboard.writeText(props.code);
                 setIsBtnCopied(true);
-
-                setTimeout(() => {
-                  setIsBtnCopied(false);
-                }, 4000);
               }}
               className="flex gap-1.5 items-center rounded bg-none p-1 text-xs text-gray-200 hover:bg-gray-700 hover:text-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 focus:ring-offset-gray-100"
             >

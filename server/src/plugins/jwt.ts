@@ -1,4 +1,3 @@
-// @ts-nocheck
 import fp from "fastify-plugin";
 import fastifyJwt, { FastifyJWTOptions } from "@fastify/jwt";
 import { FastifyReply, FastifyRequest } from "fastify";
@@ -45,7 +44,7 @@ export default fp<FastifyJWTOptions>(async (fastify, opts) => {
       } catch (err) {
         reply.send(err);
       }
-    }
+    },
   );
 });
 

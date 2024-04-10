@@ -5,7 +5,7 @@ import { embeddings } from "../../utils/embeddings";
 import { chatModelProvider } from "../../utils/models";
 import { nextTick } from "./post.handler";
 import { Document } from "langchain/document";
-import { BaseRetriever } from "@langchain/core/retrievers";
+import { BaseRetriever } from "langchain/schema/retriever";
 import { DialoqbaseHybridRetrival } from "../../utils/hybrid";
 import { createChain, groupMessagesByConversation } from "../../chain";
 
@@ -171,16 +171,6 @@ export const chatRequestAPIHandler = async (
         ),
       });
       const documents = await documentPromise;
-
-
-      await prisma.botApiHistory.create({
-        data: {
-          api_key: request.headers["x-api-key"],
-          bot_id: bot.id,
-          human: message,
-          bot: response,
-        }
-      })
 
       reply.sse({
         event: "result",
@@ -368,15 +358,6 @@ export const chatRequestAPIHandler = async (
       });
 
       const documents = await documentPromise;
-
-      await prisma.botApiHistory.create({
-        data: {
-          api_key: request.headers["x-api-key"],
-          bot_id: bot.id,
-          human: message,
-          bot: botResponse,
-        }
-      })
 
       return {
         bot: {

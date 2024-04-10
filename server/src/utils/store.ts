@@ -1,7 +1,7 @@
-import { Document } from "@langchain/core/documents";
+import { Document } from "langchain/document";
 import { PrismaClient } from "@prisma/client";
-import { Embeddings } from "@langchain/core/embeddings";
-import { VectorStore } from "@langchain/core/vectorstores";
+import { Embeddings } from "langchain/embeddings/base";
+import { VectorStore } from "langchain/vectorstores/base";
 const prisma = new PrismaClient();
 export interface DialoqbaseLibArgs {
   botId: string;

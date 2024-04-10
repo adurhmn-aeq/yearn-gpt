@@ -6,8 +6,6 @@ export const apiKeyValidaton = (modelType: string) => {
     case "local":
     case "replicate":
     case "supabase":
-    case "replicate":
-    case "supabase":
       return true;
     case "jina-api":
       return process.env.JINA_API_KEY
@@ -48,10 +46,6 @@ export const apiKeyValidaton = (modelType: string) => {
       return process.env.FIREWORKS_API_KEY
         ? process.env.FIREWORKS_API_KEY.length > 0
         : false;
-    case "groq":
-      return process.env.GROQ_API_KEY
-        ? process.env.GROQ_API_KEY.length > 0
-        : false;
     default:
       return false;
   }
@@ -79,8 +73,6 @@ export const apiKeyValidatonMessage = (modelType: string) => {
       return "Please add FIREWORKS_API_KEY to your .env file";
     case "jina-api":
       return "Please add JINA_API_KEY to your .env file";
-    case "groq":
-      return "Please add GROQ_API_KEY to your .env file";
     // case "replicate":
     //   return "Please add REPLICATE_API_TOKEN to your .env file";
     default:
