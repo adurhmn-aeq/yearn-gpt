@@ -72,8 +72,8 @@ export default function NewBot() {
             Create a new bot
           </h2>
       </div> */}
-        <div className="flex flex-1 mx-auto ">
-          <div className="bg-white px-4 flex flex-1">
+        <div className="flex flex-1 mx-auto w-full ">
+          <div className="bg-white px-4 flex flex-1 w-full">
             <BotForm
               showEmbeddingAndModels={true}
               createBot={createBot}

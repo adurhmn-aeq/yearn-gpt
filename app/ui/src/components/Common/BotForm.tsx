@@ -26,6 +26,7 @@ import { YoutubeIcon } from "../Icons/YoutubeIcon";
 import { ApiIcon } from "../Icons/ApiIcon";
 import { SitemapIcon } from "../Icons/SitemapIcon";
 import { useCreateConfig } from "../../hooks/useCreateConfig";
+import botImg from "../../assets/create-bot/botCreate.svg";
 
 type Props = {
   createBot: (values: any) => void;
@@ -435,7 +436,7 @@ export const BotForm = ({
           layout="vertical"
           onFinish={createBot}
           form={form}
-          className="space-y-6 flex flex-col justify-between !pt-6"
+          className="space-y-6 flex flex-col justify-between !pt-6 w-full"
           initialValues={{
             embedding: "dialoqbase_eb_text-embedding-ada-002",
             model: "gpt-3.5-turbo-dbase",
@@ -450,57 +451,64 @@ export const BotForm = ({
             },
           }}
         >
-          <RadioGroup
-            value={selectedSource}
-            onChange={(e: any) => {
-              _setSelectedSource(e);
-              setSelectedSource(e);
-            }}
-          >
-            <RadioGroup.Label className="text-base font-medium text-[#34353899] dark:text-gray-200">
-              A customized bot just for your specific needs!
-            </RadioGroup.Label>
+          <div className="flex gap-[40px] items-center justify-between">
+            <p className="text-base font-medium text-[#34353899] dark:text-gray-200 w-[800px]">
+              Crafted to fit your unique requirements and efficiently manage
+              tasks and inquiries, our personalized assistance simplifies your
+              workflow with tailored solutions.
+            </p>
+            <img src={botImg} alt="img" />
+          </div>
+          <div className="flex flex-1  gap-[20px] flex-col  lg:flex-row">
+            <RadioGroup
+              value={selectedSource}
+              onChange={(e: any) => {
+                _setSelectedSource(e);
+                setSelectedSource(e);
+              }}
+            >
+              <div className=" flex flex-col  pt-2 pb-8 gap-6 border border-[#E6E6E6] rounded-[20px] w-[100%] lg:w-[200px] xl:w-[276px] h-full shadow-lg transition-all">
+                <h2 className="font-[600] text-[20px] text-[#282828] lg:pl-[20px] pt-[20px] pb-[10px] text-center lg:text-left">
+                  Domains
+                </h2>
+                <div className="flex flex-wrap justify-center lg:flex-col gap-4">
+                  {availableSources.map((source) => (
+                    <RadioGroup.Option
+                      key={source.id}
+                      value={source}
+                      className={({ checked, active }) =>
+                        classNames(
+                          checked ? "!bg-[#1967FC1A]" : " dark:border-gray-700",
 
-            <div className="mt-4 flex flex-wrap justify-center py-2 gap-4">
-              {availableSources.map((source) => (
-                <RadioGroup.Option
-                  key={source.id}
-                  value={source}
-                  className={({ checked, active }) =>
-                    classNames(
-                      checked ? "!bg-[#1967FC]" : " dark:border-gray-700",
-                      // active
-                      //   ? "border-indigo-500 ring-0 ring-green-500 dark:border-gray-700 dark:ring-gray-900"
-                      //   : "",
-                      "relative drop-shadow-lg items-center justify-center flex cursor-pointer rounded-[20px] bg-white focus:outline-none dark:bg-[#141414] min-w-[80px] min-h-[80px] md:min-w-[110px] md:min-h-[110px] "
-                    )
-                  }
-                >
-                  {({ checked, active }) => (
-                    <>
-                      <span
-                        className={classNames(
-                          checked ? "text-white" : "",
-                          "flex-shrink-0 flex flex-col items-center justify-center rounded-lg md:gap-3 gap-1 text-xs sm:text-sm md:text-base shadow-sm"
-                        )}
-                      >
-                        <RadioGroup.Label
-                          as="span"
-                          className="block md:text-base text-xs font-medium text-gray-900 dark:text-gray-200"
-                        >
-                          <source.icon
+                          "relative items-center flex cursor-pointer bg-[#8080801c] lg:bg-[#FFFFFF] focus:outline-none dark:bg-[#141414] px-[10px] py-[8px] text-[#34353899] rounded-lg lg:rounded-none"
+                        )
+                      }
+                    >
+                      {({ checked, active }) => (
+                        <>
+                          <span
                             className={classNames(
-                              checked ? "text-white" : "",
-                              active ? "" : "",
-                              "h-6 w-6"
+                              checked ? "text-[#1967FC]" : "",
+                              "flex-shrink-0 flex  items-center justify-center  md:gap-[8px] gap-1 text-xs sm:text-sm md:text-base "
                             )}
-                            aria-hidden="true"
-                          />
-                        </RadioGroup.Label>
-                        {source.title}
-                      </span>
+                          >
+                            <RadioGroup.Label
+                              as="span"
+                              className="block md:text-base text-xs font-medium text-[#34353899] dark:text-[#34353899]"
+                            >
+                              <source.icon
+                                className={classNames(
+                                  checked ? "text-[#1967FC]" : "",
+                                  active ? "" : "",
+                                  "h-6 w-6"
+                                )}
+                                aria-hidden="true"
+                              />
+                            </RadioGroup.Label>
+                            {source.title}
+                          </span>
 
-                      {/* <span
+                          {/* <span
                         className={classNames(
                           active ? "border" : "border-2",
                           checked ? "border-indigo-500" : "border-transparent",
@@ -508,103 +516,105 @@ export const BotForm = ({
                         )}
                         aria-hidden="true"
                       /> */}
-                    </>
-                  )}
-                </RadioGroup.Option>
-              ))}
-            </div>
-          </RadioGroup>
+                        </>
+                      )}
+                    </RadioGroup.Option>
+                  ))}
+                </div>
+              </div>
+            </RadioGroup>
 
-          <div className="flex flex-col flex-1 border-2 border-[#34353833] rounded-[20px] p-6 pb-0 justify-between">
-            {selectedSource && selectedSource.formComponent}
+            <div className="flex flex-col flex-1 border-2 border-[#34353833] rounded-[20px] p-6 pb-0 justify-between">
+              {selectedSource && selectedSource.formComponent}
 
-            {selectedSource && selectedSource.value === "rest" && (
-              <Row gutter={24}>
-                <Col span={12}>
-                  <Form.Item name={["options", "headers"]} label="Headers">
-                    <Input.TextArea placeholder="Enter the headers" />
-                  </Form.Item>
-                </Col>
-                <Col span={12}>
+              {selectedSource && selectedSource.value === "rest" && (
+                <Row gutter={24}>
+                  <Col span={12}>
+                    <Form.Item name={["options", "headers"]} label="Headers">
+                      <Input.TextArea placeholder="Enter the headers" />
+                    </Form.Item>
+                  </Col>
+                  <Col span={12}>
+                    <Form.Item
+                      name={["options", "body"]}
+                      label="Body (JSON)"
+                      rules={[
+                        {
+                          required: true,
+                          message: "Please enter a valid JSON",
+                        },
+                      ]}
+                    >
+                      <Input.TextArea placeholder="Enter the body" />
+                    </Form.Item>
+                  </Col>
+                </Row>
+              )}
+
+              <div className="flex flex-col mt-auto">
+                <Form.Item hidden={!showEmbeddingAndModels} noStyle>
+                  <Divider />
+                </Form.Item>
+
+                <div className="flex justify-between gap-1 flex-wrap md:flex-nowrap md:gap-6">
                   <Form.Item
-                    name={["options", "body"]}
-                    label="Body (JSON)"
-                    rules={[
-                      {
-                        required: true,
-                        message: "Please enter a valid JSON",
-                      },
-                    ]}
+                    className="w-full"
+                    hidden={!showEmbeddingAndModels}
+                    label={
+                      <span className="font-medium text-gray-800 text-xs sm:text-sm md:text-base dark:text-gray-200">
+                        Chat Model
+                      </span>
+                    }
+                    name="model"
                   >
-                    <Input.TextArea placeholder="Enter the body" />
+                    <Select
+                      showSearch
+                      filterOption={(input, option) =>
+                        (option?.label?.toLowerCase() ?? "").includes(
+                          input?.toLowerCase()
+                        ) ||
+                        (option?.value?.toLowerCase() ?? "").includes(
+                          input?.toLowerCase()
+                        )
+                      }
+                      filterSort={(optionA, optionB) =>
+                        (optionA?.label ?? "")
+                          .toLowerCase()
+                          .localeCompare((optionB?.label ?? "").toLowerCase())
+                      }
+                      placeholder="Select a chat model"
+                      options={botConfig.chatModel}
+                    />
                   </Form.Item>
-                </Col>
-              </Row>
-            )}
-
-            <div className="flex flex-col mt-auto">
-              <Form.Item hidden={!showEmbeddingAndModels} noStyle>
-                <Divider />
-              </Form.Item>
-
-              <div className="flex justify-between gap-1 flex-wrap md:flex-nowrap md:gap-6">
-                <Form.Item
-                  className="w-full"
-                  hidden={!showEmbeddingAndModels}
-                  label={
-                    <span className="font-medium text-gray-800 text-xs sm:text-sm md:text-base dark:text-gray-200">
-                      Chat Model
-                    </span>
-                  }
-                  name="model"
-                >
-                  <Select
-                    showSearch
-                    filterOption={(input, option) =>
-                      (option?.label?.toLowerCase() ?? "").includes(
-                        input?.toLowerCase()
-                      ) ||
-                      (option?.value?.toLowerCase() ?? "").includes(
-                        input?.toLowerCase()
-                      )
+                  <Form.Item
+                    className="w-full"
+                    hidden={!showEmbeddingAndModels}
+                    label={
+                      <span className="font-medium text-gray-800 text-xs sm:text-sm md:text-base dark:text-gray-200">
+                        Embedding model
+                      </span>
                     }
-                    filterSort={(optionA, optionB) =>
-                      (optionA?.label ?? "")
-                        .toLowerCase()
-                        .localeCompare((optionB?.label ?? "").toLowerCase())
-                    }
-                    placeholder="Select a chat model"
-                    options={botConfig.chatModel}
-                  />
-                </Form.Item>
-                <Form.Item
-                  className="w-full"
-                  hidden={!showEmbeddingAndModels}
-                  label={
-                    <span className="font-medium text-gray-800 text-xs sm:text-sm md:text-base dark:text-gray-200">
-                      Embedding model
-                    </span>
-                  }
-                  name="embedding"
-                >
-                  <Select
-                    showSearch
-                    filterOption={(input, option) =>
-                      (option?.label?.toLowerCase() ?? "").includes(
-                        input?.toLowerCase()
-                      ) ||
-                      (option?.value?.toLowerCase() ?? "").includes(
-                        input?.toLowerCase()
-                      )
-                    }
-                    filterSort={(optionA, optionB) =>
-                      (optionA?.label ?? "")
-                        .toLowerCase()
-                        .localeCompare((optionB?.label ?? "").toLowerCase())
-                    }
-                    options={botConfig.embeddingModel}
-                  />
-                </Form.Item>
+                    name="embedding"
+                  >
+                    <Select
+                      showSearch
+                      filterOption={(input, option) =>
+                        (option?.label?.toLowerCase() ?? "").includes(
+                          input?.toLowerCase()
+                        ) ||
+                        (option?.value?.toLowerCase() ?? "").includes(
+                          input?.toLowerCase()
+                        )
+                      }
+                      filterSort={(optionA, optionB) =>
+                        (optionA?.label ?? "")
+                          .toLowerCase()
+                          .localeCompare((optionB?.label ?? "").toLowerCase())
+                      }
+                      options={botConfig.embeddingModel}
+                    />
+                  </Form.Item>
+                </div>
               </div>
             </div>
           </div>
