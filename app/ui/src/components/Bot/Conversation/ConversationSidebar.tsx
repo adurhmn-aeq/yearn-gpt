@@ -26,7 +26,7 @@ export const ConversationSidebar = ({
   return (
     <div
       id="menu"
-      className={`bg-white z-[999] border fixed md:inset-y-0 md:flex md:w-[350px] md:flex-col transition-transform  max-md:w-3/4  ${
+      className={`bg-white z-[1] border fixed md:inset-y-0 md:flex md:w-[350px] md:flex-col transition-transform  max-md:w-3/4  ${
         hideMenu ? "translate-x-[-100%]" : "translate-x-[0%]"
       } dark:bg-[#171717] dark:border-gray-600`}
     >

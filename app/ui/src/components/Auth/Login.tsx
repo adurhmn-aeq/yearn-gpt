@@ -108,12 +108,11 @@ export const AuthLogin = () => {
           <div className="flex flex-col gap-3 text-center lg:text-left">
             <div className="focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-700 flex items-center justify-center lg:justify-start">
               <span className="text-lg font-normal dark:text-copy-200 text-secondary-500 opacity-80">
-                Bilic Agents
+                Yearn GPT
               </span>
-              <span className="inline-block flex-shrink-0 rounded-full bg-green-100 px-2 py-0.5 text-xs font-medium text-green-800 ml-2">
-                {/* @ts-ignore */}
+              {/* <span className="inline-block flex-shrink-0 rounded-full bg-green-100 px-2 py-0.5 text-xs font-medium text-green-800 ml-2">
                 {`v${__APP_VERSION__}`}
-              </span>
+              </span> */}
             </div>
             <div className="flex flex-col gap-1">
               <h2 className="font-epilogue text-xl font-medium leading-tight tracking-tight text-secondary-500 md:text-2xl dark:text-copy-500">

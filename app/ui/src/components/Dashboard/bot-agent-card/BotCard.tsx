@@ -2,7 +2,7 @@ import React, { FC } from "react";
 
 const BotCard: FC<{ bot?: any }> = ({ bot }) => {
   return (
-    <div className="flex gap-[10px] items-center px-[25px] py-[18px] cursor-pointer hover:bg-[#1967FC1A]">
+    <div className="flex gap-[10px] items-center px-[25px] py-[18px] cursor-pointer bg-[#1967FC1A] hover:bg-[#1967FC33]">
       <img className="w-[50px]" src="/providers/botImg.svg" alt="img" />
       <div className="flex gap-[7px] items-center">
         <h2 className="font-[600] text-[24px] text-[#343538]">

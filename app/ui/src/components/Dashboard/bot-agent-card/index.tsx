@@ -17,7 +17,7 @@ const BotAgentCard = () => {
   const agentCount = data && data.filter(({ agent }: any) => agent);
 
   return (
-    <div className="w-[100%] lg:w-[50%] lg:h-[617px] rounded-[20px] px-[0px] py-[30px] border border-[#E6E6E6] shadow-lg">
+    <div className="w-[100%] lg:w-[50%] lg:h-[617px] rounded-[20px] px-[0px] py-[30px] border border-[#E6E6E6] shadow-lg bg-[white]">
       <div className="flex flex-col w-full h-full gap-[10px]">
         <div className="flex justify-between px-[25px]">
           <h2 className="font-[600] text-[20px] text-[#282828]">My Bots</h2>
@@ -27,7 +27,7 @@ const BotAgentCard = () => {
             </Link>
           </div>
         </div>
-        <div className="flex-1 overflow-auto max-h-[617px]">
+        <div className="flex-1 overflow-auto max-h-[617px] flex flex-col gap-[10px]">
           {status === "loading" ? (
             <LoaderCard />
           ) : status === "error" ? (

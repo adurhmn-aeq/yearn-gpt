@@ -20,10 +20,17 @@ export const AuthSidebar: React.FC<AuthSidebarProps> = ({
   heading,
 }) => {
   return (
-    <div className="relative min-h-full hidden lg:block lg:w-[560px] overflow-hidden isolate bg-[#f3fff4]">
+    // <div className="relative min-h-full hidden lg:block lg:w-[560px] overflow-hidden isolate bg-[#f3fff4]">
+    <div className="relative min-h-full hidden lg:block lg:w-[560px] overflow-hidden isolate bg-[#343538]">
       <div className="absolute mt-8 ms-8">
-        <img src={Logo} alt="" role="logo" className="w-12 mb-3" />
-        <h4 className="text-3xl font-normal font-work_sans max-w-[360px] leading-[1.2]">
+        <img
+          src="/providers/yearnLogo.svg"
+          alt=""
+          role="logo"
+          // className="w-12 mb-3"
+          className="w-[150px] mb-3"
+        />
+        <h4 className="text-3xl font-normal font-work_sans max-w-[360px] leading-[1.2] text-white">
           {heading}
         </h4>
       </div>

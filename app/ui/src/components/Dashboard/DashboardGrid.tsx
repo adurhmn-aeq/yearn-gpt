@@ -13,6 +13,8 @@ import CarosalSlider from "../../utils/widgets/Slider";
 import CustomSlider from "../../utils/widgets/CustomSlider";
 import WelcomeSummaryCard from "./WelcomeSummaryCard";
 import BotAgentCard from "./bot-agent-card";
+import { PlaygroundChat } from "../Bot/Playground/Chat";
+import BotPreviewRoot from "../../routes/bot/playground";
 
 const slickSettings = {
   dots: false,

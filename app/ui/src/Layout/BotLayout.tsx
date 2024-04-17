@@ -198,7 +198,7 @@ export default function BotLayout({
         </Transition.Root>
 
         <div className="hidden md:fixed md:inset-y-0 md:flex md:flex-col">
-          <div className="flex flex-grow flex-col overflow-y-auto border-r border-gray-200 bg-white pt-5 dark:bg-[#171717] dark:border-gray-600">
+          <div className="flex flex-grow flex-col overflow-y-auto border-r border-gray-200 bg-[#343538] pt-5 dark:bg-[#171717] dark:border-gray-600">
             <div className="mt-14 flex flex-grow flex-col">
               <nav className="flex-1 space-y-1 px-2 pb-4">
                 {navigation.map((item) => (
@@ -235,7 +235,7 @@ export default function BotLayout({
         </div>
 
         <div className="flex flex-col">
-          <div className="sticky top-0 z-[2] flex h-14  bg-white border-b border-gray-200 dark:bg-black dark:border-gray-800">
+          <div className="sticky top-0 z-[2] flex h-14  bg-[#343538] dark:bg-black dark:border-gray-800">
             <button
               type="button"
               className="border-r border-gray-200 px-4 text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-green-500 md:hidden dark:border-gray-800 dark:text-gray-200"
@@ -270,13 +270,13 @@ export default function BotLayout({
                   to="/usage"
                   className="focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-700 flex items-center px-3 dark:text-white"
                 >
-                  <h1 className="text-slate-800 text-sm">Usage</h1>
+                  <h1 className="text-white text-sm">Usage</h1>
                 </Link>
                 <Link
                   to="/pricing"
                   className="focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-700 flex items-center px-3 dark:text-white"
                 >
-                  <h1 className="text-slate-800 text-sm">Pricing</h1>
+                  <h1 className="text-white text-sm">Pricing</h1>
                 </Link>
 
                 {/* <div className="flex gap-2">
