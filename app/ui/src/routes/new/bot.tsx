@@ -66,14 +66,14 @@ export default function NewBot() {
 
   return (
     <>
-      <div className="flex min-h-full flex-col justify-start">
+      <div className="flex min-h-full flex-col ">
         {/* <div className="sm:mx-auto sm:w-full sm:max-w-md ">
           <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900 dark:text-white">
             Create a new bot
           </h2>
       </div> */}
-        <div className="flex flex-1 mx-auto w-full ">
-          <div className="bg-white px-4 flex flex-1 w-full">
+        <div className="flex flex-1 mx-auto w-full max-w-[1200px] ">
+          <div className="bg-white px-4 flex flex-1 w-full justify-center items-center">
             <BotForm
               showEmbeddingAndModels={true}
               createBot={createBot}
