@@ -16,6 +16,14 @@ export const Plan = {
     enterprise_monthly: "Enterprise",
     enterprise_yearly: "Enterprise",
   },
+  bots: {
+    hobby_monthly: 2,
+    hobby_yearly: 2,
+    startup_monthly: 5,
+    startup_yearly: 5,
+    enterprise_monthly: 10,
+    enterprise_yearly: 10,
+  },
   prices: {
     hobby_monthly: 10,
     hobby_yearly: 100,
@@ -27,37 +35,37 @@ export const Plan = {
   features: {
     hobby_monthly: [
       "2 chatbots",
-      "2 agents",
+
       "200 message credits/month",
       "60,000 source characters/bot",
     ],
     hobby_yearly: [
       "2 chatbots",
-      "2 agents",
+
       "200 message credits/month",
       "60,000 source characters/bot",
     ],
     startup_monthly: [
       "5 chatbots",
-      "5 agents",
+
       "700 message credits/month",
       "150,000 source characters/bot",
     ],
     startup_yearly: [
       "5 chatbots",
-      "5 agents",
+
       "700 message credits/month",
       "150,000 source characters/bot",
     ],
     enterprise_monthly: [
       "10 chatbots",
-      "10 agents",
+
       "1500 message credits/month",
       "300,000 source characters/bot",
     ],
     enterprise_yearly: [
       "10 chatbots",
-      "10 agents",
+
       "1500 message credits/month",
       "300,000 source characters/bot",
     ],

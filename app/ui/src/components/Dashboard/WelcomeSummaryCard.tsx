@@ -6,15 +6,35 @@ import NotificationImg from "../../assets/dashboard/notification.svg";
 import Blink from "../../assets/dashboard/blinkStar.svg";
 import welcomeBot from "../../assets/dashboard/welcomeBot.svg";
 import { useAuth } from "../../context/AuthContext";
+import { Plan } from "../../utils/pricing";
 
 const WelcomeSummaryCard = () => {
   const { profile } = useAuth();
+
+  const {
+    data: planData,
+    isLoading,
+    isSuccess,
+  } = useQuery(
+    ["fetchUsage"],
+    async () => {
+      const response = await api.get("/stripe/usage");
+      return response.data as {
+        active_plan: string;
+        message_credits_total: number;
+        message_credits_used: number;
+      };
+    },
+    { refetchInterval: 10000 }
+  );
 
   const { data, status } = useQuery(["getAllBotsAndAgents"], async () => {
     const response = await api.get("/agent/with-bots");
     return response.data;
   });
   const botsCount = data && data.filter(({ bot }: any) => bot);
+
+  console.log("planData", planData?.active_plan);
 
   return (
     <div className="w-[100%] lg:w-[50%] lg:h-[617px] bg-[#AAD1FF] rounded-[20px] px-[25px] py-[30px] flex flex-col gap-[30px]">
@@ -56,8 +76,15 @@ const WelcomeSummaryCard = () => {
             <img src={NotificationImg} alt="img" />
           </div>
           <div>
-            <p className="font-[500] text-[14px] text-[#2828287D]">Bots Used</p>
-            <h2 className="font-[700] text-[20px] text-[#282828]">320</h2>
+            <p className="font-[500] text-[14px] text-[#2828287D]">
+              Bots Remaining
+            </p>
+            <h2 className="font-[700] text-[20px] text-[#282828]">
+              {planData && botsCount
+                ? Plan.bots[planData?.active_plan as keyof typeof Plan.bots] -
+                  botsCount?.length
+                : 0}
+            </h2>
           </div>
         </div>
         <div className="flex justify-end">
