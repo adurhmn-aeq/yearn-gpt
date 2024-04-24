@@ -193,11 +193,19 @@ export const AuthLogin = () => {
             </Form>
             <p className="font-[500] text-[12px] text-[#343538B2] text-center">
               By continuing, you agree to YearnGPT’s 
-              <a className="underline" href="">
+              <a
+                className="underline"
+                href="https://docs.yearntogether.com/terms-and-conditions/terms-and-conditions"
+                target="blank"
+              >
                 Terms of Service
               </a>{" "}
                and 
-              <a className="underline" href="">
+              <a
+                className="underline"
+                href="https://docs.yearntogether.com/terms-and-conditions/privacy-policy"
+                target="blank"
+              >
                 Privacy Policy.
               </a>
             </p>
