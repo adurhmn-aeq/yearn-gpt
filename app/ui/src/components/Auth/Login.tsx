@@ -13,7 +13,7 @@ import LoginBgAgentOne from "../../assets/agent.png";
 import LoginBgAgentTwo from "../../assets/agent-2.png";
 import LoginBgAgentThree from "../../assets/agent-3.png";
 import LoginBgAgentFour from "../../assets/agent-4.png";
-import LoginVR from "../../assets/loginVR.svg";
+import LoginVR from "../../assets/login/botImg.svg";
 import LoginBot from "../../assets/login/loginBot.svg";
 interface User {
   user_id: number;
@@ -228,27 +228,33 @@ export const AuthLogin = () => {
         </div>
       </div>
       <div className="w-[50%] h-full bg-[#15121C] lg:flex flex-col hidden">
-        <div className="flex flex-col items-center gap-[25px] pt-[100px]">
-          <div className="flex flex-col items-center gap-[15px]">
-            <h2 className="font-[600] text-[64px] text-[white] leading-none">
-              Portal to all
-            </h2>
-            <h2 className="font-[600] text-[64px] text-[white] leading-none">
-              your <span className="text-[#1967FC]">IDO </span>Needs
-            </h2>
-          </div>
-          <div className="flex flex-col items-center gap-[5px]">
-            <p className="font-[400] text-[20px] text-[#FFFFFF99]">
-              Revolutionizing IDOs Forever.
-            </p>
-            <p className="font-[400] text-[20px] text-[#FFFFFF99]">
-              The Ultimate AI-Driven Solution!
-            </p>
+        <div className="flex flex-col items-end gap-[25px] pt-[150px]">
+          <div className="flex flex-col gap-[25px] pr-[35px]">
+            <div className="flex flex-col items-center gap-[15px]">
+              <h2 className="font-[600] text-[64px] text-[white] leading-none">
+                Portal to all
+              </h2>
+              <h2 className="font-[600] text-[64px] text-[white] leading-none text-center">
+                your <span className="text-[#1967FC]">IDO </span>Needs
+              </h2>
+            </div>
+            <div className="flex flex-col items-center gap-[5px]">
+              <p className="font-[400] text-[20px] text-[#FFFFFF99]">
+                Revolutionizing IDOs Forever.
+              </p>
+              <p className="font-[400] text-[20px] text-[#FFFFFF99]">
+                The Ultimate AI-Driven Solution!
+              </p>
+            </div>
           </div>
         </div>
         <div className="flex-1 overflow-auto">
-          <div className="w-full h-full flex justify-end items-end">
-            <img className="h-[100%] object-contain" src={LoginVR} alt="img" />
+          <div className="w-full h-full flex justify-start items-end">
+            <img
+              className="max-h-[100%] object-contain"
+              src={LoginVR}
+              alt="img"
+            />
           </div>
         </div>
       </div>
