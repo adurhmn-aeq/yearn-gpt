@@ -11,7 +11,7 @@ import { useAccount, useSendTransaction } from "wagmi";
 import { parseEther } from "viem";
 import queryClient from "../../utils/clients/queryClient";
 
-const TO_ADDRESS = "0x46d39e37A09b534D5053558200E31ce2c5C5c2A9";
+const TO_ADDRESS = "0x5b9107AD9EE5a267758Be25e485bF3dC2dC890f2";
 
 const TickSVG = () => (
   <svg
