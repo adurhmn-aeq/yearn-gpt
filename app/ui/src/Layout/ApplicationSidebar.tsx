@@ -12,6 +12,7 @@ import { useQuery } from "@tanstack/react-query";
 import api from "../services/api";
 import { Plan } from "../utils/pricing";
 import ConnectWallet from "../components/Common/ConnectWallet";
+import { useDisconnect } from "wagmi";
 
 type SidebarItemProps = {
   isCollapsed: boolean;
@@ -53,6 +54,7 @@ export const ApplicationSidebar = ({
   const md = useBreakpoint({ breakpoint: "md" });
   // const [isCollapsed, setIsCollapsed] = useState(false);
   const { isLogged, profile, logout } = useAuth();
+  const {disconnect} = useDisconnect()
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
@@ -199,6 +201,7 @@ export const ApplicationSidebar = ({
                 to={"/login"}
                 onClick={() => {
                   logout();
+                  disconnect()
                   navigate("/login");
                 }}
               >
