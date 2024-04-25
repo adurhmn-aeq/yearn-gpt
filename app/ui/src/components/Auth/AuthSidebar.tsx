@@ -49,6 +49,7 @@ export const AuthSidebar: React.FC<AuthSidebarProps> = ({
         alt=""
         className="absolute w-[10%] top-[300px] left-[40px] z-[-1]"
       />
+      {/* @ts-ignore */}
       <Swiper
         effect={"coverflow"}
         grabCursor={true}
@@ -70,6 +71,7 @@ export const AuthSidebar: React.FC<AuthSidebarProps> = ({
         className="absolute top-[320px] left-4"
       >
         {imagePath?.map((imageUrl, index) => (
+          // @ts-ignore
           <SwiperSlide key={index}>
             <img src={imageUrl} alt={`Image ${index}`} className="w-[86%]" />
           </SwiperSlide>
