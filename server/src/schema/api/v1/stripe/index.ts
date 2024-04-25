@@ -13,3 +13,17 @@ export const createSubscriptionSchema: FastifySchema = {
     },
   },
 };
+
+export const updatePlanDemoSchema: FastifySchema = {
+  tags: ["Stripe"],
+  summary: "API to update subscription plan",
+  querystring: {
+    type: "object",
+    required: ["planLookup"],
+    properties: {
+      planLookup: {
+        type: "string",
+      },
+    },
+  },
+};

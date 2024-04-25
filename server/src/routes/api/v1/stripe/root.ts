@@ -1,11 +1,12 @@
 import { FastifyPluginAsync } from "fastify";
-import { createSubscriptionSchema } from "../../../../schema/api/v1/stripe";
+import { createSubscriptionSchema, updatePlanDemoSchema } from "../../../../schema/api/v1/stripe";
 import {
   createSubscriptionHandler,
   dataPatch,
   getSubscriptionHandler,
   getUsageHandler,
   manageSubscriptionHandler,
+  updatePlanDemoHandler,
   webhookHandler,
 } from "../../../../handlers/api/v1/stripe";
 
@@ -31,6 +32,15 @@ const root: FastifyPluginAsync = async (fastify, _): Promise<void> => {
   );
 
   fastify.get("/usage", { onRequest: [fastify.authenticate] }, getUsageHandler);
+
+  fastify.get(
+    "/update-plan-demo",
+    {
+      schema: updatePlanDemoSchema,
+      onRequest: [fastify.authenticate],
+    },
+    updatePlanDemoHandler
+  );
 
   fastify.addContentTypeParser(
     "application/json",

@@ -11,6 +11,7 @@ import useBreakpoint from "../hooks/useBreakpoint";
 import { useQuery } from "@tanstack/react-query";
 import api from "../services/api";
 import { Plan } from "../utils/pricing";
+import ConnectWallet from "../components/Common/ConnectWallet";
 
 type SidebarItemProps = {
   isCollapsed: boolean;
@@ -125,6 +126,7 @@ export const ApplicationSidebar = ({
                   </div>
                 </div>
               </div>
+              <ConnectWallet />
               <div className="pt-[20px]">
                 <h2 className="text-[12px] font-[500] text-[#FFFFFF4D] pl-[10px] pb-[10px]">
                   MENU

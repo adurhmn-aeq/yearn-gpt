@@ -2,7 +2,7 @@ import { createHashRouter, RouterProvider } from "react-router-dom";
 import Root from "./routes/root";
 import DashboardLayout from "./Layout";
 import NewBot from "./routes/new/bot";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { QueryClientProvider } from "@tanstack/react-query";
 import BotLayout from "./Layout/BotLayout";
 import BotEmbedRoot from "./routes/bot/embed";
 import BotPreviewRoot from "./routes/bot/playground";
@@ -32,6 +32,9 @@ import SessionScreen from "./routes/session/attend";
 import SessionLayout from "./Layout/SessionLayout";
 import PricingRoot from "./routes/pricing/root";
 import UsageRoot from "./routes/usage/root";
+import { WagmiProvider } from "wagmi";
+import { wagmiConfig } from "./utils/configs/wagmi.config";
+import queryClient from "./utils/clients/queryClient";
 
 const router = createHashRouter([
   {
@@ -231,7 +234,6 @@ const router = createHashRouter([
     ),
   },
 ]);
-const queryClient = new QueryClient({});
 
 export default function App() {
   const { mode } = useDarkMode();
@@ -244,9 +246,11 @@ export default function App() {
     >
       <StyleProvider hashPriority="high">
         <AuthProvider>
-          <QueryClientProvider client={queryClient}>
-            <RouterProvider router={router} />
-          </QueryClientProvider>
+          <WagmiProvider config={wagmiConfig}>
+            <QueryClientProvider client={queryClient}>
+              <RouterProvider router={router} />
+            </QueryClientProvider>
+          </WagmiProvider>
         </AuthProvider>
       </StyleProvider>
     </ConfigProvider>

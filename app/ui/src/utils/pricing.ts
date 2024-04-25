@@ -25,12 +25,12 @@ export const Plan = {
     enterprise_yearly: 10,
   },
   prices: {
-    hobby_monthly: 10,
-    hobby_yearly: 100,
-    startup_monthly: 20,
-    startup_yearly: 200,
-    enterprise_monthly: 35,
-    enterprise_yearly: 350,
+    hobby_monthly: 0.001,
+    hobby_yearly: 0.01,
+    startup_monthly: 0.002,
+    startup_yearly: 0.02,
+    enterprise_monthly: 0.0035,
+    enterprise_yearly: 0.035,
   },
   features: {
     hobby_monthly: [

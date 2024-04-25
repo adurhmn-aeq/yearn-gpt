@@ -45,6 +45,8 @@
     "slick-carousel": "^1.8.1",
     "sort-by": "^1.2.0",
     "tinycolor2": "^1.6.0",
+    "viem": "2.x",
+    "wagmi": "^2.5.20",
     "zustand": "^4.3.9"
   },
   "devDependencies": {

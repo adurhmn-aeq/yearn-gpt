@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Plan as PlanInfo, PlanLookup } from "../../utils/pricing";
 import { Spin, notification } from "antd";
 import {
@@ -7,6 +7,11 @@ import {
   useQuery,
 } from "@tanstack/react-query";
 import api from "../../services/api";
+import { useAccount, useSendTransaction } from "wagmi";
+import { parseEther } from "viem";
+import queryClient from "../../utils/clients/queryClient";
+
+const TO_ADDRESS = "0x46d39e37A09b534D5053558200E31ce2c5C5c2A9";
 
 const TickSVG = () => (
   <svg
@@ -73,6 +78,7 @@ function Plan({
   activePlan,
   planStatus,
   fetchLoading,
+  paymentLoading
 }: {
   lookup: PlanLookup;
   onAction: UseMutateAsyncFunction<any, any, string | undefined, unknown>;
@@ -80,7 +86,10 @@ function Plan({
   activePlan: PlanLookup | "";
   planStatus?: "active" | "past_due";
   fetchLoading: boolean;
+  paymentLoading: boolean;
 }) {
+  const { isConnected } = useAccount();
+
   return (
     <div className="bg-[#FFFFFF] border-[4px] border-[#FFFFFF] rounded-[8px] shadow-[0px_4px_10px_0px_#00000029,10px_10px_30px_0px_#00000005_inset]">
       <div className="flex h-full flex-col justify-between p-4">
@@ -111,7 +120,8 @@ function Plan({
           <div>
             <p className="mt-4 mb-4 sm:mt-8 sm:mb-8">
               <span className="text-[40px] sm:text-[54px] font-[600] text-[#343538]">
-                ${PlanInfo.prices[lookup]}
+                {PlanInfo.prices[lookup]}{" "}
+                <span className="text-[16px]">BNB</span>
               </span>
               <span className="text-[16px] font-[600] text-[#343538]">
                 /{lookup.split("_")[1] === "yearly" ? "year" : "month"}
@@ -135,17 +145,19 @@ function Plan({
           </div>
         </div>
         <div className="flex justify-center">
-          {fetchLoading ? (
+          {(fetchLoading || paymentLoading) ? (
             <div className=" flex mt-12 ">
               <Spin />
             </div>
           ) : (
             <button
-              disabled={isLoading}
+              disabled={isLoading || !isConnected || !!activePlan}
               onClick={() => onAction(lookup)}
-              className="inline-flex items-center justify-center whitespace-nowrap transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-80 bg-[#1967FC] shadow hover:bg-[#295cbf] dark:bg-zinc-50 dark:text-zinc-900 dark:hover:bg-zinc-50/90 h-9 px-4 mt-12 w-full rounded-[10px] py-2 text-center text-sm font-semibold text-white"
+              {...(!isConnected ? { title: "Connect wallet to pay!" } : null)}
+              className="inline-flex items-center justify-center whitespace-nowrap transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:bg-slate-400 bg-[#1967FC] shadow hover:bg-[#295cbf] dark:bg-zinc-50 dark:text-zinc-900 dark:hover:bg-zinc-50/90 h-9 px-4 mt-12 w-full rounded-[10px] py-2 text-center text-sm font-semibold text-white disabled:cursor-not-allowed"
             >
-              {isLoading ? <Spin /> : activePlan ? "Manage" : "Subscribe"}
+              {/* {isLoading ? <Spin /> : activePlan ? "Manage" : "Subscribe"} */}
+              {isLoading ? <Spin /> : activePlan ? "Active" : "Pay & Subscribe"}
             </button>
           )}
         </div>
@@ -162,6 +174,12 @@ export default function Subscription() {
     []
   );
 
+  const [lastLookup, setLastLookup] = useState("");
+
+  const [isPaymentLoading, setIsPaymentLoading] = useState(false);
+
+  const { data: hash, sendTransaction } = useSendTransaction();
+
   const { data, isLoading: fetchLoading } = useQuery(
     ["fetchSubscription"],
     async () => {
@@ -172,27 +190,35 @@ export default function Subscription() {
       };
     }
   );
+  console.log({ data });
 
   const onAction = useCallback(
     async (lookup?: string) => {
-      if (data?.active_plan) {
-        // manage
-        return await api
-          .get("/stripe/subscription/manage")
-          .then((res) => res.data);
-      } else {
-        // subscribe
-        return await api
-          .get("/stripe/subscription/create", { params: { lookup } })
-          .then((res) => res.data);
-      }
+      // if (data?.active_plan) {
+      //   // manage
+      //   return await api
+      //     .get("/stripe/subscription/manage")
+      //     .then((res) => res.data);
+      // } else {
+      //   // subscribe
+      //   return await api
+      //     .get("/stripe/subscription/create", { params: { lookup } })
+      //     .then((res) => res.data);
+      // }
+      sendTransaction({
+        to: TO_ADDRESS,
+        // @ts-ignore
+        value: parseEther(String(PlanInfo.prices[lookup])),
+      });
+      setIsPaymentLoading(true);
+      setLastLookup(lookup || "");
     },
     [data]
   );
 
   const { mutateAsync, isLoading } = useMutation(onAction, {
     onSuccess: (data) => {
-      window.location.replace(data.redirect);
+      // window.location.replace(data.redirect);
     },
     onError: (error: any) => {
       notification.error({
@@ -201,6 +227,21 @@ export default function Subscription() {
       });
     },
   });
+
+  useEffect(() => {
+    console.log({ hash, lastLookup });
+    if (hash && lastLookup) {
+      api.get("/stripe/update-plan-demo", {
+        params: { planLookup: "hobby_monthly" },
+      }).then(() => {
+        queryClient.setQueryData(["fetchSubscription"], () => ({
+          active_plan: lastLookup,
+          plan_status: "active",
+        }));
+        setIsPaymentLoading(false);
+      });
+    }
+  }, [hash, lastLookup]);
 
   return (
     <div>
@@ -217,6 +258,7 @@ export default function Subscription() {
               ? PlanLookup.HOBBY_MONTHLY
               : PlanLookup.HOBBY_YEARLY
           }
+          paymentLoading={isPaymentLoading}
         />
         <Plan
           activePlan={data?.active_plan || ""}
@@ -229,6 +271,7 @@ export default function Subscription() {
               ? PlanLookup.STARTUP_MONTHLY
               : PlanLookup.STARTUP_YEARLY
           }
+          paymentLoading={isPaymentLoading}
         />
         <Plan
           activePlan={data?.active_plan || ""}
@@ -241,6 +284,7 @@ export default function Subscription() {
               ? PlanLookup.ENTERPRISE_MONTHLY
               : PlanLookup.ENTERPRISE_YEARLY
           }
+          paymentLoading={isPaymentLoading}
         />
       </div>
     </div>

@@ -3,3 +3,9 @@ export interface CreateSubscription {
     lookup: string;
   };
 }
+
+export interface UpdatePlanDemo {
+  Querystring: {
+    planLookup: string;
+  };
+}

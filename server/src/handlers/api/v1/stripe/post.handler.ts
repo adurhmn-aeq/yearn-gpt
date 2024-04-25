@@ -5,11 +5,39 @@ import {
   BotLimit,
   MessageCredits,
   PlanLookup,
+  PlanStatus,
   SourceCharsPerBot,
   getStripe,
 } from "../../../../utils/stripe";
 import { GetResult } from "@prisma/client/runtime/library";
 import { refreshAllBotSources } from "../../../../utils/common";
+import { UpdatePlanDemo } from "./types";
+
+export const updatePlanDemoHandler = async (
+  request: FastifyRequest<UpdatePlanDemo>,
+  reply: FastifyReply
+) => {
+  // this is vulnerable (used only for demo purpose)
+
+  const { planLookup } = request.query;
+
+  const prisma = request.server.prisma;
+
+  console.log({planLookup, userId: String(request.user.user_id), credits: MessageCredits[planLookup as keyof typeof MessageCredits]})
+
+  const resp = await prisma.stripe.updateMany({
+    where: { user_id: request.user.user_id },
+    data: {
+      active_plan: planLookup,
+      line_item_id: "dummy",
+      subscription_id: "dummy",
+      plan_status: PlanStatus.ACTIVE,
+      message_credits_remaining: MessageCredits[planLookup as keyof typeof MessageCredits]
+    },
+  });
+
+  reply.status(200).send();
+};
 
 export const webhookHandler = async (
   request: FastifyRequest,
