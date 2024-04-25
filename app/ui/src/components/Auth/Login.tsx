@@ -116,7 +116,7 @@ export const AuthLogin = () => {
               onFinish={loginMutation}
               requiredMark={false}
             >
-              <div className="w-[90%]">
+              {/* <div className="w-[90%]">
                 <div>
                   <button
                     type="button"
@@ -142,7 +142,7 @@ export const AuthLogin = () => {
                 <div className="h-[2px] w-[50%] bg-[#3435384a]"></div>
                 <p className="text-[#3435384a] text-[16px] font-[500]">or</p>
                 <div className="h-[2px] w-[50%] bg-[#3435384a]"></div>
-              </div>
+              </div> */}
               <div className="w-[90%] flex flex-col gap-[20px]">
                 <Form.Item
                   name="username"

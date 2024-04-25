@@ -80,7 +80,7 @@ const WelcomeSummaryCard = () => {
               Bots Remaining
             </p>
             <h2 className="font-[700] text-[20px] text-[#282828]">
-              {planData && botsCount
+              {planData?.active_plan && botsCount
                 ? Plan.bots[planData?.active_plan as keyof typeof Plan.bots] -
                   botsCount?.length
                 : 0}
