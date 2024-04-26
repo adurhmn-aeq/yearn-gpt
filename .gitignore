@@ -6,3 +6,6 @@ docker/.*
 !docker/.env
 uploads
 .dev-compose
+
+# vite
+.vitepress
