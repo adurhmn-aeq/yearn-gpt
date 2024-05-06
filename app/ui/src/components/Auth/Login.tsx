@@ -209,7 +209,7 @@ export const AuthLogin = () => {
                 Privacy Policy.
               </a>
             </p>
-            {info?.isRegistrationAllowed ? (
+            {/* {info?.isRegistrationAllowed ? (
               <p className=" text-center text-sm text-gray-500">
                 Don't have an account?{" "}
                 <Link
@@ -223,7 +223,10 @@ export const AuthLogin = () => {
               <p className=" text-center text-xs text-gray-500">
                 Registration is disabled by admin.
               </p>
-            )}
+            )} */}
+            <p className=" text-center text-xs text-gray-500">
+              Registration is disabled by admin.
+            </p>
           </div>
         </div>
       </div>
